@@ -6,7 +6,14 @@ module.exports = {
         "./views/*.{js,jsx,ts,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                "dark": "#212427",
+                "primary" : "#FFC700",
+                "secondary-light": "#4CCD99",
+                "secondary" : "#007F73",
+            },
+        },
     },
     plugins: [],
 }
