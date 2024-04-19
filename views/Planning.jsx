@@ -1,5 +1,5 @@
 import { Image, Text, TouchableHighlight, View } from 'react-native';
-import { colors } from '../assets/styles/Styles';
+import { color } from '../assets/styles/Styles';
 
 export function Planning() {
     return (
@@ -18,7 +18,7 @@ export function Planning() {
                 <View className="">
                     <TouchableHighlight className="rounded-2xl py-4 bg-primary">
                         <View className="flex-row justify-center items-center gap-2">
-                            <Image className="w-6 h-6" style={{ tintColor: colors.darkColor }} source={require('./../assets/static/icons/icon_calendar_01.png')} />
+                            <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../assets/static/icons/icon_calendar_01.png')} />
                             <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Make Plans</Text>
                         </View>
                     </TouchableHighlight>
@@ -33,11 +33,11 @@ export function Planning() {
                     
                     <View className="flex-row gap-1">
                         <View className="rounded-lg p-3 bg-gray">
-                            <Image className="w-6 h-6" style={{ tintColor: colors.darkColor }} source={require('./../assets/static/icons/icon_search_01.png')} />
+                            <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../assets/static/icons/icon_search_01.png')} />
                         </View>
 
                         <View className="rounded-lg p-3 bg-gray">
-                            <Image className="w-6 h-6" style={{ tintColor: colors.darkColor }} source={require('./../assets/static/icons/icon_filter_01.png')} />
+                            <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../assets/static/icons/icon_filter_01.png')} />
                         </View>
                     </View>
                 </View>
@@ -72,7 +72,7 @@ export function Planning() {
                                 </View>
 
                                 <View className="">
-                                    <Image className="w-6 h-6" style={{ tintColor: colors.darkColor }} source={require('./../assets/static/icons/icon_arrow_down_03.png')}/>
+                                    <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../assets/static/icons/icon_arrow_down_03.png')}/>
                                 </View>
                             </View>
                         </View>

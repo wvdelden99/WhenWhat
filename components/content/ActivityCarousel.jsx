@@ -1,12 +1,12 @@
 import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors } from '../../assets/styles/Styles';
+import { color } from '../../assets/styles/Styles';
 
 export function ActivityCarousel() {
     return (
         <View className="relative mr-3 rounded-lg w-[140px] h-[180px] bg-dark">
             <Image className="rounded-lg w-full h-full bg-cover" source={require('./../../assets/static/images/image_cinema.jpg')} />
-            <LinearGradient className="absolute rounded-lg w-full h-full" colors={['rgba(0,0,0,0)', colors.darkColor ]} locations={[0.45, 1]}/>
+            <LinearGradient className="absolute rounded-lg w-full h-full" colors={['rgba(0,0,0,0)', color.darkColor ]} locations={[0.45, 1]}/>
 
             <View className="absolute pt-3 pb-4 px-3 w-full h-full">
                 <View className="flex-row justify-between items-center">
