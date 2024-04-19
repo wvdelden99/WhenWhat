@@ -4,7 +4,9 @@ import { SafeAreaView } from 'react-native';
 import { useFonts, Raleway_400Regular, Raleway_500Medium, Raleway_600SemiBold, Raleway_700Bold, } from '@expo-google-fonts/raleway';
 import { Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold, } from '@expo-google-fonts/poppins';
 // Views
-import { Home } from './views/Home';
+// import { Home } from './views/Home';
+import { Planning } from './views/Planning';
+
 
 export default function App() {
 
@@ -31,7 +33,7 @@ export default function App() {
         <SafeAreaView className="flex-[1] bg-secondary-light">
             <StatusBar style="auto" />
 
-            <Home />
+            <Planning />
         </SafeAreaView>
     );
 }
