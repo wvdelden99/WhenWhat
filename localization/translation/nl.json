@@ -9,6 +9,11 @@
         "home-subheader": "Je vrienden missen je",
         "for_you-activities": "Activiteiten voor jou"
     },
+    "planning": {
+        "planning-header": "Plan iets met je vrienden",
+        "planning-button": "Maak Plannen",
+        "planning-subheader": "Gepland"
+    },
     "settings": {
         "settings-header": "Instellingen",
         "settings-subheader-account": "Account",

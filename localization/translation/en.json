@@ -9,6 +9,11 @@
         "home-subheader": "Your friends miss you",
         "for_you-activities": "Activities for you"
     },
+    "planning": {
+        "planning-header": "Plan something with your friends",
+        "planning-button": "Make Plans",
+        "planning-subheader": "Planned"
+    },
     "settings": {
         "settings-header": "Settings",
         "settings-subheader-account": "Account",
