@@ -8,11 +8,28 @@ import { color, shadow } from '../../assets/styles/Styles';
 import { Agenda } from '../../views/Agenda';
 import { Friends } from '../../views/Friends';
 import { Home } from './../../views/Home';
+import { Language } from '../../views/settings/Language';
 import { Planning } from './../../views/Planning';
-import { Settings } from '../../views/Settings';
+import { Settings } from '../../views/settings/Settings';
+import { User } from '../../views/User';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const ProfileStack = createNativeStackNavigator();
+const SettingsStack = createNativeStackNavigator();
+
+function Profile() {
+    return (
+        <ProfileStack.Navigator screenOptions={{headerShown: false}}>
+            <ProfileStack.Screen name="User" component={User}></ProfileStack.Screen>
+            <ProfileStack.Screen name="Settings" component={Settings}></ProfileStack.Screen>
+            
+            <SettingsStack.Screen name="Language" component={Language}></SettingsStack.Screen>
+        </ProfileStack.Navigator>
+    )
+}
 
 function Navbar() {
     return (
@@ -28,7 +45,7 @@ function Navbar() {
                         iconComponent = require('./../../assets/static/icons/icon_clock_01.png');
                     } else if (route.name === 'Friends') {
                         iconComponent = require('./../../assets/static/icons/icon_users_01.png');
-                    } else if (route.name === 'Settings') {
+                    } else if (route.name === 'Profile') {
                         iconComponent = require('./../../assets/static/icons/icon_user_01.png');
                     }
 
@@ -57,7 +74,7 @@ function Navbar() {
             <Tab.Screen name="Agenda" component={Agenda} />
             <Tab.Screen name="Planning" component={Planning} />
             <Tab.Screen name="Friends" component={Friends} />
-            <Tab.Screen name="Settings" component={Settings} />
+            <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     )
 }

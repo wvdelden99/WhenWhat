@@ -1,8 +1,9 @@
-import { Image, Text, TouchableHighlight, View } from 'react-native';
+import { Image, SafeAreaView, Text, TouchableHighlight, View } from 'react-native';
 import { color } from '../assets/styles/Styles';
 
 export function Planning() {
     return (
+        <SafeAreaView className="bg-secondary-light">
         <View className="">
             <View className="px-6">
                 <View className="flex-row items-center my-6 px-3">
@@ -80,5 +81,6 @@ export function Planning() {
                 </View>
             </View>
         </View>
+        </SafeAreaView>
     )
 }

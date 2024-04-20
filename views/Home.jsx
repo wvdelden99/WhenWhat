@@ -13,17 +13,16 @@ export function Home() {
 
     return (
         <SafeAreaView className="bg-secondary-light">
-            <View className="">
-                <View className="px-6">
-                    <View className="my-4">
-                        <Image className="" source={require('./../assets/static/logo/logo_when_&_what.png')}/>
-                    </View>
-
-                    <View className="my-6">
-                        <Text className="text-3xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>What is up next?</Text>
-                        <Text className="text-xl text-white opacity-70" style={{ fontFamily: 'Raleway_600SemiBold' }}>Your friends miss you</Text>
-                    </View>
+            <View className="px-6">
+                <View className="my-4">
+                    <Image className="" source={require('./../assets/static/logo/logo_when_&_what.png')}/>
                 </View>
+
+                <View className="my-6">
+                    <Text className="text-3xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>What is up next?</Text>
+                    <Text className="text-xl text-white opacity-70" style={{ fontFamily: 'Raleway_600SemiBold' }}>Your friends miss you</Text>
+                </View>
+            </View>
 
                 <View className="mt-[150px] rounded-t-3xl h-full bg-white">
                     <View className="-mt-[150px] pl-6">
@@ -71,7 +70,6 @@ export function Home() {
                         </View>
                     </View>
                 </View>
-            </View>
         </SafeAreaView>
     )
 }
