@@ -4,6 +4,11 @@
     "components": {
         "search": "Zoek ..."
     },
+    "home": {
+        "home-header": "What is up next?",
+        "home-subheader": "Je vrienden missen je",
+        "for_you-activities": "Activiteiten voor jou"
+    },
     "settings": {
         "settings-header": "Instellingen",
         "settings-subheader-account": "Account",

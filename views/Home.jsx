@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { color } from '../assets/styles/Styles';
@@ -5,6 +6,8 @@ import { color } from '../assets/styles/Styles';
 import { ActivityCarousel } from "../components/content/ActivityCarousel";
 
 export function Home() {
+    const { t } = useTranslation();
+
     const activityData = [
         { id: '1', title: 'Activity 1' },
         { id: '2', title: 'Activity 2' },
@@ -12,15 +15,16 @@ export function Home() {
     ];
 
     return (
-        <SafeAreaView className="bg-secondary-light">
+        <SafeAreaView className="relative bg-secondary-light">
+            <Image className="absolute bg-cover" source={require('./../assets/static/images/image_background_02.png')}/>
             <View className="px-6">
                 <View className="my-4">
                     <Image className="" source={require('./../assets/static/logo/logo_when_&_what.png')}/>
                 </View>
 
                 <View className="my-6">
-                    <Text className="text-3xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>What is up next?</Text>
-                    <Text className="text-xl text-white opacity-70" style={{ fontFamily: 'Raleway_600SemiBold' }}>Your friends miss you</Text>
+                    <Text className="text-3xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('home.home-header')}</Text>
+                    <Text className="text-xl text-white opacity-70" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('home.home-subheader')}</Text>
                 </View>
             </View>
 
@@ -57,7 +61,7 @@ export function Home() {
 
                     <View className="my-6 px-6">
                         <View className="">
-                            <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>Actvities for you</Text>
+                            <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('home.for_you-activities')}</Text>
                         </View>
 
                         <View className="my-4 -mr-6">

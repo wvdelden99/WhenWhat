@@ -4,6 +4,11 @@
     "components": {
         "search": "Search ..."
     },
+    "home": {
+        "home-header": "What is up next?",
+        "home-subheader": "Your friends miss you",
+        "for_you-activities": "Activities for you"
+    },
     "settings": {
         "settings-header": "Settings",
         "settings-subheader-account": "Account",
