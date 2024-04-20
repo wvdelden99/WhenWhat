@@ -9,6 +9,7 @@ import { Agenda } from '../../views/Agenda';
 import { Friends } from '../../views/Friends';
 import { Home } from './../../views/Home';
 import { Language } from '../../views/settings/Language';
+import { LanguageApp } from '../../views/settings/LanguageApp';
 import { Planning } from './../../views/Planning';
 import { Settings } from '../../views/settings/Settings';
 import { User } from '../../views/User';
@@ -27,6 +28,7 @@ function Profile() {
             <ProfileStack.Screen name="Settings" component={Settings}></ProfileStack.Screen>
             
             <SettingsStack.Screen name="Language" component={Language}></SettingsStack.Screen>
+            <SettingsStack.Screen name="LanguageApp" component={LanguageApp}></SettingsStack.Screen>
         </ProfileStack.Navigator>
     )
 }

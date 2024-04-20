@@ -1,0 +1,43 @@
+{
+    "Language": "Nederlands",
+
+    "components": {
+        "search": "Zoek ..."
+    },
+    "settings": {
+        "settings-header": "Instellingen",
+        "settings-subheader-account": "Account",
+        "settings-subheader-content": "Content",
+        "settings-subheader-support_and_information": "Ondersteuning & Informatie",
+        "settings-subheader-login": "Login",
+        "password_and_security": {
+            "password_and_security-header": "Wachtwoord & Beveiliging"
+        },
+        "privacy": {
+            "privacy-header": "Privacy"
+        },
+        "billing_and_subscriptions": {
+            "billing_and_subscriptions-header": "Facturering & Abonnementen"
+        },
+        "activity_preferences": {
+            "activity_preferences-header": "Activiteit Voorkeuren"
+        },
+        "notifications": {
+            "notifications-header": "Meldingen"
+        },
+        "language": {
+            "language-header": "Taal",
+            "app_language": "App Taal"
+        },
+        "accessibility": {
+            "accessibility-header": "Toegankelijkheid"
+        },
+        "support": {
+            "support-header": "Ondersteuning"
+        },
+        "terms_and_conditions": {
+            "terms_and_conditions-header": "Voorwaarden & Beleid"
+        },
+        "logout": "Uitloggen"
+    }
+}

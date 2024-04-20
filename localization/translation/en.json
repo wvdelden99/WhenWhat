@@ -1,0 +1,46 @@
+{
+    "Language": "English",
+
+    "components": {
+        "search": "Search ..."
+    },
+    "settings": {
+        "settings-header": "Settings",
+        "settings-subheader-account": "Account",
+        "settings-subheader-content": "Content",
+        "settings-subheader-support_and_information": "Support & Information",
+        "settings-subheader-login": "Login",
+        "edit_profile": {
+            "edit_profile-header": "Edit Profile"
+        },
+        "password_and_security": {
+            "password_and_security-header": "Password & Security"
+        },
+        "privacy": {
+            "privacy-header": "Privacy"
+        },
+        "billing_and_subscriptions": {
+            "billing_and_subscriptions-header": "Billing & Subscriptions"
+        },
+        "activity_preferences": {
+            "activity_preferences-header": "Activity Preference"
+        },
+        "notifications": {
+            "notifications-header": "Notifications"
+        },
+        "language": {
+            "language-header": "Language",
+            "app_language": "App Language"
+        },
+        "accessibility": {
+            "accessibility-header": "Accessibility"
+        },
+        "support": {
+            "support-header": "Support"
+        },
+        "terms_and_conditions": {
+            "terms_and_conditions-header": "Terms & Conditions"
+        },
+        "logout": "Logout"
+    }
+}
