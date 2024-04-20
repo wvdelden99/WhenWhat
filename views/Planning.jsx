@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Image, SafeAreaView, Text, TouchableHighlight, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, Text, TouchableHighlight, View } from 'react-native';
 import { color } from '../assets/styles/Styles';
+// Components
+import { PlannedActivityTimeframe } from '../components/content/PlannedActivityTimeframe';
 
 export function Planning() {
     const { t } = useTranslation();
@@ -45,42 +47,10 @@ export function Planning() {
                     </View>
                 </View>
 
-                <View className="">
-                    <View className="">
-                        <Text className="text-base text-dark opacity-70" style={{ fontFamily: 'Raleway_600SemiBold' }}>March</Text>
-                    </View>
-
-                    <View className="">
-                        <View className="flex-row justify-between items-center border-2 border-gray rounded-3xl p-3">
-                            <View className="items-center">
-                                <View className="">
-                                    <Text className="text-dark" style={{ fontFamily: 'Poppins_600SemiBold' }}>20</Text>
-                                </View>
-
-                                <View className="relative rounded-md w-9 h-9 bg-gray">
-                                    <View className="rounded w-3 h-3 bg-primary"></View>
-                                    <View className="rounded w-3 h-3 bg-secondary"></View>
-                                    <View className="rounded w-3 h-3 bg-dark"></View>
-                                </View>
-                            </View>
-
-                            <View className="">
-                                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>Cinema</Text>
-                                <Text className="-mt-[3px] text-sm text-dark opacity-60" style={{ fontFamily: 'Raleway_600SemiBold' }}>Rotterdam</Text>
-                            </View>
-
-                            <View className="flex-row items-center">
-                                <View className="">
-                                    <Image className="rounded-full w-10 h-10 bg-cover" source={require('./../assets/static/images/image_friend_group_01.jpg')}/>
-                                </View>
-
-                                <View className="">
-                                    <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../assets/static/icons/icon_arrow_down_03.png')}/>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </View>
+                <ScrollView className="-mr-6" showsVerticalScrollIndicator={false}>
+                    <PlannedActivityTimeframe />
+                    <PlannedActivityTimeframe />
+                </ScrollView>
             </View>
         </SafeAreaView>
     )
