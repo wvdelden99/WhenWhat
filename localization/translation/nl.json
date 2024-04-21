@@ -4,6 +4,25 @@
     "components": {
         "search": "Zoek ..."
     },
+    "auth": {
+        "input-name": "Naam",
+        "input-username": "Gebruikersnaam",
+        "input-email": "Email",
+        "input-password": "Wachtwoord",
+        "input-password_confirm": "Bevestig Wachtwoord",
+        "login": {
+            "login-header": "Inloggen",
+            "login-header-alt": "Aanmelden",
+            "forgot_password": "Wachtwoord Vergeten?",
+            "sign_in_with": "of login met",
+            "no_account": "Nog geen account?"
+        },
+        "signup": {
+            "signup-header": "Registreren",
+            "sign_up_with": "of registreer met",
+            "have_account": "Heb je al een account?"
+        }
+    },
     "home": {
         "home-header": "What is up next?",
         "home-subheader": "Je vrienden missen je",

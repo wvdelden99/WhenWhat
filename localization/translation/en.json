@@ -4,6 +4,25 @@
     "components": {
         "search": "Search ..."
     },
+    "auth": {
+        "input-name": "Name",
+        "input-username": "Username",
+        "input-email": "Email",
+        "input-password": "Password",
+        "input-password_confirm": "Confirm Password",
+        "login": {
+            "login-header": "Login",
+            "login-header-alt": "Sign In",
+            "forgot_password": "Forgot Password?",
+            "sign_in_with": "or sign in with",
+            "no_account": "Don't have an account yet?"
+        },
+        "signup": {
+            "signup-header": "Sign Up",
+            "sign_up_with": "or sign up with",
+            "have_account": "Already have an account?"
+        }
+    },
     "home": {
         "home-header": "What is up next?",
         "home-subheader": "Your friends miss you",

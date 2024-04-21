@@ -19,7 +19,7 @@ export function Home() {
             <Image className="absolute bg-cover" source={require('./../assets/static/images/image_background_02.png')}/>
             <View className="px-6">
                 <View className="my-4">
-                    <Image className="" source={require('./../assets/static/logo/logo_when_&_what.png')}/>
+                    <Image className="" source={require('./../assets/static/logo/logo_when_&_what_01.png')}/>
                 </View>
 
                 <View className="my-6">

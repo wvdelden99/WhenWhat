@@ -5,21 +5,37 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import { color, shadow } from '../../assets/styles/Styles';
 // Views
+import { Welcome } from '../../views/auth/Welcome';
+import { Login } from '../../views/auth/Login';
+import { Register } from '../../views/auth/Register';
+
 import { Agenda } from '../../views/Agenda';
 import { Friends } from '../../views/Friends';
 import { Home } from './../../views/Home';
+import { Planning } from './../../views/Planning';
+
+import { User } from '../../views/User';
+import { Settings } from '../../views/settings/Settings';
 import { Language } from '../../views/settings/Language';
 import { LanguageApp } from '../../views/settings/LanguageApp';
-import { Planning } from './../../views/Planning';
-import { Settings } from '../../views/settings/Settings';
-import { User } from '../../views/User';
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const AuthStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
+
+function Auth() {
+    return (
+        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+            <AuthStack.Screen name="Welcome" component={Welcome}></AuthStack.Screen>
+            <AuthStack.Screen name="Login" component={Login}></AuthStack.Screen>
+            <AuthStack.Screen name="Register" component={Register}></AuthStack.Screen>
+        </AuthStack.Navigator>
+    )
+}
 
 function Profile() {
     return (
@@ -85,8 +101,8 @@ export function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
-                <Stack.Screen name="Navbar" component={Navbar} options={{title: 'Welcome'}}/>
-                <Stack.Screen name="Profile" component={Planning} />
+                <Stack.Screen name="Auth" component={Auth} />
+                <Stack.Screen name="Navbar" component={Navbar} />
             </Stack.Navigator>
         </NavigationContainer>
     )
