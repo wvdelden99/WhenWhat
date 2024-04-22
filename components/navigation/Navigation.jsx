@@ -1,4 +1,5 @@
 import * as React from 'react';
+import useAuth from '../../config/auth/useAuth';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,8 +7,8 @@ import { Image } from 'react-native';
 import { color, shadow } from '../../assets/styles/Styles';
 // Views
 import { Welcome } from '../../views/auth/Welcome';
-import { Login } from '../../views/auth/Login';
-import { Register } from '../../views/auth/Register';
+import { SignIn } from '../../views/auth/SignIn';
+import { SignUp } from '../../views/auth/SignUp';
 
 import { Agenda } from '../../views/Agenda';
 import { Friends } from '../../views/Friends';
@@ -16,6 +17,7 @@ import { Planning } from './../../views/Planning';
 
 import { User } from '../../views/User';
 import { Settings } from '../../views/settings/Settings';
+import { EditProfile } from '../../views/settings/EditProfile';
 import { Language } from '../../views/settings/Language';
 import { LanguageApp } from '../../views/settings/LanguageApp';
 
@@ -23,19 +25,8 @@ import { LanguageApp } from '../../views/settings/LanguageApp';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const AuthStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
-
-function Auth() {
-    return (
-        <AuthStack.Navigator screenOptions={{headerShown: false}}>
-            <AuthStack.Screen name="Welcome" component={Welcome}></AuthStack.Screen>
-            <AuthStack.Screen name="Login" component={Login}></AuthStack.Screen>
-            <AuthStack.Screen name="Register" component={Register}></AuthStack.Screen>
-        </AuthStack.Navigator>
-    )
-}
 
 function Profile() {
     return (
@@ -43,6 +34,7 @@ function Profile() {
             <ProfileStack.Screen name="User" component={User}></ProfileStack.Screen>
             <ProfileStack.Screen name="Settings" component={Settings}></ProfileStack.Screen>
             
+            <SettingsStack.Screen name="EditProfile" component={EditProfile}></SettingsStack.Screen>
             <SettingsStack.Screen name="Language" component={Language}></SettingsStack.Screen>
             <SettingsStack.Screen name="LanguageApp" component={LanguageApp}></SettingsStack.Screen>
         </ProfileStack.Navigator>
@@ -98,12 +90,25 @@ function Navbar() {
 }
 
 export function Navigation() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-                <Stack.Screen name="Auth" component={Auth} />
-                <Stack.Screen name="Navbar" component={Navbar} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+    const {user} = useAuth();
+
+    if (user) {
+        return (
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{headerShown: false}}>
+                    <Stack.Screen name="Navbar" component={Navbar} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
+    } else {
+        return (
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{headerShown: false}}>
+                    <Stack.Screen name="Welcome" component={Welcome}></Stack.Screen>
+                    <Stack.Screen name="SignIn" component={SignIn}></Stack.Screen>
+                    <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
+    }
 }

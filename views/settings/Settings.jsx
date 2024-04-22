@@ -2,12 +2,19 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, ScrollView, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { color } from '../../assets/styles/Styles';
+
+import { auth } from '../../config/firebase';
 // Components
 import { BackButton } from '../../components/button/BackButton';
+import { signOut } from 'firebase/auth';
 
 export function Settings() {
     const { t } = useTranslation();
     const navigation = useNavigation();
+
+    const handleLogout = async ()=>{
+        await signOut(auth);
+    }
 
     return (
         <SafeAreaView className="relative flex-[1] bg-secondary-light">
@@ -33,11 +40,11 @@ export function Settings() {
                         <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-account')}</Text>
 
                         <View className="my-2 rounded-xl py-2 bg-gray">
-                            <TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('EditProfile')}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_user_01.png')}/>
-                                        <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>Account</Text>
+                                        <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.edit_profile-header')}</Text>
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
@@ -144,7 +151,7 @@ export function Settings() {
                         <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-login')}</Text>
 
                         <View className="my-2 rounded-xl py-2 bg-gray">
-                            <TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={handleLogout}>
                                 <View className="flex-row justify-between items-center py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_logout_01.png')}/>

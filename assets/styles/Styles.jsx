@@ -1,6 +1,8 @@
 export const color = {
     darkColor: "#212427",
     secondaryColor: "#007F73",
+    errorColor: "#ED1C24",
+    errorDarkColor: "#C1272D",
 };
 
 export const shadow = {

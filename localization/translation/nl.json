@@ -4,15 +4,27 @@
     "components": {
         "search": "Zoek ..."
     },
+    "error": {
+        "error-username_in_use": "Gebruikersnaam word al gebruikt.",
+        "error-email_invalid": "Ongeldig e-mailadres.",
+        "error-email_in_use": "Email word al gebruikt.",
+        "error-password_weak": "Wachtwoord minimaal 6 karakters lang zijn.",
+        "error-password_not_match": "Wactwoorden komen niet overeen",
+        "error-general": "Er ging iets mis.",
+        "error-general_empty_fields": "Vul alle velden in.",
+        "error-login": "Ongeldig e-mailadres of wachtwoord"
+    },
     "auth": {
+        "welcome-header": "What will You and your Friends do next?",
+        "welcome-subheader": "Its time to hangout",
         "input-name": "Naam",
         "input-username": "Gebruikersnaam",
         "input-email": "Email",
         "input-password": "Wachtwoord",
         "input-password_confirm": "Bevestig Wachtwoord",
-        "login": {
-            "login-header": "Inloggen",
-            "login-header-alt": "Aanmelden",
+        "signin": {
+            "signin-header": "Inloggen",
+            "signin-header-alt": "Aanmelden",
             "forgot_password": "Wachtwoord Vergeten?",
             "sign_in_with": "of login met",
             "no_account": "Nog geen account?"

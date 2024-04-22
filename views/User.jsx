@@ -1,9 +1,27 @@
+import { useEffect } from 'react';
+import { auth } from '../config/firebase';
 import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, Text, TouchableNativeFeedback, View } from 'react-native';
 import { color } from './../assets/styles/Styles';
 
 export function User() {
     const navigation = useNavigation();
+
+    const user = auth.currentUser;
+
+    if (user !== null) {
+        // The user object has basic properties such as display name, email, etc.
+        const displayName = user.displayName;
+        const fullName = user.fullName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        const emailVerified = user.emailVerified;
+      
+        // The user's ID, unique to the Firebase project. Do NOT use
+        // this value to authenticate with your backend server, if
+        // you have one. Use User.getToken() instead.
+        const uid = user.uid;
+      }
 
     return (
         <SafeAreaView className="relative flex-[1] bg-secondary-light">
@@ -29,8 +47,8 @@ export function User() {
                             </TouchableNativeFeedback>
                         </View>
                     </View>
-                    <Text className="text-lg text-white" style={{ fontFamily: 'Raleway_700Bold' }}>John Doe</Text>
-                    <Text className="-mt-[3px] text-base text-white opacity-90" style={{ fontFamily: 'Raleway_600SemiBold' }}>@johndoe</Text>
+                    <Text className="text-lg text-white" style={{ fontFamily: 'Raleway_700Bold' }}>{user.fullName}</Text>
+                    <Text className="-mt-[3px] text-base text-white opacity-90" style={{ fontFamily: 'Raleway_600SemiBold' }}>@{user.displayName}</Text>
                 </View>
             </View>
 
