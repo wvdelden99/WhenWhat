@@ -1,12 +1,12 @@
+import { signOut } from 'firebase/auth';
+import { auth } from '../../config/firebase';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Image, SafeAreaView, ScrollView, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-import { color } from '../../assets/styles/Styles';
-
-import { auth } from '../../config/firebase';
+import { Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { color, opacity } from '../../assets/styles/Styles';
 // Components
 import { BackButton } from '../../components/button/BackButton';
-import { signOut } from 'firebase/auth';
+
 
 export function Settings() {
     const { t } = useTranslation();
@@ -18,7 +18,7 @@ export function Settings() {
 
     return (
         <SafeAreaView className="relative flex-[1] bg-secondary-light">
-            <Image className="absolute bg-cover" source={require('./../../assets/static/images/image_background_01.png')}/>
+            <Image className="absolute bg-cover" source={require('./../../assets/static/images/image_background_03.png')}/>
             <View className="relative flex-row items-center w-full my-6 px-6">
                 <BackButton />
 
@@ -40,7 +40,7 @@ export function Settings() {
                         <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-account')}</Text>
 
                         <View className="my-2 rounded-xl py-2 bg-gray">
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('EditProfile')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_user_01.png')}/>
@@ -48,8 +48,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('PasswordSecurity')} activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_protect_01.png')}/>
@@ -57,8 +57,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_lock_01.png')}/>
@@ -66,8 +66,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_wallet_01.png')}/>
@@ -75,7 +75,7 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
@@ -83,7 +83,7 @@ export function Settings() {
                         <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-content')}</Text>
 
                         <View className="my-2 rounded-xl py-2 bg-gray">
-                            <TouchableWithoutFeedback>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_preferences_01.png')}/>
@@ -91,8 +91,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_notifications_01.png')}/>
@@ -100,8 +100,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Language')}>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('Language')} activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_language_01.png')}/>
@@ -109,8 +109,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_accessibility_01.png')}/>
@@ -118,7 +118,7 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     
@@ -126,7 +126,7 @@ export function Settings() {
                         <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-support_and_information')}</Text>
 
                         <View className="my-2 rounded-xl py-2 bg-gray">
-                            <TouchableWithoutFeedback>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center border-b-[1px] border-gray-dark py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_support_01.png')}/>
@@ -134,8 +134,8 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_info_01.png')}/>
@@ -143,7 +143,7 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                     </View>
 
@@ -151,7 +151,7 @@ export function Settings() {
                         <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-login')}</Text>
 
                         <View className="my-2 rounded-xl py-2 bg-gray">
-                            <TouchableWithoutFeedback onPress={handleLogout}>
+                            <TouchableOpacity onPress={handleLogout} activeOpacity={opacity.opacity700}>
                                 <View className="flex-row justify-between items-center py-4 pl-5 pr-4">
                                     <View className="flex-row items-center gap-4">
                                         <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_logout_01.png')}/>
@@ -159,7 +159,7 @@ export function Settings() {
                                     </View>
                                     <Image className="w-6 h-6 opacity-70" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_right_03.png')} />
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>

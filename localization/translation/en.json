@@ -11,6 +11,7 @@
         "error-password_weak": "Password must be at least 6 characters long.",
         "error-password_not_match": "Passwords don't match.",
         "error-general": "Something went wrong.",
+        "error-general_empty_field": "Field can't be left empty",
         "error-general_empty_fields": "Please fill in all fields.",
         "error-login": "Incorrect email or password"
     },
@@ -52,10 +53,22 @@
         "settings-subheader-support_and_information": "Support & Information",
         "settings-subheader-login": "Login",
         "edit_profile": {
-            "edit_profile-header": "Edit Profile"
+            "edit_profile-header": "Edit Profile",
+            "edit_profile-subheader-user_data": "User Data",
+            "edit_profile-subheader-delete_account": "Delete Account",
+            "username": "Username",
+            "email": "Email",
+            "email-verification_false": "This email is not verified. Please check your email for verification.",
+            "name": "Name",
+            "save": "Save",
+            "delete_account": {
+                "delete_account-header": "Delete Account",
+                "delete_account-text": "Your account would be permanently deleted. You can disable the deletion of your account within 30 days."
+            }
         },
         "password_and_security": {
-            "password_and_security-header": "Password & Security"
+            "password_and_security-header": "Password & Security",
+            "password": "Password"
         },
         "privacy": {
             "privacy-header": "Privacy"

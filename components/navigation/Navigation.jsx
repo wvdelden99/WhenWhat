@@ -18,6 +18,10 @@ import { Planning } from './../../views/Planning';
 import { User } from '../../views/User';
 import { Settings } from '../../views/settings/Settings';
 import { EditProfile } from '../../views/settings/EditProfile';
+import { EditProfileUsername } from '../../views/settings/EditProfileUsername';
+import { EditProfileEmail } from '../../views/settings/EditProfileEmail';
+import { EditProfileDeleteAccount } from '../../views/settings/EditProfileDeleteAccount';
+import { PasswordSecurity } from '../../views/settings/PasswordSecurity';
 import { Language } from '../../views/settings/Language';
 import { LanguageApp } from '../../views/settings/LanguageApp';
 
@@ -35,6 +39,10 @@ function Profile() {
             <ProfileStack.Screen name="Settings" component={Settings}></ProfileStack.Screen>
             
             <SettingsStack.Screen name="EditProfile" component={EditProfile}></SettingsStack.Screen>
+            <SettingsStack.Screen name="EditProfileUsername" component={EditProfileUsername}></SettingsStack.Screen>
+            <SettingsStack.Screen name="EditProfileEmail" component={EditProfileEmail}></SettingsStack.Screen>
+            <SettingsStack.Screen name="EditProfileDeleteAccount" component={EditProfileDeleteAccount}></SettingsStack.Screen>
+            <SettingsStack.Screen name="PasswordSecurity" component={PasswordSecurity}></SettingsStack.Screen>
             <SettingsStack.Screen name="Language" component={Language}></SettingsStack.Screen>
             <SettingsStack.Screen name="LanguageApp" component={LanguageApp}></SettingsStack.Screen>
         </ProfileStack.Navigator>

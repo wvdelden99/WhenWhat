@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Image, SafeAreaView, Text, TouchableWithoutFeedback, View } from "react-native"
+import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
+import { opacity } from '../../assets/styles/Styles';
 
 
 export function Welcome() {
@@ -28,17 +29,17 @@ export function Welcome() {
 
                     <View className="items-center mt-14 mb-10">
                         <View className="w-[300px]">
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('SignIn')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')} activeOpacity={opacity.opacity900}>
                                 <View className="items-center mb-5 rounded-2xl p-3 bg-primary">
                                     <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signin.signin-header')}</Text>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
 
-                            <TouchableWithoutFeedback  onPress={() => navigation.navigate('SignUp')}>
+                            <TouchableOpacity  onPress={() => navigation.navigate('SignUp')} activeOpacity={opacity.opacity800}>
                                 <View className="items-center rounded-2xl p-3 bg-white">
                                     <Text className="text-lg text-darl" style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signup.signup-header')}</Text>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
                     </View>
 

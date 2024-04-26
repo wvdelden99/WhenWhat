@@ -3,8 +3,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Image, SafeAreaView, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
-import { color } from '../../assets/styles/Styles';
+import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { color, opacity } from '../../assets/styles/Styles';
 
 
 export function SignIn() {
@@ -42,7 +42,6 @@ export function SignIn() {
         });
 
         if (email && password) {
-            console.log('test')
             try {
                 await signInWithEmailAndPassword(auth, email, password);
             } catch(err) {
@@ -71,69 +70,69 @@ export function SignIn() {
                             <Text className="text-sm text-error-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{errors.login}</Text>
                         </View>}
 
-                    <TouchableWithoutFeedback onPress={() => focusInput('email')}>
-                        <View className={`flex-row mb-5 rounded-2xl pt-2 pb-4 px-4 min-h-[48px] bg-white ${ errors.login ? 'border-2 border-error' : 'border-2 border-transparent'}`}>
+                    <TouchableOpacity onPress={() => focusInput('email')} activeOpacity={opacity.opacity900}>
+                        <View className={`flex-row mb-5 border-2 rounded-2xl pt-2 pb-4 px-4 min-h-[48px] bg-white ${ errors.login ? 'border-error' : 'border-transparent'}`}>
                             <Image className={`mt-2 ml-1 mr-3 w-6 h-6 ${ errors.login ? 'opacity-80' : 'opacity-50' }`} style={{ tintColor: errors.login ? color.errorColor : color.darkColor }} source={require('./../../assets/static/icons/icon_mail_03.png')} />
-                            <TextInput className="pr-9 text-base bg-white" style={{ fontFamily: 'Raleway_600SemiBold' }}
+                            <TextInput className="pr-9 text-base" style={{ fontFamily: 'Raleway_600SemiBold' }}
                                         ref={(ref) => { inputRefs.current['email'] = ref; }}
                                         value={email}
                                         onChangeText={setEmail}
                                         placeholder={t('auth.input-email')}/>
                         </View>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={() => focusInput('password')}>
-                        <View className={`flex-row mb-2 rounded-2xl pt-2 pb-4 px-4 min-h-[48px] bg-white ${ errors.login ? 'border-2 border-error' : 'border-2 border-transparent'}`}>
-                            <View className="flex-row pr-28">
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => focusInput('password')} activeOpacity={opacity.opacity900}>
+                        <View className={`flex-row mb-2 border-2 rounded-2xl pt-2 pb-4 px-4 min-h-[48px] bg-white ${ errors.login ? 'border-error' : 'border-transparent'}`}>
+                            <View className="flex-row">
                                 <Image className={`mt-2 ml-1 mr-3 w-6 h-6 ${ errors.login ? 'opacity-80' : 'opacity-50' }`} style={{ tintColor: errors.login ? color.errorColor : color.darkColor }} source={require('./../../assets/static/icons/icon_lock_02.png')}/>
-                                <TextInput className="text-base" style={{ fontFamily: 'Raleway_600SemiBold' }}
+                                <TextInput className="pr-28 w-full text-base" style={{ fontFamily: 'Raleway_600SemiBold' }}
                                             ref={(ref) => { inputRefs.current['password'] = ref; }}
                                             secureTextEntry={hidePassword}
                                             value={password}
                                             onChangeText={value=> setPassword(value)}
                                             placeholder={t('auth.input-password')}/>
                             </View>
-                            <TouchableWithoutFeedback onPress={togglePasswordVisibility}>
-                                <View className="absolute top-4 right-4">
+                            <TouchableOpacity onPress={togglePasswordVisibility} activeOpacity={opacity.opacity700}>
+                                <View className="absolute w-full top-2 right-16">
                                     <Image className={`w-6 h-6 ${ errors.login ? 'opacity-70' : 'opacity-40' }`} style={{ tintColor: errors.login ? color.errorColor : color.darkColor }} source={require('./../../assets/static/icons/icon_hide_01.png')}/>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
 
                     <View className="items-end mb-5">
-                        <TouchableWithoutFeedback>
+                        <TouchableOpacity activeOpacity={opacity.opacity800}>
                             <Text className="text-sm text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('auth.signin.forgot_password')}</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                     </View>
                     
-                    <TouchableWithoutFeedback onPress={handleSubmit} disabled={!formValid}>
+                    <TouchableOpacity onPress={handleSubmit} disabled={!formValid} activeOpacity={opacity.opacity900}>
                         <View className={`items-center mt-3 rounded-2xl p-3 ${ formValid ? 'bg-primary' : 'bg-primary-disabled'}`}>
                             <Text className={`text-lg ${ formValid ? 'text-dark' : 'text-dark-disabled opacity-70'}`} style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signin.signin-header')}</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 </View>
 
                 <View className="items-center my-12">
                     <Text className="text-lg text-white" style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signin.sign_in_with')}</Text>
 
                     <View className="flex-row mt-3">
-                        <TouchableWithoutFeedback>
+                        <TouchableOpacity>
                             <Image className="mr-4 w-11 h-11" source={require('./../../assets/static/icons/icon_socials_google_01.png')}/>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
                             <Image className="mr-4 w-11 h-11" source={require('./../../assets/static/icons/icon_socials_facebook_01.png')}/>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
                             <Image className="w-11 h-11" style={{ tintColor: "white" }} source={require('./../../assets/static/icons/icon_socials_apple_01.png')}/>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
                 <View className="flex-row">
                     <Text className="text-base mr-1 text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('auth.signin.no_account')}</Text>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('SignUp')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('SignUp')} activeOpacity={opacity.opacity600}>
                         <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signup.signup-header')}</Text>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>

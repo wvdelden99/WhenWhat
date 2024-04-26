@@ -11,6 +11,7 @@
         "error-password_weak": "Wachtwoord minimaal 6 karakters lang zijn.",
         "error-password_not_match": "Wactwoorden komen niet overeen",
         "error-general": "Er ging iets mis.",
+        "error-general_empty_field": "Veld kan niet leeg gelaten worden",
         "error-general_empty_fields": "Vul alle velden in.",
         "error-login": "Ongeldig e-mailadres of wachtwoord"
     },
@@ -51,8 +52,23 @@
         "settings-subheader-content": "Content",
         "settings-subheader-support_and_information": "Ondersteuning & Informatie",
         "settings-subheader-login": "Login",
+        "edit_profile": {
+            "edit_profile-header": "Gebruikersgegevens",
+            "edit_profile-subheader-user_data": "Account Gegevens",
+            "edit_profile-subheader-delete_account": "Account Verwijderen",
+            "username": "Gebruikersnaam",
+            "email": "E-mailadres",
+            "email-verifcation_false": "Dit e-mailadres is nog geverifieërd. Controleer je email voor bevestiging.",
+            "name": "Naam",
+            "save": "Opslaan",
+            "delete_account": {
+                "delete_account-header": "Verwijder Account",
+                "delete_account-text": "Je account word permanent verwijderd. Je kunt de verwijdering van je account tot 30 dagen anuleren en hiermee je account heractiveren."
+            }
+        },
         "password_and_security": {
-            "password_and_security-header": "Wachtwoord & Beveiliging"
+            "password_and_security-header": "Wachtwoord & Beveiliging",
+            "password": "Wachtwoord"
         },
         "privacy": {
             "privacy-header": "Privacy"
