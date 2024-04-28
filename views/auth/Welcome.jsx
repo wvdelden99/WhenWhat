@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
+import { Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInUp, FadeInDown, FadeOut } from 'react-native-reanimated';
 import { opacity } from '../../assets/styles/Styles';
 
 
@@ -30,21 +31,21 @@ export function Welcome() {
                     <View className="items-center mt-14 mb-10">
                         <View className="w-[300px]">
                             <TouchableOpacity onPress={() => navigation.navigate('SignIn')} activeOpacity={opacity.opacity900}>
-                                <View className="items-center mb-5 rounded-2xl p-3 bg-primary">
+                                <Animated.View entering={FadeInDown.delay(200)} className="items-center mb-5 rounded-2xl p-3 bg-primary">
                                     <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signin.signin-header')}</Text>
-                                </View>
+                                </Animated.View>
                             </TouchableOpacity>
 
                             <TouchableOpacity  onPress={() => navigation.navigate('SignUp')} activeOpacity={opacity.opacity800}>
-                                <View className="items-center rounded-2xl p-3 bg-white">
+                                <Animated.View entering={FadeInDown.delay(200)} className="items-center rounded-2xl p-3 bg-white">
                                     <Text className="text-lg text-darl" style={{ fontFamily: 'Raleway_700Bold' }}>{t('auth.signup.signup-header')}</Text>
-                                </View>
+                                </Animated.View>
                             </TouchableOpacity>
                         </View>
                     </View>
 
                     <View className="items-center">
-                        <Image className="w-[64px] h-[14px]" source={require('./../../assets/static/logo/logo_wsly_01.png')}/>
+                        <Animated.Image entering={FadeInDown.delay(200)} className="w-[64px] h-[14px]" source={require('./../../assets/static/logo/logo_wsly_01.png')}/>
                     </View>
                 </View>
             </View>

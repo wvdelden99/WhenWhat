@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { color } from '../../assets/styles/Styles';
 // Components
-import { BackButton } from '../../components/button/BackButton';
+import { ButtonBack } from '../../components/button/ButtonBack';
 
 export function Language() {
     const { t } = useTranslation();
@@ -13,7 +13,7 @@ export function Language() {
         <SafeAreaView className="flex-[1] bg-secondary-light">
             <Image className="absolute bg-cover" source={require('./../../assets/static/images/image_background_03.png')}/>
             <View className="relative flex-row items-center w-full my-6 px-6">
-                <BackButton />
+                <ButtonBack />
 
                 <View className="flex-[1] items-center">
                     <Text className="text-2xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.language.language-header')}</Text>

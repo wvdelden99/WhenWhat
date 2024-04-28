@@ -2,7 +2,10 @@
     "Language": "English",
 
     "components": {
-        "search": "Search ..."
+        "search": "Search ...",
+        "update": {
+            "save": "Save"
+        }
     },
     "error": {
         "error-username_in_use": "Username already in use.",
@@ -60,7 +63,6 @@
             "email": "Email",
             "email-verification_false": "This email is not verified. Please check your email for verification.",
             "name": "Name",
-            "save": "Save",
             "delete_account": {
                 "delete_account-header": "Delete Account",
                 "delete_account-text": "Your account would be permanently deleted. You can disable the deletion of your account within 30 days."
@@ -77,7 +79,7 @@
             "billing_and_subscriptions-header": "Billing & Subscriptions"
         },
         "activity_preferences": {
-            "activity_preferences-header": "Activity Preference"
+            "activity_preferences-header": "Activity Preferences"
         },
         "notifications": {
             "notifications-header": "Notifications"

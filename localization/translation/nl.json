@@ -2,7 +2,10 @@
     "Language": "Nederlands",
 
     "components": {
-        "search": "Zoek ..."
+        "search": "Zoek ...",
+        "update": {
+            "save": "Opslaan"
+        }
     },
     "error": {
         "error-username_in_use": "Gebruikersnaam word al gebruikt.",
@@ -60,7 +63,6 @@
             "email": "E-mailadres",
             "email-verifcation_false": "Dit e-mailadres is nog geverifieërd. Controleer je email voor bevestiging.",
             "name": "Naam",
-            "save": "Opslaan",
             "delete_account": {
                 "delete_account-header": "Verwijder Account",
                 "delete_account-text": "Je account word permanent verwijderd. Je kunt de verwijdering van je account tot 30 dagen anuleren en hiermee je account heractiveren."

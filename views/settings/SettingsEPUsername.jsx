@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { color, opacity } from '../../assets/styles/Styles';
 // Component
-import { BackButton } from '../../components/button/BackButton';
+import { BackButton } from '../../components/button/ButtonBack';
 
 
 export function EditProfileUsername() {
