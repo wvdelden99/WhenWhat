@@ -3,8 +3,10 @@
 
     "components": {
         "search": "Search ...",
-        "update": {
-            "save": "Save"
+        "button": {
+            "update": {
+                "save": "Save"
+            }
         }
     },
     "error": {
@@ -70,7 +72,11 @@
         },
         "password_and_security": {
             "password_and_security-header": "Password & Security",
-            "password": "Password"
+            "password": "Password",
+            "change_password": "Change Password",
+            "password_current": "Current Password",
+            "password_new": "New Password",
+            "password_confirmation": "Password Confirmation"
         },
         "privacy": {
             "privacy-header": "Privacy"

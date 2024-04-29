@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../config/firebase';
-import { updateEmail, updateProfile, deleteUser } from 'firebase/auth';
+import { updateEmail,  sendEmailVerification, updateProfile, deleteUser } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
@@ -61,19 +61,19 @@ export function EditProfileUsername() {
     };
 
     return (
-        <LayoutSettings title="Edit Profile">
-            <View className="my-6">
-                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.username')}</Text>
+        <LayoutSettings title={t('settings.edit_profile.edit_profile-header')}>
+            <View className="my-8">
+                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.edit_profile.username')}</Text>
 
                 <View className="mb-6">
-                    <InputUpdate focusArea='username'
+                    <InputUpdate focusArea="username"
                                 valueText={displayName} 
                                 onChangeText={setDisplayName}
                                 placeholderText={t('settings.edit_profile.username')}
                                 clearInput={setDisplayName}
                                 error={errors.username || errors.general}/>
                 </View>
-                <ButtonSubmit buttonText={t('components.update.save')}
+                <ButtonSubmit buttonText={t('components.button.update.save')}
                                 handleUpdate={handleUpdateUsername} 
                                 formValidValue={displayName}/>
             </View>
@@ -139,12 +139,12 @@ export function EditProfileEmail() {
     };
 
     return (
-        <LayoutSettings title="Edit Profile">
-            <View className="my-6">
-                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.email')}</Text>
+        <LayoutSettings title={t('settings.edit_profile.edit_profile-header')}>
+            <View className="my-8">
+                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.edit_profile.email')}</Text>
 
                 <View className="mb-6">
-                    <InputUpdate focusArea='email'
+                    <InputUpdate focusArea="email"
                                 valueText={email} 
                                 onChangeText={setEmail}
                                 placeholderText={t('settings.edit_profile.email')}
@@ -156,7 +156,7 @@ export function EditProfileEmail() {
                             <Text className="text-sm text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.email-verification_false')}</Text>
                         </View>)}
                 </View>
-                <ButtonSubmit buttonText={t('components.update.save')}
+                <ButtonSubmit buttonText={t('components.button.update.save')}
                                 handleUpdate={handleUpdateEmail} 
                                 formValidValue={email}/>
             </View>
@@ -186,10 +186,10 @@ export function EditProfileDeleteAccount() {
     }
 
     return (
-        <LayoutSettings title="Edit Profile">
-            <View className="my-6">
+        <LayoutSettings title={t('settings.edit_profile.edit_profile-header')}>
+            <View className="my-8">
                 <View className="mb-8">
-                    <Text className="mb-2 text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.delete_account.delete_account-header')}</Text>
+                    <Text className="mb-2 text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.edit_profile.delete_account.delete_account-header')}</Text>
                     <Text className="text-sm text-dark" style={{ fontFamily: 'Raleway_500Medium' }}>{t('settings.edit_profile.delete_account.delete_account-text')}</Text>
                 </View>
 
@@ -213,9 +213,9 @@ export function EditProfile() {
     const { t } = useTranslation();
 
     return (
-        <LayoutSettings title="Edit Profile">
-            <View className="my-6">
-                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.edit_profile-subheader-user_data')}</Text>
+        <LayoutSettings title={t('settings.edit_profile.edit_profile-header')}>
+            <View className="my-8">
+                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.edit_profile.edit_profile-subheader-user_data')}</Text>
 
                 <View className="my-2 rounded-xl py-2 bg-gray">
                     <ButtonNavigate navigateLocation="Username" 
@@ -230,7 +230,7 @@ export function EditProfile() {
             </View>
 
             <View className="mb-6">
-                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.edit_profile.edit_profile-subheader-delete_account')}</Text>
+                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.edit_profile.edit_profile-subheader-delete_account')}</Text>
 
                 <View className="my-2 rounded-xl py-2 bg-gray">
                     <ButtonNavigate navigateLocation="DeleteAccount" 

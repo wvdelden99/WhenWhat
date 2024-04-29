@@ -17,7 +17,7 @@ export function ButtonNavigate({navigateLocation, handleLogout, buttonIcon, butt
     };
 
     return (
-        <TouchableOpacity onPress={handlePress}  activeOpacity={opacity.opacity700}>
+        <TouchableOpacity onPress={handlePress} activeOpacity={opacity.opacity700}>
             <View className={`flex-row justify-between items-center py-4 pl-5 pr-4 ${ buttonStyle ? 'border-b-[1px] border-gray-dark' : '' }`}>
                 <View className="flex-row items-center gap-4">
                     {buttonIcon && <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={buttonIcon}/>}

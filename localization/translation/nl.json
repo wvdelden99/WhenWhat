@@ -70,7 +70,8 @@
         },
         "password_and_security": {
             "password_and_security-header": "Wachtwoord & Beveiliging",
-            "password": "Wachtwoord"
+            "password": "Wachtwoord",
+            "password_confirmation": "Wachtwoord bevestiging"
         },
         "privacy": {
             "privacy-header": "Privacy"

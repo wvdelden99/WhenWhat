@@ -21,7 +21,7 @@ export function Settings() {
             
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mb-6">
-                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-account')}</Text>
+                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.settings-subheader-account')}</Text>
 
                     <View className="my-2 rounded-xl py-2 bg-gray">
                         <ButtonNavigate navigateLocation="EditProfile" 
@@ -43,7 +43,7 @@ export function Settings() {
                 </View>
 
                 <View className="mb-6">
-                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-content')}</Text>
+                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.settings-subheader-content')}</Text>
 
                     <View className="my-2 rounded-xl py-2 bg-gray">
                         <ButtonNavigate navigateLocation="ActivityPreferences" 
@@ -65,7 +65,7 @@ export function Settings() {
                 </View>
 
                 <View className="mb-6">
-                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-support_and_information')}</Text>
+                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.settings-subheader-support_and_information')}</Text>
 
                     <View className="my-2 rounded-xl py-2 bg-gray">
                         <ButtonNavigate navigateLocation="Support" 
@@ -79,7 +79,7 @@ export function Settings() {
                 </View>
 
                 <View className="mb-40">
-                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('settings.settings-subheader-login')}</Text>
+                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.settings-subheader-login')}</Text>
 
                     <View className="my-2 rounded-xl py-2 bg-gray">
                         <ButtonNavigate handleLogout={async () => await signOut(auth)}
