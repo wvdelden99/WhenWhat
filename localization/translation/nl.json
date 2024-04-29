@@ -71,7 +71,10 @@
         "password_and_security": {
             "password_and_security-header": "Wachtwoord & Beveiliging",
             "password": "Wachtwoord",
-            "password_confirmation": "Wachtwoord bevestiging"
+            "change_password": "Verander Wachtwoord",
+            "password_current": "Huidig Wachtwoord",
+            "password_new": "Nieuw Wachtwoord",
+            "password_confirmation": "Wachtwoord bevestigen"
         },
         "privacy": {
             "privacy-header": "Privacy"

@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { auth } from '../../config/firebase';
 import { updatePassword } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
-import { color, opacity } from '../../assets/styles/Styles';
+import { Text, View } from 'react-native';
 // Component
 import { LayoutSettings } from '../../components/layout/LayoutSettings';
 import { ButtonNavigate } from '../../components/button/ButtonNavigate';
@@ -107,7 +106,7 @@ export function PasswordAndSecurity() {
 
                 <View className="my-2 rounded-2xl py-2 bg-gray">
                     <ButtonNavigate navigateLocation="Password"
-                                    buttonText={t('settings.password_and_security.password')}/>
+                                    buttonTextStart={t('settings.password_and_security.password')}/>
                 </View>
             </View>
         </LayoutSettings>

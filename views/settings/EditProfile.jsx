@@ -219,13 +219,13 @@ export function EditProfile() {
 
                 <View className="my-2 rounded-xl py-2 bg-gray">
                     <ButtonNavigate navigateLocation="Username" 
-                                    buttonText={t('settings.edit_profile.username')}
+                                    buttonTextStart={t('settings.edit_profile.username')}
                                     buttonStyle/>
                     <ButtonNavigate navigateLocation="Email" 
-                                    buttonText={t('settings.edit_profile.email')}
+                                    buttonTextStart={t('settings.edit_profile.email')}
                                     buttonStyle/>
                     <ButtonNavigate navigateLocation="Name" 
-                                    buttonText={t('settings.edit_profile.name')}/>
+                                    buttonTextStart={t('settings.edit_profile.name')}/>
                 </View>
             </View>
 
@@ -234,7 +234,7 @@ export function EditProfile() {
 
                 <View className="my-2 rounded-xl py-2 bg-gray">
                     <ButtonNavigate navigateLocation="DeleteAccount" 
-                                    buttonText={t('settings.edit_profile.delete_account.delete_account-header')}/>
+                                    buttonTextStart={t('settings.edit_profile.delete_account.delete_account-header')}/>
                 </View>
             </View>
         </LayoutSettings>

@@ -19,10 +19,7 @@ import { User } from '../../views/User';
 import { Settings } from '../../views/settings/Settings';
 import { EditProfile, EditProfileUsername, EditProfileEmail, EditProfileDeleteAccount } from '../../views/settings/EditProfile'; 
 import { PasswordAndSecurity, PasswordAndSecurityPassword } from '../../views/settings/PasswordAndSecurity';
-
-
-import { Language } from '../../views/settings/SettingsLanguage';
-import { LanguageApp } from '../../views/settings/SettingsLNAppLanguage';
+import { Language, LanguageApp } from '../../views/settings/Language';
 
 
 const Stack = createNativeStackNavigator();
@@ -44,7 +41,7 @@ function Profile() {
             <SettingsStack.Screen name="PasswordAndSecurity" component={PasswordAndSecurity}></SettingsStack.Screen>
             <SettingsStack.Screen name="Password" component={PasswordAndSecurityPassword}></SettingsStack.Screen>
             <SettingsStack.Screen name="Language" component={Language}></SettingsStack.Screen>
-            <SettingsStack.Screen name="LanguageApp" component={LanguageApp}></SettingsStack.Screen>
+            <SettingsStack.Screen name="AppLanguage" component={LanguageApp}></SettingsStack.Screen>
         </ProfileStack.Navigator>
     )
 }
