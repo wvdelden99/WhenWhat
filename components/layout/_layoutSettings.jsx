@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SafeAreaView, Text, View } from 'react-native';
+import { Image, SafeAreaView, StatusBar, Text, View } from 'react-native';
 // Components
 import { ButtonBack } from '../button/ButtonBack';
 
@@ -7,6 +7,8 @@ import { ButtonBack } from '../button/ButtonBack';
 export function LayoutSettings({title, children }) {
     return (
         <SafeAreaView className="flex-[1] bg-secondary-light">
+            <StatusBar barStyle="light-content"/>
+
             <Image className="absolute bg-cover" source={require('./../../assets/static/images/image_background_03.png')} />
             <View className="flex-row items-center my-6">
                 <ButtonBack />

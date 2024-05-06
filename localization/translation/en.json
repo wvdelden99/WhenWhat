@@ -7,18 +7,27 @@
             "update": {
                 "save": "Save"
             }
+        },
+        "form": {
+            "auth": {
+                "username": "Username",
+                "email": "Email",
+                "password": "Password",
+                "password-confirmation": "Confirm Password"
+            }
         }
     },
     "error": {
         "error-username_in_use": "Username already in use.",
+        "error-username_too_short": "Username must be at least 6 characters long",
         "error-email_invalid": "Try again with a valid email.",
         "error-email_in_use": "Email already in use.",
         "error-password_weak": "Password must be at least 6 characters long.",
         "error-password_not_match": "Passwords don't match.",
+        "error-signin_failed": "Incorrect email or password.",
         "error-general": "Something went wrong.",
-        "error-general_empty_field": "Field can't be left empty",
-        "error-general_empty_fields": "Please fill in all fields.",
-        "error-login": "Incorrect email or password"
+        "error-general_empty_field": "Field can't be left empty.",
+        "error-general_empty_fields": "Please fill in all fields."
     },
     "auth": {
         "welcome-header": "What will you and your Friends do next?",
@@ -50,6 +59,11 @@
         "planning-header": "Plan something with your friends",
         "planning-button": "Make Plans",
         "planning-subheader": "Planned"
+    },
+    "friends": {
+        "friends-create_group": "Create Group",
+        "friends-subheader-recent_polls": "Most Recent Polls",
+        "friends-subheader-recent_groups": "Most Recent Groups"
     },
     "settings": {
         "settings-header": "Settings",

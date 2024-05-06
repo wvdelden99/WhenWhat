@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import {getAuth} from "firebase/auth";
+import { getAuth, initializeAuth} from "firebase/auth";
+import { collection, getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,4 +18,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Save User Login 1:02:00
+// export const initializeAuth(app, {
+//     persistence: getReactNativePersistence(AsyncStorage)
+// })
+
 export const auth = getAuth(app);
+
+export const db = getFirestore(app);
+export const userRef = collection(db, 'users');
+export const roomRef = collection(db, 'rooms');

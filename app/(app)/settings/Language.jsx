@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import i18n from '../../localization/i18next';
+import i18n from '../../../localization/i18next';
 import { View } from 'react-native';
 // Components
-import { LayoutSettings } from '../../components/layout/LayoutSettings';
-import { ButtonNavigate } from '../../components/button/ButtonNavigate';
-import { ButtonRadio } from '../../components/button/ButtonRadio';
+import { LayoutSettings } from '../../../components/layout/_layoutSettings';
+import { ButtonNavigateSettings } from '../../../components/button/ButtonNavigateSetttings';
+import { ButtonRadio } from '../../../components/button/ButtonRadio';
 
 
 export function LanguageApp() {
@@ -42,7 +42,7 @@ export function Language() {
         <LayoutSettings title={t('settings.language.language-header')}>
             <View className="my-8">
                 <View className="my-2 rounded-2xl py-2 bg-gray">
-                    <ButtonNavigate navigateLocation="AppLanguage"
+                    <ButtonNavigateSettings navigateLocation="AppLanguage"
                                     buttonTextStart={t('settings.language.app_language')}
                                     buttonTextEnd={t('Language')}/>
                 </View>

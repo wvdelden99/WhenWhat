@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { opacity } from '../../assets/styles/Styles';
 
 
-export function ButtonSubmit({handleUpdate, buttonText, formValidValue}) {
+export function ButtonSubmit({handleSubmit, buttonText, formValidValue}) {
 
     const [formValid, setFormValid] = useState(false);
     useEffect(() => {
@@ -11,10 +11,12 @@ export function ButtonSubmit({handleUpdate, buttonText, formValidValue}) {
     });
 
     return (
-        <TouchableOpacity onPress={handleUpdate} disabled={!formValid} activeOpacity={opacity.opacity900}>
-            <View className={`items-center rounded-2xl p-3 ${ formValid ? 'bg-primary' : 'bg-primary-disabled' }`}>
-                <Text className={`text-lg ${ formValid ? 'text-dark' : 'text-dark-disabled opacity-70' }`} style={{ fontFamily: 'Raleway_700Bold' }}>{buttonText}</Text>
-            </View>
-        </TouchableOpacity>
+        <View className="w-full">
+            <TouchableOpacity onPress={handleSubmit} disabled={!formValid} activeOpacity={opacity.opacity900}>
+                <View className={`items-center rounded-2xl p-3 w-full ${ formValid ? 'bg-primary' : 'bg-primary-disabled' }`}>
+                    <Text className={`text-lg ${ formValid ? 'text-dark' : 'text-dark-disabled opacity-70' }`} style={{ fontFamily: 'Raleway_700Bold' }}>{buttonText}</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
     )
 }

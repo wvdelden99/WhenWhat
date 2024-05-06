@@ -4,6 +4,7 @@ import { useFonts, Raleway_400Regular, Raleway_500Medium, Raleway_600SemiBold, R
 import { Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold, } from '@expo-google-fonts/poppins';
 // Components
 import { Navigation } from './components/navigation/Navigation';
+import { AuthContextProvider } from './config/auth/authContext';
 
 
 export default function App() {
@@ -28,6 +29,8 @@ export default function App() {
     }
 
     return (
-        <Navigation />
+        <AuthContextProvider>
+            <Navigation />
+        </AuthContextProvider>
     );
 }

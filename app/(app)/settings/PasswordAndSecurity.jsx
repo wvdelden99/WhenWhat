@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { auth } from '../../config/firebase';
+import { auth } from '../../../config/firebase';
 import { updatePassword } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 // Component
-import { LayoutSettings } from '../../components/layout/LayoutSettings';
-import { ButtonNavigate } from '../../components/button/ButtonNavigate';
-import { ButtonSubmit } from '../../components/button/ButtonSubmit';
-import { InputUpdate } from '../../components/form/InputUpdate';
+import { LayoutSettings } from '../../../components/layout/_layoutSettings';
+import { ButtonNavigateSettings } from '../../../components/button/ButtonNavigateSetttings';
+import { ButtonSubmit } from '../../../components/button/ButtonSubmit';
+import { InputUpdate } from '../../../components/form/InputUpdate';
 
 
 export function PasswordAndSecurityPassword() {
@@ -105,7 +105,7 @@ export function PasswordAndSecurity() {
                 <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.password_and_security.password')}</Text>
 
                 <View className="my-2 rounded-2xl py-2 bg-gray">
-                    <ButtonNavigate navigateLocation="Password"
+                    <ButtonNavigateSettings navigateLocation="Password"
                                     buttonTextStart={t('settings.password_and_security.password')}/>
                 </View>
             </View>

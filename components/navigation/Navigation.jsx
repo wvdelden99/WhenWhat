@@ -1,25 +1,33 @@
 import * as React from 'react';
-import useAuth from '../../config/auth/useAuth';
+import { useAuth } from '../../config/auth/authContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import { color, shadow } from '../../assets/styles/Styles';
 // Views
-import { Welcome } from '../../views/auth/Welcome';
-import { SignIn } from '../../views/auth/SignIn';
-import { SignUp } from '../../views/auth/SignUp';
+import { Welcome } from '../../app/Welcome';
+import { SignIn } from '../../app/SignIn';
+import { SignUp } from '../../app/SignUp';
+import { ForgotPassword } from '../../app/ForgotPassword';
+
+import { Friends } from '../../app/(app)/Friends';
+import { ChatRoom } from '../../app/(app)/Chat';
 
 import { Agenda } from '../../views/Agenda';
-import { Friends } from '../../views/Friends';
 import { Home } from './../../views/Home';
 import { Planning } from './../../views/Planning';
 
-import { User } from '../../views/User';
-import { Settings } from '../../views/settings/Settings';
-import { EditProfile, EditProfileUsername, EditProfileEmail, EditProfileDeleteAccount } from '../../views/settings/EditProfile'; 
-import { PasswordAndSecurity, PasswordAndSecurityPassword } from '../../views/settings/PasswordAndSecurity';
-import { Language, LanguageApp } from '../../views/settings/Language';
+import { User } from '../../app/(app)/User';
+import { Settings } from '../../app/(app)/settings/Settings';
+import { EditProfile, EditProfileUsername, EditProfileEmail, EditProfileDeleteAccount } from '../../app/(app)/settings/EditProfile'; 
+import { PasswordAndSecurity, PasswordAndSecurityPassword } from '../../app/(app)/settings/PasswordAndSecurity';
+import { Language, LanguageApp } from '../../app/(app)/settings/Language';
+
+
+import { HomeTest } from '../../app/(app)/Home';
+
+
 
 
 const Stack = createNativeStackNavigator();
@@ -27,6 +35,16 @@ const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
+const FriendsStack = createNativeStackNavigator();
+
+function FriendsNav() {
+    return (
+        <FriendsStack.Navigator screenOptions={{headerShown: false}}>
+            <FriendsStack.Screen name="Friends" component={Friends}></FriendsStack.Screen>
+            <FriendsStack.Screen name="Chat" component={ChatRoom}></FriendsStack.Screen>
+        </FriendsStack.Navigator>
+    )
+}
 
 function Profile() {
     return (
@@ -88,32 +106,37 @@ function Navbar() {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Agenda" component={Agenda} />
             <Tab.Screen name="Planning" component={Planning} />
-            <Tab.Screen name="Friends" component={Friends} />
+            <Tab.Screen name="Friends" component={FriendsNav} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     )
 }
 
 export function Navigation() {
-    const {user} = useAuth();
+    const { isAuthenticated } = useAuth();
 
-    if (user) {
-        return (
-            <NavigationContainer>
-                <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="Navbar" component={Navbar} />
-                </Stack.Navigator>
-            </NavigationContainer>
-        )
-    } else {
-        return (
-            <NavigationContainer>
-                <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="Welcome" component={Welcome}></Stack.Screen>
-                    <Stack.Screen name="SignIn" component={SignIn}></Stack.Screen>
-                    <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
-                </Stack.Navigator>
-            </NavigationContainer>
-        )
+    if (typeof isAuthenticated === 'undefined') {
+        // Return a loading indicator or null if the authentication status is still loading
+        return null;
     }
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+                {isAuthenticated ? (
+                    <>
+                        <Stack.Screen name="Navbar" component={Navbar} />
+                        <Stack.Screen name="ChatRoom" component={ChatRoom} />
+                    </>
+                ) : (
+                    <>
+                        <Stack.Screen name="Welcome" component={Welcome} />
+                        <Stack.Screen name="SignIn" component={SignIn} />
+                        <Stack.Screen name="SignUp" component={SignUp} />
+                        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+                    </>
+                )}
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
