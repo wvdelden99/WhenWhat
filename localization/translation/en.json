@@ -61,9 +61,14 @@
         "planning-subheader": "Planned"
     },
     "friends": {
-        "friends-create_group": "Create Group",
+        "friends-header": "Friends",
+        "friends-header-friend_list": "Friend List",
+        "friends-header-add_friends": "Add Friends",
         "friends-subheader-recent_polls": "Most Recent Polls",
-        "friends-subheader-recent_groups": "Most Recent Groups"
+        "friends-subheader-recent_groups": "Most Recent Groups",
+        "friends-subheader-request": "Friend Reqeusts",
+        "friends-create_group": "Create Group",
+        "friends-no_friend_groups": "Create a group to talk with friends"
     },
     "settings": {
         "settings-header": "Settings",

@@ -3,14 +3,18 @@ import { useAuth } from '../../config/auth/authContext';
 import { db, userRef } from '../../config/firebase';
 import { useTranslation } from 'react-i18next';
 import { collection, doc, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { color, opacity } from '../../assets/styles/Styles';
+import { FlatList, Image, Modal, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { blur, color, opacity } from '../../assets/styles/Styles';
 // Components
+import { LayoutBackgroundMedium } from '../../components/layout/_layoutBackgroundMedium';
 import { ButtonModal } from '../../components/button/ButtonModal';
 import { InputSearch } from '../../components/form/InputSearch';
 import { ItemPoll } from '../../components/content/ItemPoll';
 import { ItemChat } from '../../components/content/chat/ItemChat';
 import { getRoomId } from '../../auth/common';
+import { ItemFriendRequest } from '../../components/content/ItemFriendRequest';
+import { ItemFriend } from '../../components/content/ItemFriend';
+import { ItemUser } from '../../components/content/ItemUser';
 
 
 export function Friends() {
@@ -45,10 +49,34 @@ export function Friends() {
     // Polls
     const activityData = [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5}];
 
-    return (
-        <SafeAreaView className="flex-[1] bg-secondary-light">
-            <Image className="absolute bg-cover" source={require('./../../assets/static/images/image_background_01.png')}/>
+    // Modal Friend List
+    const [showFriendList, setShowFriendList] = useState(false);
+    const [friendRequest, setFriendRequest] = useState(true);
+    const [showFriendRequestList, setShowFriendRequestList] = useState(false);
 
+    const openFriendList = () => {
+        setShowFriendList(true);
+    }
+    const closeFriendList = () => {
+        setShowFriendList(false);
+    }
+
+    const handleFriendRequestList = () => {
+        setShowFriendRequestList(!showFriendRequestList);
+    }
+    
+    // Modal User List
+    const [showUserList, setShowUserList] = useState(false);
+
+    const openUserList = () => {
+        setShowUserList(true);
+    }
+    const closeUserList = () => {
+        setShowUserList(false);
+    }
+
+    return (
+        <LayoutBackgroundMedium>
             <View className="px-6">
                 <View className="flex-row justify-between my-6">
                     <TouchableOpacity activeOpacity={opacity.opacity900}>
@@ -58,7 +86,9 @@ export function Friends() {
                         </View>
                     </TouchableOpacity>
 
-                    <ButtonModal buttonIcon={require('./../../assets/static/icons/icon_users_01.png')}/>
+                    <ButtonModal buttonPress={openFriendList}
+                                buttonIcon={require('./../../assets/static/icons/icon_users_01.png')}
+                                buttonNotification/>
                 </View>
 
                 <View className="mb-6">
@@ -74,25 +104,115 @@ export function Friends() {
             </View>
 
             <View className="flex-[1] -mb-10 rounded-t-3xl px-6 h-full bg-white">
-                <Text className="mt-8 text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_groups')}</Text>
-
-                <View className="my-2">
-                    <InputSearch placeholderText={t('components.search')}/>
+                <View className="mt-8 mb-2">
+                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_groups')}</Text>
                 </View>
 
-                { users.length > 0 ? (
-                        <FlatList className="flex-[1] -mr-4 h-full"
-                                data={users}
-                                // keyExtractor={item=> Math.random()}
-                                showsVerticalScrollIndicator={false}
-                                renderItem={({item, index})=> <ItemChat item={item} currentUser={user} index={index}/>}
-                        />           
-                    ) : (
-                        <View className="">
-                            <Text>Fail</Text>
-                        </View>
-                )}
+                <InputSearch placeholderText={t('components.search')}/>
+
+                { users.length > 0 ? 
+                    <FlatList className="flex-[1] -mr-4 h-full"
+                            data={users}
+                            // keyExtractor={item=> Math.random()}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({item, index})=> <ItemChat item={item} currentUser={user} index={index}/>}
+                    />           
+                    : 
+                    <View className="items-center justify-center h-2/5">
+                        <Text className="text-base text-dark opacity-50" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-no_friend_groups')}</Text>
+                    </View>
+                }
             </View>
-        </SafeAreaView>
+
+            <Modal visible={showFriendList}
+                    animationType="fade-up">
+                <SafeAreaView className="flex-[1]">
+                    <StatusBar barStyle="dark-content"/>
+
+                    <View className="flex-row justify-between items-center my-4 px-6">
+                        <TouchableOpacity onPress={closeFriendList} activeOpacity={opacity.opacity600}>
+                             <Image className="w-9 h-9" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
+                        </TouchableOpacity>
+
+                        <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('friends.friends-header-friend_list')}</Text>
+
+                        <TouchableOpacity onPress={openUserList} activeOpacity={opacity.opacity600}>
+                            <Image className="w-6 h-6" source={require('./../../assets/static/icons/icon_add_user_01.png')}/>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View className="px-6">
+                        <InputSearch placeholderText={t('components.search')}/>
+
+                        { friendRequest ?
+                            <View className="mt-4">
+                                <View className="flex-row justify-between items-center">
+                                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-request')}</Text>
+                                    
+                                    <View className="flex-row items-center">
+                                        <View className={`flex-row items-center gap-1 mr-2 ${ showFriendRequestList ? '' : 'hidden' }`}>
+                                            <Text className="text-sm text-dark opacity-80" style={{ fontFamily: 'Poppins_600SemiBold' }}>99+</Text>
+                                            <View className="rounded-full w-3 h-3 bg-primary"></View>
+                                        </View>
+                                        <TouchableOpacity onPress={handleFriendRequestList} activeOpacity={opacity.opacity600}>
+                                            <Image className={`w-7 h-7 opacity-50 ${ showFriendRequestList ? '' : 'rotate-180'}`}  source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                
+                                <View className={`mt-1 ${showFriendRequestList ? 'hidden' : ''}`}>
+                                    <ItemFriendRequest />
+                                    <ItemFriendRequest />
+                                </View>
+                            </View>
+                            :
+                            <></>
+                        }
+
+                        <View className="my-4">
+                            { friendRequest ?
+                                <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-header')}</Text>
+                                :
+                                <></>
+                            }
+
+                           <ItemFriend />
+                           <ItemFriend />
+                           <ItemFriend />
+                           <ItemFriend />
+                           <ItemFriend />
+                           <ItemFriend />
+                           <ItemFriend />
+                        </View>
+                    </View>
+                </SafeAreaView>
+
+                <Modal visible={showUserList}
+                        animationType='fade-up'>
+                    <SafeAreaView className="flex-[1]">
+                        <View className="flex-row justify-between items-center my-4 px-6">
+                            <TouchableOpacity onPress={closeUserList} activeOpacity={opacity.opacity600}>
+                                <Image className="w-9 h-9" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
+                            </TouchableOpacity>
+
+                            <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-header-add_friends')}</Text>
+
+                            <TouchableOpacity>
+                                <Image />
+                            </TouchableOpacity>
+                        </View>
+
+                        <View className="px-6">
+                            <InputSearch placeholderText={t('components.search')}/>
+
+                            <FlatList className="my-2"
+                                    data={users}
+                                    keyExtractor={(item) => item.userId}
+                                    renderItem={({ item }) => (<ItemUser buttonPress={{}} item={item} users={users}/>)}/>
+                        </View>
+                    </SafeAreaView>
+                </Modal>
+            </Modal>
+        </LayoutBackgroundMedium>
     )
 }

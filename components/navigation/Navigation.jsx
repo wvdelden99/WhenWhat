@@ -76,7 +76,7 @@ function Navbar() {
                         iconComponent = require('./../../assets/static/icons/icon_calendar_01.png');
                     } else if (route.name === 'Planning') {
                         iconComponent = require('./../../assets/static/icons/icon_clock_01.png');
-                    } else if (route.name === 'Friends') {
+                    } else if (route.name === 'FriendsNav') {
                         iconComponent = require('./../../assets/static/icons/icon_users_01.png');
                     } else if (route.name === 'Profile') {
                         iconComponent = require('./../../assets/static/icons/icon_user_01.png');
@@ -106,7 +106,7 @@ function Navbar() {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Agenda" component={Agenda} />
             <Tab.Screen name="Planning" component={Planning} />
-            <Tab.Screen name="Friends" component={FriendsNav} />
+            <Tab.Screen name="FriendsNav" component={FriendsNav} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     )
