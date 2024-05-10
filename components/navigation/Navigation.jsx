@@ -15,12 +15,25 @@ import { Agenda } from './../../app/(app)/Agenda';
 import { Planning } from './../../app/(app)/Planning';
 import { Friends } from './../../app/(app)/Friends';
 
+import { User } from '../../app/(app)/User';
 import { Settings } from './../../app/(app)/settings/Settings';
 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const ProfileStack = createStackNavigator();
+const SettingsStack = createStackNavigator();
+
+
+function Profile() {
+    return (
+        <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+            <ProfileStack.Screen name="User" component={User}></ProfileStack.Screen>
+            <ProfileStack.Screen name="Settings" component={Settings}></ProfileStack.Screen>
+        </ProfileStack.Navigator>
+    )
+}
 
 function Navbar() {
     return (
@@ -36,7 +49,7 @@ function Navbar() {
                     iconComponent = require('./../../assets/static/icons/icon_clock_01.png');
                 } else if (route.name === 'Friends') {
                     iconComponent = require('./../../assets/static/icons/icon_users_01.png');
-                } else if (route.name === 'Settings') {
+                } else if (route.name === 'Profile') {
                     iconComponent = require('./../../assets/static/icons/icon_user_01.png');
                 }
 
@@ -65,7 +78,7 @@ function Navbar() {
             <Tab.Screen name="Agenda" component={Agenda}></Tab.Screen>
             <Tab.Screen name="Planning" component={Planning}></Tab.Screen>
             <Tab.Screen name="Friends" component={Friends}></Tab.Screen>
-            <Tab.Screen name="Settings" component={Settings}></Tab.Screen>
+            <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
         </Tab.Navigator>
     )
 }

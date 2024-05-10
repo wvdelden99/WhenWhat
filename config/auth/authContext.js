@@ -227,8 +227,19 @@ export const AuthContextProvider = ({children}) => {
         }
     };
 
+    // Update Profile Photo
+    const updateProfilePhoto = async (userId, photoUrl) => {
+        try {
+            const userDocRef = doc(db, 'users', userId);
+            await updateDoc(userDocRef, { photoUrl });
+            console.log('Profile photo updated successfully');
+        } catch (error) {
+            console.error('Error updating profile photo:', error);
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, updateUserEmail, updateUsername, deleteAccount}}>
+        <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, updateUserEmail, updateUsername, deleteAccount, updateProfilePhoto}}>
             {children}
         </AuthContext.Provider>
     )

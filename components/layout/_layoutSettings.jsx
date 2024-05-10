@@ -1,4 +1,6 @@
 import { Image, Text, SafeAreaView, StatusBar, View } from 'react-native';
+// Components
+import { ButtonBack } from '../button/ButtonBack';
 
 
 export function LayoutSettings({title, children}) {
@@ -8,7 +10,11 @@ export function LayoutSettings({title, children}) {
             <Image className="absolute bg-cover" source={require('./../../assets/static/images/image_background_03.png')}/>
 
             <View className="flex-row items-center my-6">
-                <Text className="text-xl text-dark">{title}</Text>
+                <ButtonBack />
+
+                <View className="flex-[1] items-center">
+                    <Text className="text-2xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{title}</Text>
+                </View>
             </View>
 
             <View className="rounded-3xl px-6 h-full bg-white">
