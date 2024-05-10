@@ -1,9 +1,13 @@
+import { useAuth } from '../../config/auth/authContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import { color, shadow } from './../../assets/styles/Styles'
 // Views
+import { Welcome } from '../../app/Welcome';
+import { SignIn } from './../../app/SignIn';
+
 import { Home } from './../../app/(app)/Home';
 import { Agenda } from './../../app/(app)/Agenda';
 import { Planning } from './../../app/(app)/Planning';
@@ -65,10 +69,26 @@ function Navbar() {
 }
 
 export function Navigation() {
+    const { isAuthenticated } = useAuth();
+
+    if (typeof isAuthenticated === 'undefined') {
+        // Return a loading indicator or null if the authentication status is still loading
+        return null;
+    }
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
+            {isAuthenticated ? (
+                    <>
                 <Stack.Screen name="Navbar" component={Navbar}></Stack.Screen>
+                </>
+            ) : (
+                <>
+                <Stack.Screen name="Welcome" component={Welcome}></Stack.Screen>
+                <Stack.Screen name="SignIn" component={SignIn}></Stack.Screen>
+                </>
+            )}
             </Stack.Navigator>
         </NavigationContainer>
     )
