@@ -7,6 +7,8 @@ import { color, shadow } from './../../assets/styles/Styles'
 // Views
 import { Welcome } from '../../app/Welcome';
 import { SignIn } from './../../app/SignIn';
+import { SignUp } from './../../app/SignUp';
+import { ForgotPassword } from '../../app/ForgotPassword';
 
 import { Home } from './../../app/(app)/Home';
 import { Agenda } from './../../app/(app)/Agenda';
@@ -80,13 +82,15 @@ export function Navigation() {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
             {isAuthenticated ? (
-                    <>
-                <Stack.Screen name="Navbar" component={Navbar}></Stack.Screen>
+                <>
+                    <Stack.Screen name="Navbar" component={Navbar}></Stack.Screen>
                 </>
             ) : (
                 <>
-                <Stack.Screen name="Welcome" component={Welcome}></Stack.Screen>
-                <Stack.Screen name="SignIn" component={SignIn}></Stack.Screen>
+                    <Stack.Screen name="Welcome" component={Welcome}></Stack.Screen>
+                    <Stack.Screen name="SignIn" component={SignIn}></Stack.Screen>
+                    <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
+                    <Stack.Screen name="ForgotPassword" component={ForgotPassword}></Stack.Screen>
                 </>
             )}
             </Stack.Navigator>
