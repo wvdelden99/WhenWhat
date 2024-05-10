@@ -9,18 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/raleway": "^0.2.3",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
     "expo": "^51.0.1",
+    "expo-font": "~12.0.4",
     "expo-status-bar": "~1.12.1",
     "firebase": "^10.11.1",
     "i18next": "^23.11.4",
+    "lottie-react-native": "6.7.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-i18next": "^14.1.1",
-    "react-native": "0.74.1",
-    "lottie-react-native": "6.7.0"
+    "react-native": "0.74.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
