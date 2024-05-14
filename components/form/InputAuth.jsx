@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { color, opacity } from '../../assets/styles/Styles';
+import { color, opacity, shadow } from '../../assets/styles/Styles';
 
 
 export function InputAuth({focusArea, onChangeText, placeholderText, inputIcon, visibleIcon, visibleValue, setVisibleValue, errorForm, errorText}) {
@@ -30,7 +30,7 @@ export function InputAuth({focusArea, onChangeText, placeholderText, inputIcon, 
     return (
         <View className="my-2">
             <TouchableOpacity onPress={() => focusInput({focusArea})} activeOpacity={opacity.opacity900}>
-                <View className={`flex-row items-center rounded-2xl py-4 px-4 bg-white ${ errorForm ? 'border-2 border-error' : ''}`}>
+                <View className={`flex-row items-center rounded-2xl py-4 px-4 bg-white ${ errorForm ? 'border-2 border-error' : ''}`} style={{ ... shadow.shadowInput }}>
                     <Image className={`ml-1 mr-3 w-6 h-6 ${ errorForm ? 'opacity-80' : 'opacity-50' }`} style={{ tintColor: errorForm ? color.errorColor : color.darkColor }} source={inputIcon} />
                     <TextInput className={`flex-[1] -mt-1 min-h-[32px] text-base text-dark ${  visibleIcon ? 'pr-3' : '' }`} style={{ fontFamily: 'Raleway_600SemiBold' }}
                                 ref={(ref) => { inputRefs.current[{focusArea}] = ref; }}

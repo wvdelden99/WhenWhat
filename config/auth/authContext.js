@@ -4,34 +4,20 @@ import { createUserWithEmailAndPassword, deleteUser,onAuthStateChanged, signInWi
 import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
+
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
     const { t } = useTranslation();
 
-
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(undefined);
-
-    // useEffect(() => {
-    //     const unsub = onAuthStateChanged(auth, (user) => {
-    //         if(user) {
-    //             setIsAuthenticated(true);
-    //             setUser(user)
-    //             updateUserData(user.uid);
-    //         } else {
-    //             setIsAuthenticated(false);
-    //             setUser(null)
-    //         }
-    //     });
-    //     return unsub;
-    // },[]);
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 setIsAuthenticated(true);
-                await updateUserData(user.uid); // Wait for user data to be fetched
+                await updateUserData(user.uid);
             } else {
                 setIsAuthenticated(false);
                 setUser(null);
@@ -47,9 +33,8 @@ export const AuthContextProvider = ({children}) => {
         if (docSnap.exists()) {
             let data = docSnap.data();
             setUser({ ...user, username: data.username, userId: data.userId });
-            console.log('success');
         } else {
-            console.log("User document not found.");
+            console.log("User data not found.");
         }
     }
     
@@ -78,8 +63,10 @@ export const AuthContextProvider = ({children}) => {
     const logout = async () => {
         try {
             await signOut(auth);
+            setIsAuthenticated(false); 
             return {succes: true}
         } catch(error) {
+            console.log('Logout error:', error.message);
             return {succes: false, msg: error.messsage, error: error}
         }
     }
@@ -227,19 +214,9 @@ export const AuthContextProvider = ({children}) => {
         }
     };
 
-    // Update Profile Photo
-    const updateProfilePhoto = async (userId, photoUrl) => {
-        try {
-            const userDocRef = doc(db, 'users', userId);
-            await updateDoc(userDocRef, { photoUrl });
-            console.log('Profile photo updated successfully');
-        } catch (error) {
-            console.error('Error updating profile photo:', error);
-        }
-    };
 
     return (
-        <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, updateUserEmail, updateUsername, deleteAccount, updateProfilePhoto}}>
+        <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, updateUserEmail, updateUsername, deleteAccount}}>
             {children}
         </AuthContext.Provider>
     )

@@ -17,8 +17,35 @@ export const opacity = {
 }
 
 export const shadow = {
+    shadowButton: {
+        shadowColor: color.darkColor,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 1,
+    },
+    shadowItem: {
+        shadowColor: color.darkColor,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 1,
+    },
+    shadowInput: {
+        shadowColor: color.darkColor,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 1,
+    },
     shadowNavbar: {
-        shadowColor: "#212427",
+        shadowColor: color.darkColor,
         shadowOffset: {
             width: 0,
             height: 0,
@@ -27,3 +54,7 @@ export const shadow = {
         shadowRadius: 3,
     }
 };
+
+export const blur = {
+    blurBackground: "rgba(255, 255, 255, 0.75)",
+}

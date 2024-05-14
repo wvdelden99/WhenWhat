@@ -1,94 +1,54 @@
+import { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { useState, useEffect } from 'react';
-import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { db } from '../../config/firebase';
+import { color, opacity } from '../../assets/styles/Styles';
+import { doc, getDoc } from 'firebase/firestore';
 
-export function ItemFriendRequest({ request, currentUser, onDecline, onAccept }) {
-    const [senderUsername, setSenderUsername] = useState('');
 
-    useEffect(() => {
-        const fetchSenderUsername = async () => {
-            try {
-                if (!request || !currentUser) {
-                    console.error('Request or current user not available');
-                    return;
-                }
+export function ItemFriendRequest({item, currentUserData, usersData}) {
 
-                const userDocRef = doc(db, 'users', request);
-                const docSnap = await getDoc(userDocRef);
-                if (docSnap.exists()) {
-                    const userData = docSnap.data();
-                    setSenderUsername(userData.username);
-                } else {
-                    console.error('Sender user document not found');
-                }
-            } catch (error) {
-                console.error('Error fetching sender username:', error);
-            }
-        };
 
-        fetchSenderUsername();
-    }, [request, currentUser]);
+    // Accept Friend Request
+    // const acceptRequest = async (username) => {
+    //     const friendRequestData = usersData.find(user => user.username === username);
+        
+    //     const updatedFriends = arrayUnion(friendRequestData.userId);
+    //     await updateDoc(doc(userRef, user.userId), { friends: updatedFriends });
 
-    const declineFriendRequest = async () => {
-        try {
-            if (!currentUser || !currentUser.userId || !Array.isArray(currentUser.friendRequests)) {
-                console.error('Current user or friend requests not available or invalid');
-                return;
-            }
+    //     const updatedFriendRequests = currentUserData.friendRequests.filter(requestUsername => requestUsername !== username);
+    //     await updateDoc(doc(userRef, user.userId), { friendRequests: updatedFriendRequests });
 
-            const userDocRef = doc(db, 'users', currentUser.userId);
-            const updatedFriendRequests = currentUser.friendRequests.filter(id => id !== request);
-            await updateDoc(userDocRef, {
-                friendRequests: updatedFriendRequests
-            });
-            console.log('Friend request declined from', senderUsername);
+    //     // Update state to reflect changes
+    //     setFriendRequests(updatedFriendRequests);
+    //     setFriendsData(friendsData);
+    // }
 
-            // Call the callback to update the state in the parent component
-            onDecline(updatedFriendRequests);
-        } catch (error) {
-            console.error('Error declining friend request:', error);
-        }
-    };
 
-    const acceptFriendRequest = async () => {
-        try {
-            if (!currentUser || !currentUser.userId || !Array.isArray(currentUser.friendRequests)) {
-                console.error('Current user or friend requests not available or invalid');
-                return;
-            }
+    // Decline Friend Request
+    const declineRequest = async (username) => {
+        const friendRequestData = usersData.find(user => user.username === username);
+        const updatedFriendRequests = currentUserData.friendRequests.filter(userId => userId !== friendRequestData.userId);
+        await updateDoc(doc(userRef, user.userId), { friendRequests: updatedFriendRequests });
 
-            const userDocRef = doc(db, 'users', currentUser.userId);
-            const updatedFriendRequests = currentUser.friendRequests.filter(id => id !== request);
-
-            // Add sender to the current user's friend list
-            await updateDoc(userDocRef, {
-                friendRequests: updatedFriendRequests,
-                friends: arrayUnion(request)
-            });
-            console.log('Friend request accepted from', senderUsername);
-
-            // Call the callback to update the state in the parent component
-            onAccept(updatedFriendRequests);
-        } catch (error) {
-            console.error('Error accepting friend request:', error);
-        }
-    };
+        setFriendRequests(updatedFriendRequests);
+    }
 
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 10 }}>
-            <View style={{ alignItems: 'center', gap: 10 }}>
-                <Image style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: 'gray' }} />
-                <Text style={{ fontSize: 16, fontFamily: 'Raleway_600SemiBold' }}>Friend Request from {senderUsername || 'Unknown User'}</Text>
+        <View className="flex-row justify-between items-center my-2">
+            <View className="flex-row items-center gap-3">
+                <View className="rounded-full w-12 h-12 bg-secondary">
+
+                </View>
+                <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{item}</Text>
             </View>
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-                <TouchableOpacity onPress={declineFriendRequest}>
-                    <Text>Decline</Text>
+
+            <View className="flex-row items-center gap-3">
+                <TouchableOpacity onPress={() => declineRequest(item)} activeOpacity={opacity.opacity600}>
+                    <Image className="w-5 h-5" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_check_01.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={acceptFriendRequest}>
-                    <Text>Accept</Text>
+                <TouchableOpacity onPress={() => acceptRequest(item)}>
+                    <Image className="w-7 h-7" style={{ tintColor: color.errorColor }} source={require('./../../assets/static/icons/icon_cross_02.png')}/>
                 </TouchableOpacity>
             </View>
         </View>
-    );
+    )
 }

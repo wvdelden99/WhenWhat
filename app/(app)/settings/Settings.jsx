@@ -1,5 +1,4 @@
-import { signOut } from 'firebase/auth';
-import { auth } from '../../../config/firebase';
+import { useAuth } from '../../../config/auth/authContext';
 import { useTranslation } from 'react-i18next';
 import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 // Components
@@ -10,10 +9,8 @@ import { ButtonNavigateSettings } from '../../../components/button/ButtonNavigat
 export function Settings() {
     const { t } = useTranslation();
 
-//     const {logout} = useAuth();
-// const handleLogout = async () => {
-//     await logout();
-// }
+    const {logout, auth} = useAuth();
+
 
     return (
         <LayoutSettings title={t('settings.settings-header')}>
@@ -87,7 +84,7 @@ export function Settings() {
                     <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.settings-subheader-login')}</Text>
 
                     <View className="my-2 rounded-xl py-2 bg-gray">
-                        <ButtonNavigateSettings handleLogout={async () => await signOut(auth)}
+                        <ButtonNavigateSettings handleLogout={async () => await logout(auth)}
                                         buttonTextStart={t('settings.logout')} 
                                         buttonIcon={require('./../../../assets/static/icons/icon_logout_01.png')}/>
                     </View>
