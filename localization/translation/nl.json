@@ -3,29 +3,35 @@
 
     "components": {
         "search": "Zoek ...",
-        "update": {
-            "save": "Opslaan"
+        "button": {
+            "update": {
+                "save": "Opslaan"
+            }
+        },
+        "form": {
+            "auth": {
+                "username": "Gebruikersnaam",
+                "email": "Email",
+                "password": "Wachtwoord",
+                "password-confirmation": "Wachtwoord bevestigen"
+            }
         }
     },
     "error": {
         "error-username_in_use": "Gebruikersnaam word al gebruikt.",
+        "error-username_too_short": "Gebruikersnaam moeten minimaal 6 karakters lang zijn.",
         "error-email_invalid": "Ongeldig e-mailadres.",
         "error-email_in_use": "Email word al gebruikt.",
-        "error-password_weak": "Wachtwoord minimaal 6 karakters lang zijn.",
-        "error-password_not_match": "Wactwoorden komen niet overeen",
+        "error-password_weak": "Wachtwoord moet minimaal 6 karakters lang zijn.",
+        "error-password_not_match": "Wachtwoorden komen niet overeen.",
+        "error-signin_failed": "Ongeldig e-mailadres of wachtwoord.",
         "error-general": "Er ging iets mis.",
-        "error-general_empty_field": "Veld kan niet leeg gelaten worden",
-        "error-general_empty_fields": "Vul alle velden in.",
-        "error-login": "Ongeldig e-mailadres of wachtwoord"
+        "error-general_empty_field": "Veld kan niet leeg gelaten worden.",
+        "error-general_empty_fields": "Vul alle velden in."
     },
     "auth": {
-        "welcome-header": "What will You and your Friends do next?",
-        "welcome-subheader": "Its time to hangout",
-        "input-name": "Naam",
-        "input-username": "Gebruikersnaam",
-        "input-email": "Email",
-        "input-password": "Wachtwoord",
-        "input-password_confirm": "Bevestig Wachtwoord",
+        "welcome-header": "What will you and your Friends do next?",
+        "welcome-subheader": "Its time to hang out!",
         "signin": {
             "signin-header": "Inloggen",
             "signin-header-alt": "Aanmelden",
@@ -48,6 +54,15 @@
         "planning-header": "Plan iets met je vrienden",
         "planning-button": "Maak Plannen",
         "planning-subheader": "Gepland"
+    },
+    "friends": {
+        "friends-header-friend_list": "Vrienden",
+        "friends-header-add_friends": "Vrienden Toevoegen",
+        "friends-subheader-recent_polls": "Most Recent Polls",
+        "friends-subheader-recent_groups": "Most Recent Groups",
+        "friends-subheader-requests": "Friend Reqeusts",
+        "friends-create_group": "Create Group",
+        "friends-no_friend_groups": "Create a group to talk with friends"
     },
     "settings": {
         "settings-header": "Instellingen",

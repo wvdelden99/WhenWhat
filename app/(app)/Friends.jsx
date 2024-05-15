@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../config/auth/authContext';
-import { arrayRemove, arrayUnion, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { userRef } from '../../config/firebase';
+import { useTranslation } from 'react-i18next';
 import { FlatList, Image, Modal, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 // Components
 import { LayoutBackgroundMedium } from '../../components/layout/_layoutBackgroundMedium';
@@ -13,6 +14,7 @@ import { LoadingAnimationSecondary } from '../../components/animations/LoadingAn
 
 
 export function Friends() {
+    const { t } = useTranslation();
     const { user } = useAuth();
 
     const [loading, setLoading] = useState(false);
@@ -192,7 +194,7 @@ const removeFriend = async (username) => {
                             <Image className="w-10 h-10" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
                         </TouchableOpacity>
 
-                        <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Friends</Text>
+                        <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('friends.friends-header-friend_list')}</Text>
 
                         <TouchableOpacity onPress={openUsersList} activeOpacity={opacity.opacity600}>
                             <Image className="w-6 h-6" source={require('./../../assets/static/icons/icon_add_user_01.png')}/>
@@ -200,11 +202,11 @@ const removeFriend = async (username) => {
                     </View>
 
                     <View className="px-6">
-                        <InputSearch />
+                        <InputSearch placeholderText={t('components.search')}/>
 
                         {friendRequests.length > 0 &&
                         <View className="mt-4">
-                            <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>Friend Requests</Text>
+                            <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-requests')}</Text>
 
                             <FlatList className="my-2"
                                         scrollEnabled={false}
@@ -279,13 +281,13 @@ const removeFriend = async (username) => {
                                 <Image className="w-10 h-10" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
                             </TouchableOpacity>
 
-                            <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>Add Friends</Text>
+                            <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Add Friends</Text>
 
                             <View className="w-6 h-6"></View>
                         </View>
 
                         <View className="px-6">
-                            <InputSearch />
+                            <InputSearch placeholderText={t('components.search')}/>
 
                             <FlatList className="mt-4"
                                     data={usersListData}

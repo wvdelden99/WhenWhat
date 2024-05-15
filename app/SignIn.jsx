@@ -54,16 +54,6 @@ export function SignIn() {
             return;
         }
     };
-    //     if (!response || !response.success) {
-    //         if (response.errorCode === 'signin_failed') {
-    //             setLoginError(response.msg);
-    //         } else {
-    //             setGeneralError(response.msg || t('error.error-general'));
-    //         }
-    //         setLoading(false);
-    //         return;
-    //     }
-    // };
 
     return (
         <LayoutAuth imageLogo>
