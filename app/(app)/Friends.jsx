@@ -11,6 +11,7 @@ import { ItemUser } from '../../components/content/ItemUser';
 import { color, opacity } from '../../assets/styles/Styles';
 import { InputSearch } from '../../components/form/InputSearch';
 import { LoadingAnimationSecondary } from '../../components/animations/LoadingAnimationSecondary';
+import { ItemPoll } from '../../components/content/ItemPoll';
 
 
 export function Friends() {
@@ -168,21 +169,46 @@ const removeFriend = async (username) => {
         setShowUsersList(false);
     }
 
+    // Polls
+    const activityData = [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5}];
+
 
     return (
         <LayoutBackgroundMedium>
             <View className="my-6 px-6">
-                <View className="flex-row justify-between items-center">
-                    <TouchableOpacity>
-
+                <View className="flex-row justify-between items-center mb-6">
+                    <TouchableOpacity activeOpacity={opacity.opacity900}>
+                        <View className="flex-row items-center rounded-lg py-3 px-4 bg-primary">
+                            <Image className="mr-1 w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_add_users_01.png')}/>
+                            <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('friends.friends-create_group')}</Text>
+                        </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={openFriendList} activeOpacity={opacity.opacity800}>
                         <View className="rounded-md p-3 bg-white">
-                            <Image className="w-6 h-6" source={require('./../../assets/static/icons/icon_users_01.png')}/>
+                            <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_users_01.png')}/>
                         </View>
                     </TouchableOpacity>
                 </View>
+
+                <View className="mb-6">
+                    <Text className="text-lg text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_polls')}</Text>
+
+                    <FlatList className="mt-3 -mr-6"
+                            data={activityData}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => <ItemPoll post={item} />}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal />
+                </View>
+            </View>
+
+            <View className="flex-[1] -mb-10 rounded-t-3xl px-6 h-full bg-white">
+                <View className="mt-8 mb-2">
+                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_groups')}</Text>
+                </View>
+
+                <InputSearch placeholderText={t('components.search')}/>
             </View>
 
             <Modal visible={showFriendList}
@@ -191,13 +217,13 @@ const removeFriend = async (username) => {
                     <StatusBar barStyle="dark-content"/>
                     <View className="flex-row justify-between items-center my-4 px-6">
                         <TouchableOpacity onPress={closeFriendList} activeOpacity={opacity.opacity600}>
-                            <Image className="w-10 h-10" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
+                            <Image className="w-10 h-10" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
                         </TouchableOpacity>
 
                         <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('friends.friends-header-friend_list')}</Text>
 
                         <TouchableOpacity onPress={openUsersList} activeOpacity={opacity.opacity600}>
-                            <Image className="w-6 h-6" source={require('./../../assets/static/icons/icon_add_user_01.png')}/>
+                            <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_add_user_01.png')}/>
                         </TouchableOpacity>
                     </View>
 
@@ -278,7 +304,7 @@ const removeFriend = async (username) => {
 
                         <View className="flex-row justify-between items-center my-4 px-6">
                             <TouchableOpacity onPress={closeUsersList}>
-                                <Image className="w-10 h-10" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
+                                <Image className="w-10 h-10" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
                             </TouchableOpacity>
 
                             <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Add Friends</Text>

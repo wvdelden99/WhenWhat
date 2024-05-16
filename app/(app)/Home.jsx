@@ -1,12 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import { Image, Text, View } from 'react-native';
+import { FlatList, Image, Text, View } from 'react-native';
 import { color } from '../../assets/styles/Styles';
 // Components
 import { LayoutBackgroundBig } from '../../components/layout/_layoutBackgroundBig';
+import { ItemActivityCarousel } from './../../components/content/ItemActivityCarousel';
 
 
 export function Home() {
     const { t } = useTranslation();
+
+    const activityData = [
+        { id: '1', title: 'Activity 1' },
+        { id: '2', title: 'Activity 2' },
+        { id: '3', title: 'Activity 3' },
+    ];
 
     return (
         <LayoutBackgroundBig>
@@ -52,6 +59,20 @@ export function Home() {
                     </View>
                 </View>
 
+                <View className="my-6 px-6">
+                    <View className="">
+                        <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('home.for_you-activities')}</Text>
+                    </View>
+
+                    <View className="my-4 -mr-6">
+                        <FlatList className=""
+                                data={activityData}
+                                keyExtractor={item => item.id}
+                                renderItem={({ item }) => <ItemActivityCarousel post={item} />}
+                                showsHorizontalScrollIndicator={false}
+                                horizontal />
+                    </View>
+                </View>
             </View>
         </LayoutBackgroundBig>
     )
