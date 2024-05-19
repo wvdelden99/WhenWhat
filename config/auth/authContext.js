@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth, db } from '../firebase';
-import { createUserWithEmailAndPassword, deleteUser,onAuthStateChanged, signInWithEmailAndPassword, updateEmail, signOut } from 'firebase/auth';
-import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { auth, db, userRef } from '../firebase';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateEmail, signOut, deleteUser, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
+import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
 
@@ -17,6 +17,7 @@ export const AuthContextProvider = ({children}) => {
         const unsub = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 setIsAuthenticated(true);
+                await fetchCurrentUserData(user.uid);
                 await updateUserData(user.uid);
             } else {
                 setIsAuthenticated(false);
@@ -25,9 +26,22 @@ export const AuthContextProvider = ({children}) => {
         });
         return unsub;
     },[]);
+
     
+    // Fetch Current User
+    const fetchCurrentUserData = async (userId) => {
+        const userDocRef = doc(userRef, userId);
+        const docSnap = await getDoc(userDocRef);
+        if (docSnap.exists()) {
+            setUser({ ...docSnap.data(), userId });
+        } else {
+            console.log("User data not found.");
+        }
+    };
+
+    // Update User
     const updateUserData = async (userId) => {
-        const docRef = doc(db, 'users', userId);
+        const docRef = doc(userRef, userId);
         const docSnap = await getDoc(docRef);
     
         if (docSnap.exists()) {
@@ -64,6 +78,7 @@ export const AuthContextProvider = ({children}) => {
         try {
             await signOut(auth);
             setIsAuthenticated(false); 
+            setUser(null);
             return {succes: true}
         } catch(error) {
             console.log('Logout error:', error.message);
@@ -178,7 +193,7 @@ export const AuthContextProvider = ({children}) => {
 
             const userDocRef = doc(db, 'users', user.uid);
             await updateDoc(userDocRef, { username: newUsername }); 
-            return { success: true };
+            return { success: true, updateUsername: newUsername };
 
         } catch (error) {
             let errorCode = "";
@@ -195,28 +210,32 @@ export const AuthContextProvider = ({children}) => {
         }
     };
 
-    // Delete Accounnt
+    // Delete Account
     const deleteAccount = async () => {
         try {
             const user = auth.currentUser;
             if (!user) {
                 throw new Error('User not authenticated');
             }
-            
+    
+            const userId = user.uid;
+            const userDocRef = doc(db, 'users', userId);
+            await deleteDoc(userDocRef);
             await deleteUser(user);
+    
             return { success: true };
-
         } catch (error) {
+            console.log("Error deleting account:", error);
             let errorCode = "";
-            let errorMessage = (t('error.error-general'));
-            console.log(error)
+            let errorMessage = t('error.error-general');
+
             return { success: false, errorCode, message: errorMessage };
         }
     };
-
+    
 
     return (
-        <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, updateUserEmail, updateUsername, deleteAccount}}>
+        <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, updateUserEmail, updateUsername, deleteAccount, fetchCurrentUserData}}>
             {children}
         </AuthContext.Provider>
     )

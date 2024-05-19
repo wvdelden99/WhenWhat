@@ -9,8 +9,10 @@ import { ButtonNavigateSettings } from '../../../components/button/ButtonNavigat
 export function Settings() {
     const { t } = useTranslation();
 
-    const {logout, auth} = useAuth();
-
+    const {logout} = useAuth();
+    const handleSignOut = async () => {
+        await logout();
+    }
 
     return (
         <LayoutSettings title={t('settings.settings-header')}>
@@ -84,7 +86,7 @@ export function Settings() {
                     <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.settings-subheader-login')}</Text>
 
                     <View className="my-2 rounded-xl py-2 bg-gray">
-                        <ButtonNavigateSettings handleLogout={async () => await logout(auth)}
+                        <ButtonNavigateSettings handleLogout={handleSignOut}
                                         buttonTextStart={t('settings.logout')} 
                                         buttonIcon={require('./../../../assets/static/icons/icon_logout_01.png')}/>
                     </View>

@@ -57,7 +57,12 @@ export function User() {
                     </View>
 
                     <View className="my-2">
-                        <Text className="text-base text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>@{user.username}</Text>
+                        {/* <Text className="text-base text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>@{user.username}</Text> */}
+                        {user && user.username ? ( // Check if user and user.username exist
+                            <Text className="text-base text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>@{user.username}</Text>
+                        ) : (
+                            <Text className="text-base text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>@guest</Text> // Display a default value or handle appropriately
+                        )}
                     </View>
                 </View>
             </View>

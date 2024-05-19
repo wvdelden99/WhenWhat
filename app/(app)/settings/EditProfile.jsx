@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from '../../../config/firebase';
 import { useAuth } from '../../../config/auth/authContext';
 import { useTranslation } from 'react-i18next';
@@ -18,13 +18,19 @@ export function EditProfileUsername() {
     const navigation = useNavigation();
 
     // Update User
-    const { updateUsername, user } = useAuth();
+    const { fetchCurrentUserData, updateUsername, user } = useAuth();
     const [username, setUsername] = useState(user ? user.username : '');
 
     const [usernameError, setUsernameError] = useState('');
     const [generalError, setGeneralError] = useState('');
 
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (user) {
+            setUsername(user.username);
+        }
+    }, [user]);
 
     const handleUpdateUsername = async () => {
         setLoading(true);
@@ -53,7 +59,9 @@ export function EditProfileUsername() {
             setLoading(false);
             return;
         }
+        await fetchCurrentUserData(user.userId); 
         navigation.navigate('EditProfile');
+        setLoading(false);
     };
 
     return (
@@ -193,53 +201,14 @@ export function EditProfileEmail() {
 
 export function EditProfileDeleteAccount() {
     const { t } = useTranslation();
-
+    
     // Delete User
     const { deleteAccount } = useAuth();
 
-    const [generalError, setGeneralError] = useState("");
+    const [generalError, setGeneralError] = useState('');
 
-    const [loading, setLoading] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
-
-    // const handleDeleteAccount = async () => {
-    //     setLoading(true);
-    //     setGeneralError('');
-
-    //     const response = await deleteAccount();
-
-    //   if (!response.succes) {
-    //         switch(response.errorCode) {
-    //             default:
-    //                 setGeneralError(response.message)
-    //         }
-    //         setLoading(false);
-    //         setShowConfirmation(false)
-    //         return;
-    //     }
-    // };
-
-    const handleDeleteAccount = async () => {
-        setLoading(true);
-        setGeneralError("");
-    
-        try {
-            const response = await deleteAccount();
-            
-            if (!response.success) {
-                switch(response.errorCode) {
-                    default:
-                        setGeneralError(response.message)
-                }
-            }
-        } catch (error) {
-            console.error("Error deleting account:", error);
-            setGeneralError(t('error.error-general'));
-        } finally {
-            setLoading(false);
-        }
-    };
-    
+    const [loading, setLoading] = useState(false);
 
     const handleConfirmDelete = () => {
         setShowConfirmation(true);
@@ -249,6 +218,22 @@ export function EditProfileDeleteAccount() {
         setShowConfirmation(false);
     };
 
+    const handleDeleteAccount = async () => {
+        setLoading(true);
+        setGeneralError('');
+
+        const response = await deleteAccount();
+        if (!response.succes) {
+            switch(response.errorCode) {
+                default:
+                    setGeneralError(response.message);
+            };
+            setLoading(false);
+            return;
+        }
+    };
+
+
     return (
         <LayoutSettings title={t('settings.edit_profile.edit_profile-header')}>
             <View className="my-8">
@@ -257,24 +242,24 @@ export function EditProfileDeleteAccount() {
                     <Text className="text-sm text-dark" style={{ fontFamily: 'Raleway_500Medium' }}>{t('settings.edit_profile.delete_account.delete_account-text')}</Text>
                 </View>
 
-                {loading ? 
+                {loading ? (
                     <View className="items-center -mt-5 -mb-5">
                         <LoadingAnimationPrimary />
                     </View>
-                    :
+                ) : ( 
                     <TouchableOpacity onPress={handleConfirmDelete} disabled={loading} activeOpacity={opacity.opacity900}>
                         <View className="items-center rounded-xl p-4 bg-error">
                             <Text className="text-lg text-white" style={{ fontFamily: 'Raleway_700Bold' }}>{t('settings.edit_profile.delete_account.delete_account-header')}</Text>
                         </View>
                     </TouchableOpacity>
-                }
+                )}
 
                 {generalError && 
                     <View className="flex-row items-center my-3">
                         <Image className="mr-1 w-4 h-4" style={{ tintColor: color.errorColor }} source={require('./../../../assets/static/icons/icon_info_01.png')} />
                         <Text className="text-sm text-error" style={{ fontFamily: 'Raleway_600SemiBold' }}>{generalError}</Text>
-                    </View>}
-
+                    </View>
+                }
 
                 <Modal visible={showConfirmation}
                         transparent={true}
