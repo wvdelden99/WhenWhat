@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { arrayUnion, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { color, opacity } from '../../assets/styles/Styles';
+import { color, opacity } from '../../../assets/styles/Styles';
 // Components
-import { LoadingAnimationSecondary } from '../animations/LoadingAnimationSecondary';
+import { LoadingAnimationSecondary } from '../../animations/LoadingAnimationSecondary';
 
 
 export function ItemUser({item, currentUserData, userRef, user, usersData}) {
@@ -77,9 +77,9 @@ export function ItemUser({item, currentUserData, userRef, user, usersData}) {
                                 disabled={hasFriendRequest}
                                 activeOpacity={opacity.opacity600}>
                     {hasFriendRequest ? (
-                        <Image className="w-5 h-5 opacity-40" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_hourglass_01.png')}/>
+                        <Image className="w-5 h-5 opacity-40" style={{ tintColor: color.darkColor }} source={require('./../../../assets/static/icons/icon_hourglass_01.png')}/>
                     ) : (
-                        <Image className="w-5 h-5" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_add_user_01.png')}/>
+                        <Image className="w-5 h-5" style={{ tintColor: color.darkColor }} source={require('./../../../assets/static/icons/icon_add_user_01.png')}/>
                     )}
                 </TouchableOpacity>
                 )}

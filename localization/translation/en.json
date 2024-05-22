@@ -62,7 +62,12 @@
         "friends-subheader-recent_groups": "Most Recent Groups",
         "friends-subheader-requests": "Friend Reqeusts",
         "friends-create_group": "Create Group",
-        "friends-no_friend_groups": "Create a group to talk with friends"
+        "friends-no_friend_groups": "Create a group to talk with friends",
+        "friends-no_friends": "You don't seem to have any friends yet",
+        "friends-no_friends_or": "or",
+        "friends-find_friends": "Find friends",
+        "friends-invite_friends": "Invite friends"
+
     },
     "settings": {
         "settings-header": "Settings",
