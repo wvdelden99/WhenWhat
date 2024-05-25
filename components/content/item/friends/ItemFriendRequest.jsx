@@ -17,9 +17,14 @@ export function ItemFriendRequest({item, userRef, currentUserData, usersData, se
             setLoading(true);
             const friendData = usersData.find(user => user.username === username);
             const userDocRef = doc(userRef, currentUserData.userId);
+            const friendDocRef = doc(userRef, friendData.userId);
+
             await updateDoc(userDocRef, {
                 friendRequests: arrayRemove(friendData.userId),
                 friends: arrayUnion(friendData.userId)
+            });
+            await updateDoc(friendDocRef, {
+                friends: arrayUnion(currentUserData.userId)
             });
 
             setFriendRequests(prevRequests => prevRequests.filter(request => request !== username));

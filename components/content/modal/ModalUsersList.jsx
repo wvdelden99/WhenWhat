@@ -1,45 +1,40 @@
 import { useTranslation } from 'react-i18next';
-import { FlatList, Image, Modal, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
-import { color } from '../../../assets/styles/Styles';
-// Componetns
+import { FlatList } from 'react-native';
+// Components
+import { LayoutModal } from '../../layout/_layoutModal';
 import { InputSearch } from '../../form/InputSearch';
 import { ItemUser } from '../item/ItemUser';
 
 
-export function ModalUsersList({showUsersList, setShowUsersList, usersListData, currentUserData, userRef, user, usersData}) {
+export function ModalUsersList({userRef, user, currentUserData, usersData, usersListData, showUsersList, setShowUsersList}) {
     const { t } = useTranslation();
 
+    // const [searchUsers, setSearchUsers] = useState('');
+
+    // Search Friends
+    // const filteredUsers = usersListData.filter(user => 
+    //     user.username.toLowerCase().includes(searchUsers.toLowerCase())
+    // );
+    
+    // Modal User List
     const closeUsersList = () => {
         setShowUsersList(false);
     }
 
     return (
-        <Modal visible={showUsersList}
-                animationType='fade-up'>
-            <SafeAreaView>
-                <StatusBar barStyle="dark-content"/>
+        <LayoutModal visible={showUsersList}
+                    modalHeader={t('friends.friends-header-add_friends')}
+                    handleIconLeft={closeUsersList}
+                    iconLeft={require('./../.././../assets/static/icons/icon_arrow_down_03.png')}>
+            <InputSearch // focusArea={searchUsers}
+                        // value={searchUsers}
+                        // onChangeText={setSearchUsers}
+                        placeholderText={t('components.search')}/>
 
-                <View className="flex-row justify-between items-center my-4 px-6">
-                    <TouchableOpacity 
-                            onPress={closeUsersList}
-                            >
-                        <Image className="w-10 h-10" style={{ tintColor: color.darkColor }} source={require('./../../../assets/static/icons/icon_arrow_down_03.png')}/>
-                    </TouchableOpacity>
-
-                    <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('friends.friends-header-add_friends')}</Text>
-
-                    <View className="w-6 h-6"></View>
-                </View>
-
-                <View className="px-6">
-                    <InputSearch placeholderText={t('components.search')}/>
-
-                    <FlatList className="mt-4"
-                                data={usersListData}
-                                keyExtractor={(item => item.userId)}
-                                renderItem={({ item }) => <ItemUser item={item} currentUserData={currentUserData} userRef={userRef} user={user} usersData={usersData}/>}/>
-                </View>
-            </SafeAreaView>
-        </Modal>
+            <FlatList className="mt-4"
+                        data={usersListData}
+                        keyExtractor={(item => item.userId)}
+                        renderItem={({ item }) => <ItemUser item={item} userRef={userRef} user={user} currentUserData={currentUserData} usersData={usersData}/>}/>
+        </LayoutModal>
     )
 }

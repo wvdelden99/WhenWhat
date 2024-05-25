@@ -27,4 +27,5 @@ export const auth = getAuth(app);
 
 export const db = getFirestore(app);
 export const userRef = collection(db, 'users');
+export const groupRef = collection(db, 'groups');
 export const roomRef = collection(db, 'rooms');

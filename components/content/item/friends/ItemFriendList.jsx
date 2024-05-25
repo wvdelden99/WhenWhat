@@ -6,7 +6,7 @@ import { LoadingAnimationSecondary } from '../../../animations/LoadingAnimationS
 import { ItemProfileImage } from '../../ItemProfileImage';
 
 
-export function ItemFriend({item, userRef, currentUserData, usersData, setFriendsData}) {
+export function ItemFriendList({item, userRef, currentUserData, usersData, setFriendsData}) {
 
     const [loading, setLoading] = useState(false);
 
@@ -16,8 +16,13 @@ export function ItemFriend({item, userRef, currentUserData, usersData, setFriend
             setLoading(true);
             const friendData = usersData.find(user => user.username === username);
             const userDocRef = doc(userRef, currentUserData.userId);
+            const friendDocRef = doc(userRef, friendData.userId);
+
             await updateDoc(userDocRef, {
                 friends: arrayRemove(friendData.userId)
+            });
+            await updateDoc(friendDocRef, {
+                friends: arrayRemove(currentUserData.userId)
             });
 
             setFriendsData(prevRequests => prevRequests.filter(request => request !== username));

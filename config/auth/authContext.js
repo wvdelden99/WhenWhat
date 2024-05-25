@@ -91,15 +91,21 @@ export const AuthContextProvider = ({children}) => {
         try {
             const userFriends = user?.friends || [];
             const friendUsername = [];
+            // const friendIdData = [];
     
             for (const userId of userFriends) {
                 const friendData = usersData.find(user => user.userId === userId);
                 if (friendData) {
                     friendUsername.push(friendData.username);
+                    // friendIdData.push(friendData); // Include the entire user object
                 }
             }
-            setFriendsData(friendUsername);
-            return(friendUsername);
+            setFriendsData(friendUsername
+                // friendIdData
+            );
+            return(friendUsername 
+                // friendIdData
+            );
         } catch(error) {
             console.log(error);
             return;
