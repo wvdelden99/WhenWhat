@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth, db, userRef } from '../firebase';
+import { auth, db, groupRef, userRef } from '../firebase';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateEmail, signOut, deleteUser, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +12,6 @@ export const AuthContextProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
     const [usersData, setUsersData] = useState([]);
-    const [friendRequests, setFriendRequests] = useState([]);
-    const [friendsData, setFriendsData] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(undefined);
 
     useEffect(() => {
@@ -23,7 +21,8 @@ export const AuthContextProvider = ({children}) => {
                 await fetchCurrentUserData(user.uid);
                 await fetchUsersData();
                 await fetchFriendRequests();
-                await fetchFriend();
+                await fetchFriends();
+                await fetchFriendGroups();
                 await updateUserData(user.uid);
             } else {
                 setIsAuthenticated(false);
@@ -52,17 +51,18 @@ export const AuthContextProvider = ({children}) => {
     // Fetch Users
     const fetchUsersData = async () => {
         try {
-            const q = query(userRef, where('userId', '!=', user.userId));
-            const querySnapshot = await getDocs(q);
+            const usersDocRef = query(userRef, where('userId', '!=', user.userId));
+            const querySnapshot = await getDocs(usersDocRef);
         
             let usersData = [];
             querySnapshot.forEach((doc) => {
-            usersData.push({ ...doc.data() });
+                usersData.push({ ...doc.data() });
             });
 
             setUsersData(usersData);
             return usersData;
         } catch(error) {
+            // Test with NO other Users in db !!!!!!!!!!!!!!!!!!!!
             return;
         }
     };
@@ -70,44 +70,56 @@ export const AuthContextProvider = ({children}) => {
     // Fetch Friend Requests
     const fetchFriendRequests = async () => {
         try {
-            const userFriendRequests = user?.friendRequests;
-            const friendRequestUsername = [];
+            const userFriendRequests = user?.friendRequests ?? [];
+            const friendRequestsData = [];
             
             for (const userId of userFriendRequests) {
                 const friendRequestData = usersData.find(user => user.userId === userId);
                 if (friendRequestData) {
-                    friendRequestUsername.push(friendRequestData.username);
+                    friendRequestsData.push({ userId: friendRequestData.userId, username: friendRequestData.username });
                 }
             }
-            setFriendRequests(friendRequestUsername);
-            return friendRequestUsername;
+
+            return(friendRequestsData);
         } catch(error) {
             console.log('Friend Request Fetch Error:', error)
+            return;
         }
     };
 
     // Fetch Friends
-    const fetchFriend = async () => {
+    const fetchFriends = async () => {
         try {
             const userFriends = user?.friends || [];
-            const friendUsername = [];
-            // const friendIdData = [];
+            const friendsData = [];
     
             for (const userId of userFriends) {
                 const friendData = usersData.find(user => user.userId === userId);
                 if (friendData) {
-                    friendUsername.push(friendData.username);
-                    // friendIdData.push(friendData); // Include the entire user object
+                    friendsData.push({ userId: friendData.userId, username: friendData.username });
                 }
             }
-            setFriendsData(friendUsername
-                // friendIdData
-            );
-            return(friendUsername 
-                // friendIdData
-            );
+
+            return(friendsData);
         } catch(error) {
-            console.log(error);
+            console.log('Friends Fetch Error:', error);
+            return;
+        }
+    };
+
+    // Fetch Friend Groups
+    const fetchFriendGroups = async () => {
+        try {
+            const friendGroupDocRef = await getDocs(groupRef);
+            
+            let friendGroupsData = [];
+            friendGroupDocRef.forEach((doc) => {
+                friendGroupsData.push({ ...doc.data() });
+            });
+
+            return(friendGroupsData);
+        } catch(error) {
+            console.log('Friend Group Fetch Error:', error);
             return;
         }
     };
@@ -317,7 +329,7 @@ export const AuthContextProvider = ({children}) => {
     return (
         <AuthContext.Provider value={{user, isAuthenticated, signIn, signUp, logout, 
                                     updateUserEmail, updateUsername, deleteAccount, 
-                                    fetchCurrentUserData, fetchUsersData, fetchFriendRequests, fetchFriend}}>
+                                    fetchCurrentUserData, fetchUsersData, fetchFriendRequests, fetchFriends, fetchFriendGroups}}>
             {children}
         </AuthContext.Provider>
     )

@@ -19,13 +19,25 @@ import { User } from '../../app/(app)/User';
 import { Settings } from './../../app/(app)/settings/Settings';
 import { EditProfile, EditProfileUsername, EditProfileEmail, EditProfileDeleteAccount } from '../../app/(app)/settings/EditProfile';
 import { Language, LanguageApp } from '../../app/(app)/settings/Language';
+import { FriendGroup } from '../../app/(app)/friends/FriendGroup';
 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const FriendsStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const SettingsStack = createStackNavigator();
+
+
+function FriendsContent() {
+    return (
+        <FriendsStack.Navigator screenOptions={{ headerShown: false }}>
+            <FriendsStack.Screen name="Friends" component={Friends}></FriendsStack.Screen>
+            <FriendsStack.Screen name="FriendGroup" component={FriendGroup}></FriendsStack.Screen>
+        </FriendsStack.Navigator>
+    )
+}
 
 
 function Profile() {
@@ -56,7 +68,7 @@ function Navbar() {
                     iconComponent = require('./../../assets/static/icons/icon_calendar_01.png');
                 } else if (route.name === 'Planning') {
                     iconComponent = require('./../../assets/static/icons/icon_clock_01.png');
-                } else if (route.name === 'Friends') {
+                } else if (route.name === 'FriendsContent') {
                     iconComponent = require('./../../assets/static/icons/icon_users_01.png');
                 } else if (route.name === 'Profile') {
                     iconComponent = require('./../../assets/static/icons/icon_user_01.png');
@@ -86,7 +98,7 @@ function Navbar() {
             <Tab.Screen name="Home" component={Home}></Tab.Screen>
             <Tab.Screen name="Agenda" component={Agenda}></Tab.Screen>
             <Tab.Screen name="Planning" component={Planning}></Tab.Screen>
-            <Tab.Screen name="Friends" component={Friends}></Tab.Screen>
+            <Tab.Screen name="FriendsContent" component={FriendsContent}></Tab.Screen>
             <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
         </Tab.Navigator>
     )

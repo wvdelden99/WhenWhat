@@ -2,7 +2,10 @@
     "Language": "English",
 
     "components": {
-        "search": "Search ...",
+        "search": {
+            "search": "Search ...",
+            "search-no_results": "No matching results"
+        },
         "button": {
             "update": {
                 "save": "Save"
@@ -27,7 +30,8 @@
         "error-signin_failed": "Incorrect email or password.",
         "error-general": "Something went wrong.",
         "error-general_empty_field": "Field can't be left empty.",
-        "error-general_empty_fields": "Please fill in all fields."
+        "error-general_empty_fields": "Please fill in all fields.",
+        "error-no_group_members": "You need to add atleast one friend"
     },
     "auth": {
         "welcome-header": "What will you and your Friends do next?",
@@ -63,6 +67,8 @@
         "friends-subheader-recent_groups": "Most Recent Groups",
         "friends-subheader-requests": "Friend Requests",
         "friends-create_group": "Create Group",
+        "friends-create_group-group_name": "Group Name",
+        "friends-create_group-group_members": "Group Members",
         "friends-no_friend_groups": "Create a group to talk with friends",
         "friends-no_friends": "You don't seem to have any friends yet",
         "friends-no_friends_or": "or",

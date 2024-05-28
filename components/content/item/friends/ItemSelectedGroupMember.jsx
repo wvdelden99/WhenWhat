@@ -3,11 +3,11 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { ItemProfileImage } from '../../ItemProfileImage';
 
 
-export function ItemGroupMember({item, username, handleGroupMemberRemove}) {
+export function ItemSelectedGroupMember({username, handlePress}) {
     return (
         <View className="items-center mt-1 mr-2 w-16">
             <View className="absolute -top-1 right-0 z-10">
-                <TouchableOpacity onPress={() => handleGroupMemberRemove(item)}>
+                <TouchableOpacity onPress={handlePress}>
                     <View className="border-[1px] border-dark rounded-full p-1 bg-white">
                         <Image className="w-4 h-4" source={require('./../../../../assets/static/icons/icon_cross_02.png')}/>
                     </View>

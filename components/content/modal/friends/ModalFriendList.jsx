@@ -1,45 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../../../config/auth/authContext';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Image, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { color, opacity } from '../../../../assets/styles/Styles';
 // Components
 import { LayoutModal } from '../../../layout/_layoutModal';
-import { LoadingAnimationSecondary } from '../../../animations/LoadingAnimationSecondary';
 import { ModalUsersList } from '../ModalUsersList';
 import { ItemFriendRequest } from '../../item/friends/ItemFriendRequest';
-import { ItemFriendList } from '../../item/friends/ItemFriendList';
 import { InputSearch } from '../../../form/InputSearch';
+import { ItemNoFriends } from '../../item/friends/ItemNoFriends';
+import { ItemFriend } from '../../item/friends/ItemFriend';
+import { LoadingAnimationPrimary } from '../../../animations/LoadingAnimationPrimary';
 
 
-export function ModalFriendList({userRef, user, currentUserData, usersData, showFriendList, setShowFriendList}) {
+export function ModalFriendList({ currentUserData, usersData, friendRequestsData, setFriendRequestsData, friendsData, setFriendsData, showFriendList, setShowFriendList, }) {
     const { t } = useTranslation();
 
-    const [loading, setLoading] = useState(true);
-
-    const { fetchFriendRequests, fetchFriend } = useAuth();
-    const [friendRequestsList, setFriendRequestsList] = useState(true);
-    const [friendRequests, setFriendRequests] = useState([]);
-    const [friendsData, setFriendsData] = useState([]);
+    const [loadingData, setLoadingData] = useState(false);
     const [searchFriends, setSearchFriends] = useState('');
-    const [usersListData, setUsersListData] = useState(null);
 
-    // Fetch
+    const [showUsersList, setShowUsersList] = useState(false);
+    const [friendRequestsList, setFriendRequestsList] = useState(true);
+    
+    const [filteredFriendsData, setFilteredFriendsData] = useState(friendsData);
+
     useEffect(() => {
-        setLoading(true);
-        async function fetchData() {
-            if (currentUserData && usersData) {
-                const friendRequestsData = await fetchFriendRequests();
-                setFriendRequests(friendRequestsData);
-                const friendData = await fetchFriend();
-                setFriendsData(friendData);
+        setLoadingData(true);
+        setFilteredFriendsData(friendsData);
+        setLoadingData(false);
+    }, [friendsData]);
 
-                fetchUsersListData();
-            }
-        }
-        fetchData();
-        setLoading(false);
-    }, [currentUserData, usersData])
+ 
+    // Modal Friend List
+    const closeFriendList = () => {
+        setShowFriendList(false);
+    }
+
+    // Modal Users List
+    const openUsersList = () => {
+        setShowUsersList(true);
+    }
 
     // Friend Requests List
     const toggleFriendRequestsList = () => {
@@ -47,57 +46,37 @@ export function ModalFriendList({userRef, user, currentUserData, usersData, show
     }
 
     // Search Friends
-    const filteredFriends = friendsData.filter(friend => 
-        friend.toLowerCase().includes(searchFriends.toLowerCase())
-    );
-
-    // Modal Friend List
-    const closeFriendList = () => {
-        setShowFriendList(false);
-    }
-
-    // Modal Users List
-    const [showUsersList, setShowUsersList] = useState(false);
-    const openUsersList = () => {
-        setShowUsersList(true);
-    }
-
-    // Fetch List of Users
-    const fetchUsersListData = async () => {
-        try {
-            let usersListData = usersData;
-
-            if (currentUserData && usersData) {
-                usersListData = usersListData.filter(userData => !currentUserData.friends.includes(userData.userId));
-            }
-            setUsersListData(usersListData);
-        } catch(error) {
-            console.log(error)
+    const handleSearch = (query) => {
+        setSearchFriends(query);
+        if (query) {
+            setFilteredFriendsData(friendsData.filter(friend => friend.username.toLowerCase().includes(query.toLowerCase())));
+        } else {
+            setFilteredFriendsData(friendsData);
         }
     }
 
     return (
-        <LayoutModal visible={showFriendList}
-                    modalHeader={t('friends.friends-header-friend_list')}
+        <LayoutModal modalHeader={t('friends.friends-header-friend_list')}
+                    visible={showFriendList}
                     handleIconLeft={closeFriendList}
                     iconLeft={require('./../../../../assets/static/icons/icon_arrow_down_03.png')}
                     handleIconRight={openUsersList}
                     iconRight={require('./../../../../assets/static/icons/icon_add_user_01.png')}
                     styleIconRight="w-6 h-6">
-            {loading ? (
-                <View>
-                    <LoadingAnimationSecondary />
+            {loadingData ? (
+                <View className="justify-center items-center h-4/5">
+                    <LoadingAnimationPrimary />
                 </View>
             ) : (
-                <React.Fragment>
+                <>
                     {friendsData.length > 0 &&
-                        <InputSearch focusArea={searchFriends}
+                        <InputSearch focusArea={{}}
                                     value={searchFriends}
-                                    onChangeText={setSearchFriends}
-                                    placeholderText={t('components.search')}/>
+                                    onChangeText={handleSearch}
+                                    placeholderText={t('components.search.search')}/>
                     }
 
-                    {friendRequests.length > 0 &&
+                    {friendRequestsData.length > 0 &&
                         <View className="mt-4">
                             <View className="flex-row justify-between items-center">
                                 <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-requests')}</Text>
@@ -106,10 +85,10 @@ export function ModalFriendList({userRef, user, currentUserData, usersData, show
                                     {!friendRequestsList &&
                                         <View className="flex-row items-center gap-1">
                                             <View className="rounded-full w-3 h-3 bg-primary"></View>
-                                            <Text className="text-sm text-dark">{friendRequests.length > 99 ? '99+' : friendRequests.length}</Text>
+                                            <Text className="text-sm text-dark">{friendRequestsData.length > 99 ? '99+' : friendRequestsData.length}</Text>
                                         </View>
                                     }
-                                    <TouchableOpacity onPress={toggleFriendRequestsList}>
+                                    <TouchableOpacity onPress={toggleFriendRequestsList} activeOpacity={opacity.opacity600}>
                                         <Image className={`w-9 h-9 ${ friendRequestsList ? 'rotate-180' : '' }`} style={{ tintColor: color.darkColor }} source={require('./../../../../assets/static/icons/icon_arrow_down_03.png')}/>
                                     </TouchableOpacity>
                                 </View>
@@ -118,50 +97,43 @@ export function ModalFriendList({userRef, user, currentUserData, usersData, show
                             {friendRequestsList &&
                                 <FlatList className="my-2"
                                             scrollEnabled={false}
-                                            data={friendRequests}
-                                            keyExtractor={(item) => item}
+                                            data={friendRequestsData}
+                                            keyExtractor={(item) => item.userId}
                                             renderItem={({item}) => (
-                                                <ItemFriendRequest item={item} userRef={userRef} currentUserData={currentUserData} usersData={usersData} setFriendRequests={setFriendRequests} setFriendsData={setFriendsData}/>
+                                                <ItemFriendRequest item={item} username={item.username} currentUserData={currentUserData} setFriendRequests={setFriendRequestsData} setFriendsData={setFriendsData}/>
                                             )}/>
                             }
                         </View>
                     }
-                            
+                                    
                     <View className="mt-4">
-                        {friendRequests.length > 0 &&
+                        {friendRequestsData.length > 0 &&
                             <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-header-friend_list')}</Text>
                         }
 
                         {friendsData.length > 0 ? (
-                            <FlatList className="my-2"
-                                        data={filteredFriends}
-                                        keyExtractor={(item) => item}
-                                        renderItem={({item}) => (
-                                            <ItemFriendList item={item} userRef={userRef} currentUserData={currentUserData} usersData={usersData} setFriendsData={setFriendsData}/>
-                                        )}/>
+                            <>
+                                {filteredFriendsData.length > 0 ? (
+                                    <FlatList className="my-2"
+                                            data={filteredFriendsData}
+                                            keyExtractor={(item) => item.userId}
+                                            renderItem={({item}) => (
+                                                <ItemFriend item={item} username={item.username} currentUserData={currentUserData} setFriendsData={setFriendsData} friendList/>
+                                            )}/>
+                                    ) : ( 
+                                        <View className="items-center my-12">
+                                            <Text className="text-base text-dark-disabled" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('components.search.search-no_results')}</Text>
+                                        </View>
+                                    )}
+                            </>
                         ) : (
-                            <View className="justify-center items-center my-12 mx-auto max-w-[80%]">
-                                <View className="">
-                                    <Text className="mb-6 text-base text-center text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-no_friends')}</Text>
-                                    <TouchableOpacity onPress={openUsersList} activeOpacity={opacity.opacity600}>
-                                        <View className="items-center rounded-lg py-3 bg-primary">
-                                            <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-find_friends')}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <Text className="my-3 text-base text-center text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-no_friends_or')}</Text>
-                                    <TouchableOpacity activeOpacity={opacity.opacity800}>
-                                        <View className="items-center rounded-lg py-3 bg-secondary">
-                                            <Text className="text-base text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-invite_friends')}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+                            <ItemNoFriends />
                         )}
                     </View>
-                </React.Fragment>
+                </>
             )}
 
-            <ModalUsersList userRef={userRef} user={user} currentUserData={currentUserData} usersData={usersData} usersListData={usersListData} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
+            <ModalUsersList currentUserData={currentUserData} usersData={usersData} friendRequestsData={friendRequestsData} setFriendRequestsData={setFriendRequestsData} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
         </LayoutModal>
     )
 }

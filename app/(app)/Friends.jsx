@@ -1,132 +1,169 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../config/auth/authContext';
 import { groupRef, userRef } from '../../config/firebase';
+import { arrayRemove, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { color, opacity } from '../../assets/styles/Styles';
 // Components
 import { LayoutBackgroundMedium } from '../../components/layout/_layoutBackgroundMedium';
+import { ModalCreateGroup } from '../../components/content/modal/friends/ModalCreateGroup';
 import { ModalFriendList } from '../../components/content/modal/friends/ModalFriendList';
 import { ItemPoll } from '../../components/content/ItemPoll';
 import { InputSearch } from '../../components/form/InputSearch';
-import { ModalCreateGroup } from '../../components/content/modal/friends/ModalCreateGroup';
-import { deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { ItemFriendGroup } from '../../components/content/item/friends/ItemFriendGroup';
+import { LoadingAnimationPrimary } from '../../components/animations/LoadingAnimationPrimary';
 
 
 export function Friends() {
     const { t } = useTranslation();
 
-    const { user, fetchCurrentUserData, fetchUsersData } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const [loadingData, setLoadingData] = useState(false);
+
+    const { user, fetchCurrentUserData, fetchUsersData, fetchFriendRequests, fetchFriends, fetchFriendGroups } = useAuth();
     const [currentUserData, setCurrentUserData] = useState(null);
     const [usersData, setUsersData] = useState(null);
+    const [friendRequestsData, setFriendRequestsData] = useState([]);
+    const [friendsData, setFriendsData] = useState([]);
+    const [friendGroupsData, setFriendGroupsData] = useState([]);
+
+    const [showCreateGroup, setShowCreateGroup] = useState(false);
+    const [showFriendList, setShowFriendList] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
+                setLoading(true);
                 const currentUserFetchRef = await fetchCurrentUserData(user.userId);
                 setCurrentUserData(currentUserFetchRef);
     
                 const usersFetchRef = await fetchUsersData();
                 setUsersData(usersFetchRef);
+                setLoading(false);
+            } catch(error) {
+                console.log('Fetch Error: ', error);
+                setLoading(false);
+            }
+        }
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setLoading(true);
+                setLoadingData(true);
+
+                if (currentUserData && usersData) {
+                    const friendRequestsFetchRef = await fetchFriendRequests();
+                    setFriendRequestsData(friendRequestsFetchRef);
+
+                    const friendsFetchRef = await fetchFriends();
+                    setFriendsData(friendsFetchRef);
+
+                    const friendGroupsFetchRef = await fetchFriendGroups();
+                    setFriendGroupsData(friendGroupsFetchRef);
+                }
+                setLoading(false);
+                setLoadingData(false);
             } catch(error) {
                 console.log('Fetch Error: ', error);
             }
         }
         fetchData();
-        fetchGroups();
-    }, []);
+    }, [currentUserData, usersData]);
+
 
     // Modal Create Group
-    const [showCreateGroup, setShowCreateGroup] = useState(false);
-    const openCreateGroupModal = () => {
+    const openModalCreateGroup = () => {
         setShowCreateGroup(true);
     }
 
     // Modal Friend List
-    const [showFriendList, setShowFriendList] = useState(false);
-    const openFriendList = () => {
+    const openModalFriendList = () => {
         setShowFriendList(true);
     }
 
-    // Fetch Groups
-    const [friendGroupList, setFriendGroupList] = useState([]);
-    const fetchGroups = async () => {
+    const updateFriendGroupsData = async () => {
         try {
-            const querySnapshot = await getDocs(groupRef); // Assuming groupRef is a Collection Reference
-            const groupsData = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
+            setLoading(true);
+            setLoadingData(true);
+            const friendGroupsFetchRef = await fetchFriendGroups();
+            setFriendGroupsData(friendGroupsFetchRef);
+            setLoading(false);
+            setLoadingData(false);
+        } catch (error) {
+            console.log('Update Friend Groups Data Error:', error);
+            setLoading(false);
+        }
+    };
+    
 
-            if (currentUserData && currentUserData.groups && Array.isArray(currentUserData.groups)) {
-                // Filter groups based on currentUserData.groups
-                const userGroups = groupsData.filter(group => currentUserData.groups.includes(group.id));
-                setFriendGroupList(userGroups);
-            } else {
-                setFriendGroupList([]);
+    // Remove Group
+    const removeGroup = async (groupId) => {
+        try {
+            setLoading(true);
+            // Get the group document
+            const groupDocRef = doc(groupRef, groupId);
+            const groupDocSnap = await getDoc(groupDocRef);
+            if (!groupDocSnap.exists()) {
+                console.error("Group does not exist!");
+                setLoading(false);
+                return;
             }
+            const groupData = groupDocSnap.data();
+
+            // Remove the group document
+            await deleteDoc(groupDocRef);
+
+            // Remove the group ID from each member's document
+            const userUpdatePromises = groupData.members.map(userId => {
+                const userDocRef = doc(userRef, userId);
+                return updateDoc(userDocRef, {
+                    groups: arrayRemove(groupId)
+                });
+            });
+
+            // Wait for all updates to complete
+            await Promise.all(userUpdatePromises);
+
+            // Update the local state to reflect the change
+            setFriendGroupsData(prevState => prevState.filter(group => group.groupId !== groupId));
+
+            console.log('Group and User Documents Updated');
+            setLoading(false);
         } catch (error) {
-            console.error('Error fetching groups:', error);
+            console.log('Remove Group Error:', error);
+            setLoading(false);
         }
     };
-    
-    const removeFriendGroup = async (groupId) => {
-        try {
-            const groupDoc = doc(groupRef, groupId);
-            const groupData = (await getDoc(groupDoc)).data();
-            const groupMembers = groupData.members;
-
-            // Remove the group ID from each member's user document
-            await Promise.all(
-                groupMembers.map(async (memberId) => {
-                    const userDoc = doc(userRef, memberId);
-                    const userDocData = (await getDoc(userDoc)).data();
-                    const updatedGroups = userDocData.groups.filter(id => id !== groupId);
-                    await updateDoc(userDoc, { groups: updatedGroups });
-                })
-            );
-
-            // Delete the group document
-            await deleteDoc(groupDoc);
-
-            // Update the state to reflect the removed group
-            setFriendGroupList(friendGroupList.filter(group => group.id !== groupId));
-        } catch (error) {
-            console.error('Error removing group:', error);
-        }
-    };
-
-    if (!currentUserData) {
-        return <Text>Loading...</Text>;
-    }
-    
 
     // Polls
     const activityData = [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5}];
-
 
     return (
         <LayoutBackgroundMedium>
             <View className="my-6 px-6">
                 <View className="flex-row justify-between items-center mb-6">
-                    <TouchableOpacity onPress={openCreateGroupModal} activeOpacity={opacity.opacity900}>
+                    <TouchableOpacity onPress={openModalCreateGroup} activeOpacity={opacity.opacity900}>
                         <View className="flex-row items-center rounded-lg py-3 px-4 bg-primary">
                             <Image className="mr-1 w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_add_users_01.png')}/>
                             <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('friends.friends-create_group')}</Text>
                         </View>
                     </TouchableOpacity>
-
-                    <TouchableOpacity onPress={openFriendList} activeOpacity={opacity.opacity800}>
+                        
+                    <TouchableOpacity onPress={openModalFriendList} activeOpacity={opacity.opacity800}>
                         <View className="rounded-md p-3 bg-white">
-                            {/* {friendRequests.length > 0 &&
-                                <View className="absolute rounded-full w-4 h-4 top-[6px] right-[6px] bg-primary z-10"></View>
-                            } */}
+                            {friendRequestsData.length > 0 &&
+                                <View className="absolute rounded-full w-5 h-5 -top-[5px] -right-[5px] bg-primary"></View>
+                            }
                             <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_users_01.png')}/>
                         </View>
                     </TouchableOpacity>
                 </View>
 
-                <View className="mb-6">
+                <View className="">
                     <Text className="text-lg text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_polls')}</Text>
 
                     <FlatList className="mt-3 -mr-6"
@@ -138,28 +175,31 @@ export function Friends() {
                 </View>
             </View>
 
-            <View className="flex-[1] -mb-10 rounded-t-3xl px-6 h-full bg-white">
-                <View className="mt-8 mb-2">
-                    <Text className="text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_groups')}</Text>
-                </View>
+            <View className="flex-[1] -mb-10 rounded-t-3xl pt-8 px-6 h-full bg-white">
+                <Text className="mb-2 text-lg text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-subheader-recent_groups')}</Text>
 
-                <InputSearch placeholderText={t('components.search')}/>
+                {loadingData ? (
+                    <View className="justify-center items-center h-1/2">
+                        <LoadingAnimationPrimary />
+                    </View>
+                ) : (
+                    <>
+                    <InputSearch placeholderText={t('components.search.search')}/>
 
-                <FlatList className=""
-                            data={friendGroupList}
-                            keyExtractor={item => item.id}
-                            renderItem={({ item }) => 
-                                <View className="flex-row justify-between items-center my-4">
-                                    <Text>{item.groupName}</Text>
-                                    <TouchableOpacity onPress={() => removeFriendGroup(item.id)}>
-                                        <Text className="text-error">Remove Group</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            }/>
+                    <FlatList className=""
+                                data={friendGroupsData}
+                                keyExtractor={item => item.groupId} 
+                                renderItem={({ item }) => 
+                                    <ItemFriendGroup item={item.groupName} removeGroup={() => removeGroup(item.groupId)}/>
+                                }/>
+                    </>
+                )}
             </View>
 
-            <ModalCreateGroup userRef={userRef} user={user} currentUserData={currentUserData} usersData={usersData} showCreateGroup={showCreateGroup} setShowCreateGroup={setShowCreateGroup}/>
-            <ModalFriendList userRef={userRef} user={user} currentUserData={currentUserData} usersData={usersData} showFriendList={showFriendList} setShowFriendList={setShowFriendList}/>
+            <ModalCreateGroup currentUserData={currentUserData} friendsData={friendsData} updateFriendGroupsData={updateFriendGroupsData} showCreateGroup={showCreateGroup} setShowCreateGroup={setShowCreateGroup}/>
+
+            <ModalFriendList currentUserData={currentUserData} usersData={usersData} friendRequestsData={friendRequestsData} setFriendRequestsData={setFriendRequestsData} 
+                            friendsData={friendsData} setFriendsData={setFriendsData} showFriendList={showFriendList} setShowFriendList={setShowFriendList}/>
         </LayoutBackgroundMedium>
     )
 }

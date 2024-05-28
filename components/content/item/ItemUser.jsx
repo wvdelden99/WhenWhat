@@ -1,70 +1,57 @@
 import { useEffect, useState } from 'react';
-import { arrayUnion, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { userRef } from '../../../config/firebase';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { color, opacity } from '../../../assets/styles/Styles';
 // Components
 import { LoadingAnimationSecondary } from '../../animations/LoadingAnimationSecondary';
+import { ItemProfileImage } from '../ItemProfileImage';
 
 
-export function ItemUser({item, currentUserData, userRef, user, usersData}) {
+export function ItemUser({item, username, currentUserData}) {
     const [loading, setLoading] = useState(false);
-    const [sendRequest, setSendRequest] = useState([]);
+    const [requestSend, setRequestSend] = useState(false);
 
+    // Check if friend request has already been sent
     useEffect(() => {
-        if (currentUserData) {
-            const fetchSendRequests = async () => {
-                const q = query(userRef, where('userId', '==', user.userId));
-                const querySnapshot = await getDocs(q);
-                const userData = querySnapshot.docs[0].data();
-                setSendRequest(userData.friendRequests || []);
-            };
-    
-            fetchSendRequests();
-        }
-    }, [currentUserData]);
-    
+        const checkFriendRequestStatus = async () => {
+            try {
+                const userDocRef = doc(userRef, item.userId);
+                const userDoc = await getDoc(userDocRef);
+                if (userDoc.exists() && userDoc.data().friendRequests.includes(currentUserData.userId)) {
+                    setRequestSend(true);
+                }
+            } catch (error) {
+                console.log('Check Friend Request Status Error:', error);
+            }
+        };
+
+        checkFriendRequestStatus();
+    }, [item.userId, currentUserData.userId]);
 
     // Send Friend Request
-    const sendFriendRequest = async (recipientUserId) => {
+    const sendFriendRequest = async () => {
         try {
             setLoading(true);
-            const recipientDocRef = doc(userRef, recipientUserId);
-
-            if (sendRequest.includes(recipientUserId)) {
-                return;
-            }
-
-            const recipientDoc = await getDoc(recipientDocRef);
-            const recipientData = recipientDoc.data();
-            if (recipientData && recipientData.friendRequests && recipientData.friendRequests.includes(user.userId)) {
-                return;
-            }
-
-            await updateDoc(recipientDocRef, {
-                friendRequests: arrayUnion(user.userId)
+            const userDocRef = doc(userRef, item.userId);
+            await updateDoc(userDocRef, {
+                friendRequests: arrayUnion(currentUserData.userId)
             });
-            setSendRequest([...sendRequest, recipientUserId]);
+            setRequestSent(true);
             setLoading(false);
-        } catch(error) {
-            console.log(error);
+        } catch (error) {
+            console.log('Send Friend Request Error:', error);
             setLoading(false);
         }
     };
 
-    // Check if send or recieved
-    const hasSendRequest = sendRequest.includes(item.userId);
-    const recipientDoc = usersData.find(user => user.userId === item.userId);
-    const hasReceivedRequest = recipientDoc && recipientDoc.friendRequests && recipientDoc.friendRequests.includes(user.userId);
-    const hasFriendRequest = hasSendRequest || hasReceivedRequest;
-
-
     return (
         <View className="flex-row justify-between items-center my-3">
             <View className="flex-row items-center gap-3">
-                <View className="rounded-full w-12 h-12 bg-secondary">
-                    
+                <View className="">
+                    <ItemProfileImage username={username}/>
                 </View>
-                <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{item.username}</Text>
+                <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{username}</Text>
             </View>
 
             <View className="mr-3">
@@ -73,15 +60,13 @@ export function ItemUser({item, currentUserData, userRef, user, usersData}) {
                         <LoadingAnimationSecondary />
                     </View>
                 ) : (
-                <TouchableOpacity onPress={() => sendFriendRequest(item.userId)}
-                                disabled={hasFriendRequest}
-                                activeOpacity={opacity.opacity600}>
-                    {hasFriendRequest ? (
-                        <Image className="w-5 h-5 opacity-40" style={{ tintColor: color.darkColor }} source={require('./../../../assets/static/icons/icon_hourglass_01.png')}/>
+                    <TouchableOpacity onPress={sendFriendRequest} disabled={requestSend} activeOpacity={opacity.opacity600}>
+                    {requestSend ? (
+                         <Image className="w-5 h-5 opacity-50" style={{ tintColor: color.darkColor }} source={require('./../../../assets/static/icons/icon_hourglass_01.png')}/>
                     ) : (
                         <Image className="w-5 h-5" style={{ tintColor: color.darkColor }} source={require('./../../../assets/static/icons/icon_add_user_01.png')}/>
                     )}
-                </TouchableOpacity>
+                    </TouchableOpacity>
                 )}
             </View>
         </View>
