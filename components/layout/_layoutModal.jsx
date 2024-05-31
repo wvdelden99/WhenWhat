@@ -1,12 +1,13 @@
 import { Image, Modal, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { color, opacity } from "../../assets/styles/Styles";
+import { ButtonSubmit } from "../button/ButtonSubmit";
 
 
 export function LayoutModal({children, visible, modalHeader, handleIconLeft, handleIconRight, iconLeft, iconRight, styleIconLeft, styleIconRight}) {
     return (
         <Modal visible={visible}
                 animationType="fade-up">
-            <SafeAreaView>
+            <SafeAreaView className="flex-[1]">
                 <StatusBar barStyle="dark-content"/>
 
                 <View className="flex-row justify-between items-center my-4 px-6">
@@ -21,7 +22,7 @@ export function LayoutModal({children, visible, modalHeader, handleIconLeft, han
                     </TouchableOpacity>
                 </View>
 
-                <View className="px-6">
+                <View className="px-6 h-full">
                     {children}
                 </View>
             </SafeAreaView>

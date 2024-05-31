@@ -3,7 +3,7 @@ import { useAuth } from '../../config/auth/authContext';
 import { groupRef, userRef } from '../../config/firebase';
 import { arrayRemove, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Image, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { color, opacity } from '../../assets/styles/Styles';
 // Components
 import { LayoutBackgroundMedium } from '../../components/layout/_layoutBackgroundMedium';
@@ -190,14 +190,13 @@ export function Friends() {
                                 data={friendGroupsData}
                                 keyExtractor={item => item.groupId} 
                                 renderItem={({ item }) => 
-                                    <ItemFriendGroup item={item.groupName} removeGroup={() => removeGroup(item.groupId)}/>
+                                    <ItemFriendGroup item={item} groupName={item.groupName} removeGroup={() => removeGroup(item.groupId)}/>
                                 }/>
                     </>
                 )}
             </View>
 
             <ModalCreateGroup currentUserData={currentUserData} friendsData={friendsData} updateFriendGroupsData={updateFriendGroupsData} showCreateGroup={showCreateGroup} setShowCreateGroup={setShowCreateGroup}/>
-
             <ModalFriendList currentUserData={currentUserData} usersData={usersData} friendRequestsData={friendRequestsData} setFriendRequestsData={setFriendRequestsData} 
                             friendsData={friendsData} setFriendsData={setFriendsData} showFriendList={showFriendList} setShowFriendList={setShowFriendList}/>
         </LayoutBackgroundMedium>

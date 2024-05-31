@@ -125,6 +125,8 @@ export const AuthContextProvider = ({children}) => {
     };
 
 
+
+
     // Sign Up, Sign In, Sign Out
     // Sign Up
     const signUp = async (username, email, password, passwordConfirmation) => {
@@ -135,7 +137,7 @@ export const AuthContextProvider = ({children}) => {
             }
 
             // Check if the Username already exists
-            const usernameQuery = query(collection(userRef), where('username', '==', username));
+            const usernameQuery = query(userRef, where('username', '==', username));
             const usernameQuerySnapshot = await getDocs(usernameQuery);
             if (!usernameQuerySnapshot.empty) {
                 throw new Error('Username already in use');

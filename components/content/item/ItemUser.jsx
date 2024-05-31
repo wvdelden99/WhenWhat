@@ -37,7 +37,7 @@ export function ItemUser({item, username, currentUserData}) {
             await updateDoc(userDocRef, {
                 friendRequests: arrayUnion(currentUserData.userId)
             });
-            setRequestSent(true);
+            setRequestSend(true);
             setLoading(false);
         } catch (error) {
             console.log('Send Friend Request Error:', error);

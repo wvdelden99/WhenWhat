@@ -3,6 +3,7 @@ import { FlatList, Image, Text, View } from 'react-native';
 import { color } from '../../assets/styles/Styles';
 // Components
 import { LayoutBackgroundBig } from '../../components/layout/_layoutBackgroundBig';
+import { LayoutBackgroundMedium } from '../../components/layout/_layoutBackgroundMedium';
 import { ItemActivityCarousel } from './../../components/content/ItemActivityCarousel';
 
 
@@ -16,7 +17,7 @@ export function Home() {
     ];
 
     return (
-        <LayoutBackgroundBig>
+        <LayoutBackgroundMedium>
             <View className="px-6">
                 <View className="my-4">
                     <Image className="" source={require('./../../assets/static/logo/logo_when_&_what_02.png')}/>
@@ -74,6 +75,6 @@ export function Home() {
                     </View>
                 </View>
             </View>
-        </LayoutBackgroundBig>
+        </LayoutBackgroundMedium>
     )
 }

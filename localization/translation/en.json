@@ -73,7 +73,10 @@
         "friends-no_friends": "You don't seem to have any friends yet",
         "friends-no_friends_or": "or",
         "friends-find_friends": "Find friends",
-        "friends-invite_friends": "Invite friends"
+        "friends-invite_friends": "Invite friends",
+        "friends-group-add_members": "Add Group Members",
+        "friends-group-leave_group": "Leave Group",
+        "friends-group-delete_group": "Delete Group"
 
     },
     "settings": {

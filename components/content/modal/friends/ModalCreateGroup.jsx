@@ -183,7 +183,7 @@ export function ModalCreateGroup({ currentUserData, friendsData, updateFriendGro
                             </View>
                         )}
                     </View>
-                    <View className="">
+                    <View className="absolute mb-28 mx-6 w-full bottom-0">
                         {loading ? (
                             <View className="justify-center items-center">
                                 <LoadingAnimationPrimary />
