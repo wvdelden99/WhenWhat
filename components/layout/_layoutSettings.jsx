@@ -13,7 +13,7 @@ export function LayoutSettings({title, children}) {
                 <ButtonBack />
 
                 <View className="flex-[1] items-center">
-                    <Text className="text-2xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{title}</Text>
+                    <Text className="-ml-12 text-2xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{title}</Text>
                 </View>
             </View>
 

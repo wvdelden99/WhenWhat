@@ -1,8 +1,9 @@
 import { useAuth } from '../../../config/auth/authContext';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, Text, TextInput, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 // Components
 import { LayoutSettings } from '../../../components/layout/_layoutSettings';
+import { InputSearch } from '../../../components/form/InputSearch'
 import { ButtonNavigateSettings } from '../../../components/button/ButtonNavigateSetttings';
 
 
@@ -16,11 +17,8 @@ export function Settings() {
 
     return (
         <LayoutSettings title={t('settings.settings-header')}>
-            <View className="my-6 flex-row items-center rounded-lg p-3 bg-gray">
-                <Image className="mr-4 w-5 h-5 opacity-50" source={require('./../../../assets/static/icons/icon_search_01.png')}/>
-                <TextInput className="text-base bg-gray"
-                            placeholder={t('components.search')}
-                            style={{ fontFamily: 'Raleway_600SemiBold' }}/>
+            <View className="my-6">
+                <InputSearch placeholderText={t('components.search.search')}/>
             </View>
             
             <ScrollView showsVerticalScrollIndicator={false}>

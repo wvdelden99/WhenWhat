@@ -18,6 +18,7 @@ import { Friends } from './../../app/(app)/Friends';
 import { User } from '../../app/(app)/User';
 import { Settings } from './../../app/(app)/settings/Settings';
 import { EditProfile, EditProfileUsername, EditProfileEmail, EditProfileDeleteAccount } from '../../app/(app)/settings/EditProfile';
+import { ActivityPreferences } from '../../app/(app)/settings/ActivityPreferences';
 import { Language, LanguageApp } from '../../app/(app)/settings/Language';
 
 
@@ -49,6 +50,7 @@ function Profile() {
             <SettingsStack.Screen name="Username" component={EditProfileUsername}></SettingsStack.Screen>
             <SettingsStack.Screen name="Email" component={EditProfileEmail}></SettingsStack.Screen>
             <SettingsStack.Screen name="DeleteAccount" component={EditProfileDeleteAccount}></SettingsStack.Screen>
+            <SettingsStack.Screen name="ActivityPreferences" component={ActivityPreferences}></SettingsStack.Screen>
             <SettingsStack.Screen name="Language" component={Language}></SettingsStack.Screen>
             <SettingsStack.Screen name="AppLanguage" component={LanguageApp}></SettingsStack.Screen>
         </ProfileStack.Navigator>
