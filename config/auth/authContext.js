@@ -114,17 +114,18 @@ export const AuthContextProvider = ({children}) => {
             
             let friendGroupsData = [];
             friendGroupDocRef.forEach((doc) => {
-                friendGroupsData.push({ ...doc.data() });
+                const groupData = doc.data();
+                if (groupData.groupMembers.includes(user.userId)) {
+                    friendGroupsData.push({ ...groupData });
+                }
             });
 
             return(friendGroupsData);
         } catch(error) {
             console.log('Friend Group Fetch Error:', error);
-            return;
+            return [];
         }
     };
-
-
 
 
     // Sign Up, Sign In, Sign Out

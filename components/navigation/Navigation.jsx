@@ -19,7 +19,6 @@ import { User } from '../../app/(app)/User';
 import { Settings } from './../../app/(app)/settings/Settings';
 import { EditProfile, EditProfileUsername, EditProfileEmail, EditProfileDeleteAccount } from '../../app/(app)/settings/EditProfile';
 import { Language, LanguageApp } from '../../app/(app)/settings/Language';
-import { FriendGroup } from '../../app/(app)/friends/FriendGroup';
 
 
 const Stack = createStackNavigator();
@@ -34,7 +33,7 @@ function FriendsContent() {
     return (
         <FriendsStack.Navigator screenOptions={{ headerShown: false }}>
             <FriendsStack.Screen name="Friends" component={Friends}></FriendsStack.Screen>
-            <FriendsStack.Screen name="FriendGroup" component={FriendGroup}></FriendsStack.Screen>
+            {/* <FriendsStack.Screen name="FriendGroup" component={FriendGroup}></FriendsStack.Screen> */}
         </FriendsStack.Navigator>
     )
 }

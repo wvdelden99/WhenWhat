@@ -69,15 +69,18 @@
         "friends-create_group": "Create Group",
         "friends-create_group-group_name": "Group Name",
         "friends-create_group-group_members": "Group Members",
-        "friends-no_friend_groups": "Create a group to talk with friends",
         "friends-no_friends": "You don't seem to have any friends yet",
         "friends-no_friends_or": "or",
+        "friends-no_friend_groups": "You have no friend groups yet, create one!",
         "friends-find_friends": "Find friends",
         "friends-invite_friends": "Invite friends",
-        "friends-group-add_members": "Add Group Members",
+        "friends-group-group_name": "Group Name",
+        "friends-group-group_members": "Group Members",
+        "friends-group-make_admin": "Make Member Admin",
+        "friends-group-remove_member": "Remove Member",
         "friends-group-leave_group": "Leave Group",
-        "friends-group-delete_group": "Delete Group"
-
+        "friends-group-delete_group": "Delete Group",
+        "friends-you": "You"
     },
     "settings": {
         "settings-header": "Settings",
