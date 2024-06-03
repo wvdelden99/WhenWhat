@@ -29,3 +29,4 @@ export const db = getFirestore(app);
 export const userRef = collection(db, 'users');
 export const groupRef = collection(db, 'groups');
 export const roomRef = collection(db, 'rooms');
+export const chatRef = collection(db, 'chats');

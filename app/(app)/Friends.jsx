@@ -151,7 +151,7 @@ export function Friends() {
                                     data={friendGroupsData}
                                     keyExtractor={item => item.groupId} 
                                     renderItem={({ item }) => 
-                                        <ItemFriendGroup item={item} groupName={item.groupName} currentUserData={currentUserData} usersData={usersData} 
+                                        <ItemFriendGroup item={item} groupId={item.groupId} groupName={item.groupName} currentUserData={currentUserData} usersData={usersData} 
                                                         friendsData={friendsData} updateFriendGroupsData={updateFriendGroupsData}/>
                                     }/>
                         </>

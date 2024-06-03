@@ -1,5 +1,6 @@
+import React from 'react';
 import { useAuth } from '../../config/auth/authContext';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
@@ -13,7 +14,9 @@ import { ForgotPassword } from '../../app/ForgotPassword';
 import { Home } from './../../app/(app)/Home';
 import { Agenda } from './../../app/(app)/Agenda';
 import { Planning } from './../../app/(app)/Planning';
+
 import { Friends } from './../../app/(app)/Friends';
+import { Chat } from '../../app/(app)/friends/Chat';
 
 import { User } from '../../app/(app)/User';
 import { Settings } from './../../app/(app)/settings/Settings';
@@ -29,16 +32,34 @@ const FriendsStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const SettingsStack = createStackNavigator();
 
+function FriendsContent({navigation, route}) {
 
-function FriendsContent() {
+    React.useLayoutEffect(() => {
+        const routeName = getFocusedRouteNameFromRoute(route);
+        if (routeName === "Chat"){
+            navigation.setOptions({tabBarStyle: {display: 'none'}});
+        }else {
+            navigation.setOptions({tabBarStyle: { 
+                position: 'absolute',
+                marginBottom: 30,
+                marginHorizontal: 15,
+                borderTopWidth: 0,
+                borderRadius: 30,
+                paddingVertical: 30,
+                paddingHorizontal: 10,
+                elevation: 0,
+                shadowOpacity: 0,
+                ... shadow.shadowNavbar,}});
+        }
+    }, [navigation, route]);
+
     return (
         <FriendsStack.Navigator screenOptions={{ headerShown: false }}>
             <FriendsStack.Screen name="Friends" component={Friends}></FriendsStack.Screen>
-            {/* <FriendsStack.Screen name="FriendGroup" component={FriendGroup}></FriendsStack.Screen> */}
+            <FriendsStack.Screen name="Chat" component={Chat}></FriendsStack.Screen>
         </FriendsStack.Navigator>
     )
 }
-
 
 function Profile() {
     return (

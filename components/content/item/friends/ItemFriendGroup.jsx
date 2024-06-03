@@ -1,12 +1,18 @@
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { color, opacity } from '../../../../assets/styles/Styles';
+// Components
 import { ModalFriendGroup } from '../../modal/friends/ModalFriendGroup';
-import { useState } from 'react';
 
 
-export function ItemFriendGroup({item, groupName, currentUserData, usersData, friendsData, updateFriendGroupsData}) {
+export function ItemFriendGroup({item, groupId, groupName, currentUserData, usersData, friendsData, updateFriendGroupsData}) {
     const navigation = useNavigation();
+
+    // Go to Chat
+    const goToChat = (groupId, groupName, groupMembers) => {
+        navigation.navigate("Chat", {groupId, groupName, groupMembers});
+    }
 
     // Modal Friend Group
     const [showModalFriendGroup, setShowModalFriendGroup] = useState(false);
@@ -27,11 +33,11 @@ export function ItemFriendGroup({item, groupName, currentUserData, usersData, fr
             </TouchableOpacity>
             <View className="flex-row items-center gap-3 mr-2">
                 <TouchableOpacity onPress={{}} activeOpacity={opacity.opacity600}>
-                    <View className="absolute rounded-full w-4 h-4 -top-[6px] -right-[6px] bg-primary z-10"></View>
+                    {/* <View className="absolute rounded-full w-4 h-4 -top-[6px] -right-[6px] bg-primary z-10"></View> */}
                     <Image className="w-7 h-7 opacity-90" style={{ tintColor: color.darkColor }} source={require('./../../../../assets/static/icons/icon_poll_01.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={{}} activeOpacity={opacity.opacity600}>
-                    <View className="absolute rounded-full w-4 h-4 -top-[6px] -right-[6px] bg-primary z-10"></View>
+                <TouchableOpacity onPress={() => goToChat(item.groupId, item.groupName, item.groupMembers)} activeOpacity={opacity.opacity600}>
+                    {/* <View className="absolute rounded-full w-4 h-4 -top-[6px] -right-[6px] bg-primary z-10"></View> */}
                     <Image className="w-7 h-7 opacity-90" style={{ tintColor: color.darkColor }} source={require('./../../../../assets/static/icons/icon_comment_03.png')}/>
                 </TouchableOpacity>
             </View>
@@ -39,7 +45,7 @@ export function ItemFriendGroup({item, groupName, currentUserData, usersData, fr
 
 
         <ModalFriendGroup currentUserData={currentUserData} usersData={usersData} friendsData={friendsData}
-                        groupId={item.groupId} groupName={groupName} groupMembers={item.groupMembers} groupAdmins={item.groupAdmins}
+                        groupId={groupId} groupName={groupName} groupMembers={item.groupMembers} groupAdmins={item.groupAdmins}
                         updateFriendGroupsData={updateFriendGroupsData} showModalFriendGroup={showModalFriendGroup} setShowModalFriendGroup={setShowModalFriendGroup}/>
         </>
     )
