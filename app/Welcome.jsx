@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Image, Text, SafeAreaView, View } from 'react-native';
+import { Image, Text, SafeAreaView, StatusBar, View } from 'react-native';
 // Components
 import { ButtonNavigate } from '../components/button/ButtonNavigate';
 
@@ -9,6 +9,7 @@ export function Welcome() {
 
     return (
         <SafeAreaView className="flex-[1] bg-secondary-light">
+            <StatusBar barStyle="light-content"/>
             <Image className="absolute w-full h-[480px] bg-contain" source={require('./../assets/static/images/image_friend_group_01.jpg')}/>
 
             <View className="flex-[1]">

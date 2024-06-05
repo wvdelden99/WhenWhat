@@ -110,6 +110,10 @@ export const AuthContextProvider = ({children}) => {
     // Fetch Friend Groups
     const fetchFriendGroups = async () => {
         try {
+            if (!user) {
+                return [];
+            }
+
             const friendGroupDocRef = await getDocs(groupRef);
             
             let friendGroupsData = [];

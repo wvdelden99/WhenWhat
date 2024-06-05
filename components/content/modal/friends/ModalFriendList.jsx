@@ -12,13 +12,12 @@ import { ItemFriend } from '../../item/friends/ItemFriend';
 import { LoadingAnimationPrimary } from '../../../animations/LoadingAnimationPrimary';
 
 
-export function ModalFriendList({ currentUserData, usersData, friendRequestsData, setFriendRequestsData, friendsData, setFriendsData, showFriendList, setShowFriendList, }) {
+export function ModalFriendList({ currentUserData, usersData, friendRequestsData, setFriendRequestsData, friendsData, setFriendsData, showFriendList, setShowFriendList, openUsersList, showUsersList, setShowUsersList}) {
     const { t } = useTranslation();
 
     const [loadingData, setLoadingData] = useState(false);
     const [searchFriends, setSearchFriends] = useState('');
 
-    const [showUsersList, setShowUsersList] = useState(false);
     const [friendRequestsList, setFriendRequestsList] = useState(true);
     
     const [filteredFriendsData, setFilteredFriendsData] = useState(friendsData);
@@ -33,11 +32,6 @@ export function ModalFriendList({ currentUserData, usersData, friendRequestsData
     // Modal Friend List
     const closeFriendList = () => {
         setShowFriendList(false);
-    }
-
-    // Modal Users List
-    const openUsersList = () => {
-        setShowUsersList(true);
     }
 
     // Friend Requests List
@@ -127,7 +121,7 @@ export function ModalFriendList({ currentUserData, usersData, friendRequestsData
                                     )}
                             </>
                         ) : (
-                            <ItemNoFriends />
+                            <ItemNoFriends openUsersList={openUsersList}/>
                         )}
                     </View>
                 </>

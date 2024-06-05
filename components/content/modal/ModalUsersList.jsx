@@ -26,13 +26,25 @@ export function ModalUsersList({currentUserData, usersData, showUsersList, setSh
     }, [currentUserData, usersData]);
 
     const usersList = () => {
-        const friendsFilter = usersData
-            .filter(user => 
-                !currentUserData.friends.includes(user.userId) && 
-                !currentUserData.friendRequests.includes(user.userId)
-            )
-            .sort((a, b) => a.username.localeCompare(b.username));
+        try {
+            setLoadingData(true);
+            let friends = currentUserData.friends || [];
+            let friendRequests = currentUserData.friendRequests || [];
+    
+            const friendsFilter = usersData
+                .filter(user => 
+                    !friends.includes(user.userId) && 
+                    !friendRequests.includes(user.userId)
+                )
+                .sort((a, b) => a.username.localeCompare(b.username));
+    
+            setUsersListData(friendsFilter);
+            setLoadingData(false);
         setUsersListData(friendsFilter);
+        } catch (error) {
+            console.log('Users List Error:', error);
+            setLoadingData(false);
+        }
     };
 
     // Search Users

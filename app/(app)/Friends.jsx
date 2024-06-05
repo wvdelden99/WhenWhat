@@ -31,6 +31,7 @@ export function Friends() {
 
     const [showCreateGroup, setShowCreateGroup] = useState(false);
     const [showFriendList, setShowFriendList] = useState(false);
+    const [showUsersList, setShowUsersList] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -98,6 +99,11 @@ export function Friends() {
             setLoading(false);
         }
     };
+
+    // Modal Users List
+    const openUsersList = () => {
+        setShowUsersList(true);
+    }
 
     // Polls
     const activityData = [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5}];
@@ -169,9 +175,12 @@ export function Friends() {
                 )}
             </View>
 
-            <ModalCreateGroup currentUserData={currentUserData} friendsData={friendsData} updateFriendGroupsData={updateFriendGroupsData} showCreateGroup={showCreateGroup} setShowCreateGroup={setShowCreateGroup}/>
+            <ModalCreateGroup currentUserData={currentUserData} friendsData={friendsData} friendRequestsData={friendRequestsData} setFriendRequestsData={setFriendRequestsData}
+                            updateFriendGroupsData={updateFriendGroupsData} showCreateGroup={showCreateGroup} setShowCreateGroup={setShowCreateGroup} 
+                            openUsersList={openUsersList} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
             <ModalFriendList currentUserData={currentUserData} usersData={usersData} friendRequestsData={friendRequestsData} setFriendRequestsData={setFriendRequestsData} 
-                            friendsData={friendsData} setFriendsData={setFriendsData} showFriendList={showFriendList} setShowFriendList={setShowFriendList}/>
+                            friendsData={friendsData} setFriendsData={setFriendsData} showFriendList={showFriendList} setShowFriendList={setShowFriendList}
+                            openUsersList={openUsersList} showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
         </LayoutBackgroundMedium>
     )
 }

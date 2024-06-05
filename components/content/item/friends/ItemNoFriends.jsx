@@ -3,14 +3,14 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { opacity } from '../../../../assets/styles/Styles';
 
 
-export function ItemNoFriends({handlePress}) {
+export function ItemNoFriends({openUsersList}) {
     const { t } = useTranslation();
 
     return (
         <View className="justify-center items-center my-12 mx-auto max-w-[80%]">
             <View className="">
                 <Text className="mb-6 text-base text-center text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-no_friends')}</Text>
-                <TouchableOpacity onPress={handlePress} activeOpacity={opacity.opacity600}>
+                <TouchableOpacity onPress={openUsersList} activeOpacity={opacity.opacity600}>
                     <View className="items-center rounded-lg py-3 bg-primary">
                         <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('friends.friends-find_friends')}</Text>
                     </View>

@@ -6,6 +6,7 @@ import { Image, FlatList, Text, View } from 'react-native';
 import { color } from '../../../../assets/styles/Styles';
 // Components
 import { LayoutModal } from '../../../layout/_layoutModal';
+import { ModalUsersList } from '../ModalUsersList';
 import { InputCreate } from '../../../form/InputCreate';
 import { InputSearch } from '../../../form/InputSearch';
 import { ItemSelectedGroupMember } from '../../item/friends/ItemSelectedGroupMember';
@@ -15,7 +16,7 @@ import { ButtonSubmit } from '../../../button/ButtonSubmit';
 import { LoadingAnimationPrimary } from '../../../animations/LoadingAnimationPrimary';
 
 
-export function ModalCreateGroup({ currentUserData, friendsData, updateFriendGroupsData, showCreateGroup, setShowCreateGroup }) {
+export function ModalCreateGroup({ currentUserData, usersData, friendsData, friendRequestsData, setFriendRequestsData, updateFriendGroupsData, showCreateGroup, setShowCreateGroup, openUsersList, showUsersList, setShowUsersList }) {
     const { t } = useTranslation();
 
     const [loading, setLoading] = useState(false);
@@ -196,7 +197,11 @@ export function ModalCreateGroup({ currentUserData, friendsData, updateFriendGro
                     </View>
                 </>
             ) : (
-                <ItemNoFriends />
+                <>
+                    <ItemNoFriends openUsersList={openUsersList}/>
+                    <ModalUsersList currentUserData={currentUserData} usersData={usersData} friendRequestsData={friendRequestsData} setFriendRequestsData={setFriendRequestsData} 
+                                    showUsersList={showUsersList} setShowUsersList={setShowUsersList}/>
+                </>
             )}
         </LayoutModal>
     );
