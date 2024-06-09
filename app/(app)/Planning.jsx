@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, Text, TouchableHighlight, View } from 'react-native';
-import { color } from './../../assets/styles/Styles';
+import { useNavigation } from '@react-navigation/native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { color, opacity } from './../../assets/styles/Styles';
 // Components
 import { LayoutBackgroundSmall } from '../../components/layout/_layoutBackgroundSmall';
 import { ItemPlannedActivityTimeframe } from '../../components/content/ItemPlannedActivityTimeframe';
@@ -8,6 +9,7 @@ import { ItemPlannedActivityTimeframe } from '../../components/content/ItemPlann
 
 export function Planning() {
     const { t } = useTranslation();
+    const navigation = useNavigation();
 
     return (
         <LayoutBackgroundSmall>
@@ -22,12 +24,12 @@ export function Planning() {
                     </View>
                 </View>
 
-                <TouchableHighlight className="rounded-2xl py-4 bg-primary">
-                    <View className="flex-row justify-center items-center gap-2">
-                        <Image className="w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_calendar_01.png')} />
+                <TouchableOpacity onPress={() => navigation.navigate('PlanActivity')} activeOpacity={opacity.opacity900}>
+                    <View className="flex-row justify-center items-center rounded-2xl py-4 bg-primary">
+                        <Image className="mr-2 w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_calendar_01.png')} />
                         <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('planning.planning-button')}</Text>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
 
             <View className="mt-8 rounded-t-3xl px-6 h-full bg-white">

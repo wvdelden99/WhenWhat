@@ -68,7 +68,9 @@ export function User() {
             </View>
 
             <View className="rounded-t-3xl h-full bg-white">
-
+                <TouchableOpacity onPress={() => navigation.navigate('SignUpExtends')}>
+                    <Text>Interest</Text>
+                </TouchableOpacity>
             </View>
         </LayoutBackgroundMedium>
     )

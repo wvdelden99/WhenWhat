@@ -1,0 +1,319 @@
+[
+    {
+        "id": 1,
+        "name": "Pathé",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/7991158/pexels-photo-7991158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "categories": {
+            "activity": [
+                "Cinema"
+            ],
+            "sub": [
+                "Indoor",
+                "Chill",
+                "Eating & Drinking"
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "name": "Toffler",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Clubbing"
+            ],
+            "sub": [
+                "Indoor",
+                "Eating & Drinking"
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "name": "DOK 99",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/7429604/pexels-photo-7429604.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Bowling"
+            ],
+            "sub": [
+                "Indoor",
+                "Sport",
+                "Active",
+                "Eating & Drinking"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "name": "Live Escape",
+        "location": "Rotterdam",
+        "image": "https://media.tacdn.com/media/attractions-splice-spp-674x446/06/6b/6a/7c.jpg",
+        "categories": {
+            "activity": [
+                "Escape Room"
+            ],
+            "sub": [
+                "Indoor"
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "name": "Race Planet",
+        "location": "Delft",
+        "image": "https://images.pexels.com/photos/861464/pexels-photo-861464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "categories": {
+            "activity": [
+                "Karting"
+            ],
+            "sub": [
+                "Indoor",
+                "Active",
+                "Sport"
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "name": "Efteling",
+        "location": "Kaatsheuvel",
+        "image": "https://images.pexels.com/photos/1170790/pexels-photo-1170790.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Amusement Park"
+            ],
+            "sub": [
+                "Outdoor",
+                "Eating & Drinking"
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "name": "Duke of Tokyo",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/19693296/pexels-photo-19693296/free-photo-of-zwart-en-wit-zwart-wit-man-vent.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Karaoke"
+            ],
+            "sub": [
+                "Indoor"
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "name": "GlowGolf",
+        "location": "Rotterdam",
+        "image": "https://images.freeimages.com/variants/X9B4ZXd17M8AWbrKDCKCzfVM/f4a36f6589a0e50e702740b15352bc00e4bfaf6f58bd4db850e167794d05993d?fmt=webp&w=500",
+        "categories": {
+            "activity": [
+                "Miniature Golf"
+            ],
+            "sub": [
+                "Indoor",
+                "Active"
+            ]
+        }
+    },
+    {
+        "id": 9,
+        "name": "Blijdorp",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/7299/africa-animals-zoo-zebras.jpg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Zoo"
+            ],
+            "sub": [
+                "Outdoor"
+            ]
+        }
+    },
+    {
+        "id": 10,
+        "name": "Tikibad",
+        "location": "Wassenaar",
+        "image": "https://images.pexels.com/photos/6010259/pexels-photo-6010259.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Aqaupark"
+            ],
+            "sub": [
+                "Indoor",
+                "Active"
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "name": "Lowlands",
+        "location": "Biddinghuizen",
+        "image": "https://images.pexels.com/photos/1692695/pexels-photo-1692695.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Festival"
+            ],
+            "sub": [
+                "Outdoor",
+                "Active",
+                "Eating & Drinking"
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "name": "Paintball Rotterdam",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/17557581/pexels-photo-17557581/free-photo-of-man-vent-kerel-staand.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Paintball"
+            ],
+            "sub": [
+                "Outdoor",
+                "Active"
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "name": "Lasergame Rotterdam",
+        "location": "Rotterdam",
+        "image": "https://bambooo.be/wp-content/uploads/2023/04/DSC00640.jpg",
+        "categories": {
+            "activity": [
+                "Lasergamen"
+            ],
+            "sub": [
+                "Indoor",
+                "Active"
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "name": "Poolcentrum Blaak",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/5044122/pexels-photo-5044122.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Poolen"
+            ],
+            "sub": [
+                "Indoor",
+                "Sport"
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "name": "Boules Bites Bar",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/10071077/pexels-photo-10071077.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Jeu de Boules"
+            ],
+            "sub": [
+                "Indoor",
+                "Active",
+                "Sport"
+            ]
+        }
+    },
+    {
+        "id": 16,
+        "name": "Poolcafé Delfshaven",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/18719128/pexels-photo-18719128/free-photo-of-hout-licht-kunst-vuil.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Darts"
+            ],
+            "sub": [
+                "Indoor",
+                "Active",
+                "Sport"
+            ]
+        }
+    },
+    {
+        "id": 17,
+        "name": "Gaming",
+        "location": "Home",
+        "image": "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Gaming"
+            ],
+            "sub": [
+                "Indoor"
+            ]
+        }
+    },
+    {
+        "id": 18,
+        "name": "La Cubanita",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/9961849/pexels-photo-9961849.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Restaurant"
+            ],
+            "sub": [
+                "Indoor",
+                "Eating & Drinking"
+            ]
+        }
+    },
+    {
+        "id": 19,
+        "name": "City Skydive",
+        "location": "Utrecht",
+        "image": "https://images.pexels.com/photos/11114520/pexels-photo-11114520.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Skydiving"
+            ],
+            "sub": [
+                "Indoor"
+            ]
+        }
+    },
+    {
+        "id": 20,
+        "name": "Football",
+        "location": "Outdoor",
+        "image": "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Sport"
+            ],
+            "sub": [
+                "Outdoor",
+                "Active",
+                "Sport"
+            ]
+        }
+    },
+    {
+        "id": 21,
+        "name": "Kunsthal",
+        "location": "Rotterdam",
+        "image": "https://images.pexels.com/photos/20967/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600",
+        "categories": {
+            "activity": [
+                "Museum"
+            ],
+            "sub": [
+                "Indoor"
+            ]
+        }
+    }
+]

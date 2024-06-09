@@ -10,10 +10,14 @@ import { Welcome } from '../../app/Welcome';
 import { SignIn } from './../../app/SignIn';
 import { SignUp } from './../../app/SignUp';
 import { ForgotPassword } from '../../app/ForgotPassword';
+import { SignUpFriends } from '../../app/SignUpFriends';
+import { SignUpInterests } from '../../app/SignUpInterests';
 
 import { Home } from './../../app/(app)/Home';
 import { Agenda } from './../../app/(app)/Agenda';
+
 import { Planning } from './../../app/(app)/Planning';
+import { PlanActivity } from '../../app/(app)/PlanActivity';
 
 import { Friends } from './../../app/(app)/Friends';
 import { Chat } from '../../app/(app)/friends/Chat';
@@ -28,6 +32,7 @@ import { Language, LanguageApp } from '../../app/(app)/settings/Language';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const SignUpStack = createStackNavigator();
 const FriendsStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const SettingsStack = createStackNavigator();
@@ -124,7 +129,16 @@ function Navbar() {
             <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
         </Tab.Navigator>
     )
-}
+};
+
+function SignUpExtends() {
+    return (
+        <SignUpStack.Navigator screenOptions={{headerShown: false}}>
+            <SignUpStack.Screen name="SignUpInterests" component={SignUpInterests}></SignUpStack.Screen>
+            <SignUpStack.Screen name="SignUpFriends" component={SignUpFriends}></SignUpStack.Screen>
+        </SignUpStack.Navigator>
+    )
+};
 
 export function Navigation() {
     const { isAuthenticated } = useAuth();
@@ -140,6 +154,8 @@ export function Navigation() {
             {isAuthenticated ? (
                 <>
                     <Stack.Screen name="Navbar" component={Navbar}></Stack.Screen>
+                    <Stack.Screen name="SignUpExtends" component={SignUpExtends}></Stack.Screen>
+                    <Stack.Screen name="PlanActivity" component={PlanActivity}></Stack.Screen>
                 </>
             ) : (
                 <>

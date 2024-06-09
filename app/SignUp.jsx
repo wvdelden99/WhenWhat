@@ -55,7 +55,8 @@ export function SignUp() {
         }
         
         const response = await signUp(usernameRef.current, emailRef.current, passwordRef.current, passwordConfirmationRef.current);
-        
+        navigation.navigate('SignUpExtends');
+
         // Error Messages
         if (!response.success) {
             switch (response.errorCode) {
