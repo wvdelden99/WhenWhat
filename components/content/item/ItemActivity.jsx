@@ -1,11 +1,13 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { opacity } from '../../../assets/styles/Styles';
+import { LinearGradient } from 'expo-linear-gradient';
+import { color, opacity } from '../../../assets/styles/Styles';
 
 
 export function ItemActivity({activityName, location, image, category}) {
     return (
         <View className="rounded-lg mr-3 w-[120px] h-[160px] bg-gray">
             <Image className="absolute rounded-lg w-full h-full bg-cover bg-center" source={{ uri: image }}/>
+            <LinearGradient className="absolute rounded-lg w-full h-full" colors={['rgba(0,0,0,0)', color.darkColor ]} locations={[0.45, 1]}/>
 
             <View className="absolute p-3 w-full h-full">
                 <View className="flex-row justify-between items-center -mr-[3px]">

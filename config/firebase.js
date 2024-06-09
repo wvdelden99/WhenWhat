@@ -30,3 +30,4 @@ export const userRef = collection(db, 'users');
 export const groupRef = collection(db, 'groups');
 export const roomRef = collection(db, 'rooms');
 export const chatRef = collection(db, 'chats');
+export const agendaRef = collection(db, 'agendas');
