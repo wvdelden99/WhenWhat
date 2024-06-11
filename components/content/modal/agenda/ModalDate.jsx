@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { agendaRef } from '../../../../config/firebase';
 import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { opacity } from '../../../../assets/styles/Styles';
@@ -13,6 +14,7 @@ import { ItemAvailabilityBlocks } from '../../item/agenda/ItemAvailabilityBlocks
 
 
 export function ModalDate({ currentUserData, usersData, friendGroupsData, groupId, currentDay, currentMonth, currentYear, selectedDate, dateTimes, setDateTimes, showDateModal, setShowDateModal }) {
+    const navigation = useNavigation();
 
     const [loadingData, setLoadingData] = useState(false);
 
@@ -29,15 +31,17 @@ export function ModalDate({ currentUserData, usersData, friendGroupsData, groupI
         const fetchSetTimes = async () => {
             try {
                 setLoadingData(true);
-                const agendaDocRef = doc(agendaRef, groupId);
-                const dateCollectionRef = collection(agendaDocRef, selectedDate);
-                const querySnapshot = await getDocs(dateCollectionRef);
-                const dateTimesData = [];
-                querySnapshot.forEach((doc) => {
-                    dateTimesData.push(doc.data());
-                });
+                if (groupId && selectedDate) {
+                    const agendaDocRef = doc(agendaRef, groupId);
+                    const dateCollectionRef = collection(agendaDocRef, selectedDate);
+                    const querySnapshot = await getDocs(dateCollectionRef);
+                    const dateTimesData = [];
+                    querySnapshot.forEach((doc) => {
+                        dateTimesData.push(doc.data());
+                    });
 
-                setDateTimes(dateTimesData);
+                    setDateTimes(dateTimesData);
+                }
                 setLoadingData(false);
             } catch (error) {
                 console.log('Fetch Set Times Error:', error);
@@ -103,6 +107,12 @@ export function ModalDate({ currentUserData, usersData, friendGroupsData, groupI
     };
     const closeEditTime = () => {
         setShowEditTime(false);
+    };
+
+    // Go to Plan Activity
+    const goToPlanActivity = () => {
+        navigation.navigate('PlanActivity');
+        closeDateModal();
     };
 
     return (
@@ -269,12 +279,12 @@ export function ModalDate({ currentUserData, usersData, friendGroupsData, groupI
             </View>
             
             <View className="absolute mb-28 mx-6 w-full bottom-0">
-                    <TouchableOpacity onPress={{}} activeOpacity={opacity.opacity900}>
-                        <View className="items-center rounded-lg p-3 bg-primary">
-                            <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Plan Activity</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={goToPlanActivity} activeOpacity={opacity.opacity900}>
+                    <View className="items-center rounded-lg p-3 bg-primary">
+                        <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Plan Activity</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
         </LayoutModal>
     )
 }

@@ -24,7 +24,7 @@ export function Planning() {
                     </View>
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('PlanActivity')} activeOpacity={opacity.opacity900}>
+                <TouchableOpacity onPress={() => navigation.navigate('Agenda')} activeOpacity={opacity.opacity900}>
                     <View className="flex-row justify-center items-center rounded-2xl py-4 bg-primary">
                         <Image className="mr-2 w-6 h-6" style={{ tintColor: color.darkColor }} source={require('./../../assets/static/icons/icon_calendar_01.png')} />
                         <Text className="text-xl text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>{t('planning.planning-button')}</Text>
