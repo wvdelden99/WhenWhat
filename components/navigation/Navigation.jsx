@@ -21,6 +21,7 @@ import { PlanActivity } from '../../app/(app)/PlanActivity';
 
 import { Friends } from './../../app/(app)/Friends';
 import { Chat } from '../../app/(app)/friends/Chat';
+import { Poll } from '../../app/(app)/friends/Poll';
 
 import { User } from '../../app/(app)/User';
 import { Settings } from './../../app/(app)/settings/Settings';
@@ -61,6 +62,7 @@ function FriendsContent({navigation, route}) {
     return (
         <FriendsStack.Navigator screenOptions={{ headerShown: false }}>
             <FriendsStack.Screen name="Friends" component={Friends}></FriendsStack.Screen>
+            <FriendsStack.Screen name="Poll" component={Poll}></FriendsStack.Screen>
             <FriendsStack.Screen name="Chat" component={Chat}></FriendsStack.Screen>
         </FriendsStack.Navigator>
     )

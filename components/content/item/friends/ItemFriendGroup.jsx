@@ -14,6 +14,11 @@ export function ItemFriendGroup({item, groupId, groupName, currentUserData, user
         navigation.navigate("Chat", {groupId, groupName, groupMembers});
     }
 
+    // Go to Poll
+    const goToPoll = (groupId, groupName, groupMembers, groupAdmins) => {
+        navigation.navigate("Poll", {groupId, groupName, groupMembers, groupAdmins});
+    }
+
     // Modal Friend Group
     const [showModalFriendGroup, setShowModalFriendGroup] = useState(false);
     const openModalFriendGroup = () => {
@@ -32,7 +37,7 @@ export function ItemFriendGroup({item, groupId, groupName, currentUserData, user
                 </View>
             </TouchableOpacity>
             <View className="flex-row items-center gap-3 mr-2">
-                <TouchableOpacity onPress={{}} activeOpacity={opacity.opacity600}>
+                <TouchableOpacity onPress={() => goToPoll(item.groupId, item.groupName, item.groupMembers, item.groupAdmins)} activeOpacity={opacity.opacity600}>
                     {/* <View className="absolute rounded-full w-4 h-4 -top-[6px] -right-[6px] bg-primary z-10"></View> */}
                     <Image className="w-7 h-7 opacity-90" style={{ tintColor: color.darkColor }} source={require('./../../../../assets/static/icons/icon_poll_01.png')}/>
                 </TouchableOpacity>

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LayoutModal } from '../../layout/_layoutModal';
 import { opacity } from '../../../assets/styles/Styles';
 import { agendaRef, pollRef } from '../../../config/firebase';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
 
 
 export function ModalActivity({ selectedDate, groupId, currentDay, currentMonth, currentYear, currentUserData, activityId, image, activityName, location, categoriesActivity, categoriesSub, showModalActivity, setShowModalActivity}) {
@@ -15,11 +15,33 @@ export function ModalActivity({ selectedDate, groupId, currentDay, currentMonth,
     };
 
 
+    // const pollActivity = async () => {
+    //     try {
+    //         const pollDocRef = doc(pollRef, groupId);
+    //         const dateCollectionRef = collection(pollDocRef, selectedDate);
+
+    //         const pollId = `${activityId}_${currentUserData.userId}`;
+    //         const pollData = {
+    //             pollId,
+    //             activityId,
+    //             groupId,
+    //             userId: currentUserData.userId,
+    //             date: selectedDate
+    //         };
+
+    //         await setDoc(doc(dateCollectionRef, pollId), pollData);
+    //         closeModalActivity();
+    //         navigation.navigate('FriendsContent');
+    //     } catch (error) {
+    //         console.log('Poll Activity Error:', error);
+    //     }
+    // };
+
     const pollActivity = async () => {
         try {
             const pollDocRef = doc(pollRef, groupId);
             const dateCollectionRef = collection(pollDocRef, selectedDate);
-
+    
             const pollId = `${activityId}_${currentUserData.userId}`;
             const pollData = {
                 pollId,
@@ -28,7 +50,20 @@ export function ModalActivity({ selectedDate, groupId, currentDay, currentMonth,
                 userId: currentUserData.userId,
                 date: selectedDate
             };
-
+    
+            // Check if the main document exists
+            const pollDoc = await getDoc(pollDocRef);
+            if (!pollDoc.exists()) {
+                // Create the document if it doesn't exist
+                await setDoc(pollDocRef, { dates: [] });
+            }
+    
+            // Update the main document with the new date
+            await updateDoc(pollDocRef, {
+                dates: arrayUnion(selectedDate)
+            });
+    
+            // Save the poll data in the subcollection
             await setDoc(doc(dateCollectionRef, pollId), pollData);
             closeModalActivity();
             navigation.navigate('FriendsContent');
@@ -36,6 +71,7 @@ export function ModalActivity({ selectedDate, groupId, currentDay, currentMonth,
             console.log('Poll Activity Error:', error);
         }
     };
+
     return (
         <LayoutModal visible={showModalActivity}
                     handleIconLeft={closeModalActivity}
