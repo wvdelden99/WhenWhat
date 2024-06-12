@@ -110,10 +110,11 @@ export function ModalDate({ currentUserData, usersData, friendGroupsData, groupI
     };
 
     // Go to Plan Activity
-    const goToPlanActivity = () => {
-        navigation.navigate('PlanActivity');
+    const goToPlanActivity = (groupId, groupName, currentDay, currentMonth, currentYear, selectedDate) => {
+        navigation.navigate('PlanActivity', {groupId, groupName, currentDay, currentMonth, currentYear, selectedDate});
         closeDateModal();
     };
+
 
     return (
         <LayoutModal visible={showDateModal}
@@ -279,7 +280,7 @@ export function ModalDate({ currentUserData, usersData, friendGroupsData, groupI
             </View>
             
             <View className="absolute mb-28 mx-6 w-full bottom-0">
-                <TouchableOpacity onPress={goToPlanActivity} activeOpacity={opacity.opacity900}>
+                <TouchableOpacity onPress={() => goToPlanActivity(groupId, selectedGroup.groupName, currentDay, currentMonth, currentYear, selectedDate)} activeOpacity={opacity.opacity900}>
                     <View className="items-center rounded-lg p-3 bg-primary">
                         <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_700Bold' }}>Plan Activity</Text>
                     </View>

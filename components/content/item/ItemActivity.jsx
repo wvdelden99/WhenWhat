@@ -6,7 +6,7 @@ import { color, opacity } from '../../../assets/styles/Styles';
 import { ModalActivity } from '../modal/ModalActivity';
 
 
-export function ItemActivity({activityId, activityName, location, image, category, liked, toggleLike}) { 
+export function ItemActivity({groupId, currentDay, currentMonth, currentYear, currentUserData, selectedDate, activityId, activityName, location, image, category, categoriesActivity, categoriesSub, liked, toggleLike}) { 
 
     const [showModalActivity, setShowModalActivity] = useState(false);
 
@@ -43,7 +43,10 @@ export function ItemActivity({activityId, activityName, location, image, categor
             </View>
         </TouchableOpacity>
 
-        <ModalActivity showModalActivity={showModalActivity} setShowModalActivity={setShowModalActivity}/>
+        <ModalActivity image={image} activityName={activityName} location={location} categoriesActivity={categoriesActivity} categoriesSub={categoriesSub} showModalActivity={showModalActivity} setShowModalActivity={setShowModalActivity}
+                        groupId={groupId} currentDay={currentDay} currentMonth={currentMonth} currentYear={currentYear}
+                        currentUserData={currentUserData} activityId={activityId} selectedDate={selectedDate}
+                        />
         </>
     )
 }

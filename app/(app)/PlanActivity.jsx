@@ -12,53 +12,23 @@ import { useAuth } from '../../config/auth/authContext';
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { userRef } from '../../config/firebase';
 
-export function PlanActivity() {
+export function PlanActivity({ route }) {
 
+    const { groupId, groupName, currentDay, currentMonth, currentYear, selectedDate } = route.params;
     const { user, fetchCurrentUserData } = useAuth();
     const [currentUserData, setCurrentUserData] = useState(null);
-    const [likedActivities, setLikedActivities] = useState({});
 
-    useEffect(() => {
+        useEffect(() => {
         async function fetchData() {
             try {
                 const currentUserFetchRef = await fetchCurrentUserData(user.userId);
                 setCurrentUserData(currentUserFetchRef);
-
-                if (currentUserFetchRef.likedActivities) {
-                    const initialLikedActivities = {};
-                    currentUserFetchRef.likedActivities.forEach(id => {
-                        initialLikedActivities[id] = true;
-                    });
-                    setLikedActivities(initialLikedActivities);
-                }
             } catch (error) {
                 console.log('Fetch Error: ', error);
             }
         }
         fetchData();
-    }, [user]);
-
-
-    const saveLike = async (id, isLiked) => {
-        try {
-            const userDocRef = doc(userRef, currentUserData.userId);
-            await updateDoc(userDocRef, {
-                likedActivities: isLiked ? arrayUnion(id) : arrayRemove(id)
-            });
-        } catch (error) {
-            console.log('Store Like Error:', error);
-        }
-    }
-
-    const toggleLike = (id) => {
-        const newLikedStatus = !likedActivities[id];
-        setLikedActivities(prevLikedActivities => ({
-            ...prevLikedActivities,
-            [id]: newLikedStatus
-        }));
-        // Perform the Firestore update asynchronously
-        saveLike(id, newLikedStatus);
-    };
+    }, []);
 
     return (
         <LayoutBackgroundSmall>
@@ -67,16 +37,20 @@ export function PlanActivity() {
                     <ButtonBack />
                 </View>
 
-                <TouchableOpacity onPress={{}} activeOpacity={opacity.opacity900}>
-                    <View className="flex-row items-center rounded-md py-2 px-3 bg-white">
-                        <View className="flex-row items-center gap-1">
+                <View className="rounded-md py-3 px-5 bg-white">
+                    <Text className="text-base text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{currentDay} {currentMonth} {currentYear}</Text>
+                </View>
+
+                {/* <TouchableOpacity onPress={{}} activeOpacity={opacity.opacity900}> */}
+                    <View className="flex-row items-center rounded-md py-2 pl-3 pr-6 bg-white">
+                        <View className="flex-row items-center gap-2">
                             <View className="rounded-full w-8 h-8 bg-gray"></View>
-                            <Text className="text-sm text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>Group Name</Text>
+                            <Text className="text-sm text-dark" style={{ fontFamily: 'Raleway_600SemiBold' }}>{groupName}</Text>
                         </View>
 
-                        <Image className="ml-1 w-6 h-6" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/>
+                        {/* <Image className="ml-1 w-6 h-6" source={require('./../../assets/static/icons/icon_arrow_down_03.png')}/> */}
                     </View>
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
             </View>
 
             <View className="rounded-3xl pt-6 px-6 h-full bg-white">
@@ -119,7 +93,11 @@ export function PlanActivity() {
                                     keyExtractor={item => item.id}
                                     renderItem={({item}) => (
                                         <ItemActivity activityId={item.id} activityName={item.name} location={item.location} image={item.image} category={item.categories.activity[0]}
-                                                    liked={!!likedActivities[item.id]} toggleLike={toggleLike}/>
+                                                        categoriesActivity={item.categories.activity} categoriesSub={item.categories.sub}
+                                                        groupId={groupId} currentDay={currentDay} currentMonth={currentMonth} currentYear={currentYear}
+                                                        currentUserData={currentUserData} selectedDate={selectedDate}
+                                        // liked={!!likedActivities[item.id]} toggleLike={toggleLike}
+                                                    />
                                     )}/>
                     </View>
 
@@ -133,7 +111,8 @@ export function PlanActivity() {
                                     keyExtractor={item => item.id}
                                     renderItem={({item}) => (
                                         <ItemActivity activityId={item.id} activityName={item.name} location={item.location} image={item.image} category={item.categories.activity[0]}
-                                                    liked={!!likedActivities[item.id]} toggleLike={toggleLike}/>
+                                                    // liked={!!likedActivities[item.id]} toggleLike={toggleLike}
+                                                    />
                                     )}/>
                     </View>
 
@@ -147,7 +126,8 @@ export function PlanActivity() {
                                     keyExtractor={item => item.id}
                                     renderItem={({item}) => (
                                         <ItemActivity activityId={item.id} activityName={item.name} location={item.location} image={item.image} category={item.categories.activity[0]}
-                                                    liked={!!likedActivities[item.id]} toggleLike={toggleLike}/>
+                                                    // liked={!!likedActivities[item.id]} toggleLike={toggleLike}
+                                                    />
                                     )}/>
                     </View>
 
@@ -161,7 +141,8 @@ export function PlanActivity() {
                                     keyExtractor={item => item.id}
                                     renderItem={({item}) => (
                                         <ItemActivity activityId={item.id} activityName={item.name} location={item.location} image={item.image} category={item.categories.activity[0]}
-                                                    liked={!!likedActivities[item.id]} toggleLike={toggleLike}/>
+                                                    // liked={!!likedActivities[item.id]} toggleLike={toggleLike}
+                                                    />
                                     )}/>
                     </View>
 
@@ -175,7 +156,8 @@ export function PlanActivity() {
                                     keyExtractor={item => item.id}
                                     renderItem={({item}) => (
                                         <ItemActivity activityId={item.id} activityName={item.name} location={item.location} image={item.image} category={item.categories.activity[0]}
-                                                liked={!!likedActivities[item.id]} toggleLike={toggleLike}/>
+                                                // liked={!!likedActivities[item.id]} toggleLike={toggleLike}
+                                                />
                                     )}/>
                     </View>
 
