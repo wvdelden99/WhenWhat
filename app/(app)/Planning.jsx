@@ -1,19 +1,50 @@
+
+import { useEffect, useState } from 'react';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from './../../config/firebase';  // Import your Firestore configuration
+import activities from './../../assets/data/activities.json';  // Import your activities JSON file
 import { color, opacity } from './../../assets/styles/Styles';
-// Components
 import { LayoutBackgroundSmall } from '../../components/layout/_layoutBackgroundSmall';
 import { ItemPlannedActivityTimeframe } from '../../components/content/ItemPlannedActivityTimeframe';
-
 
 export function Planning() {
     const { t } = useTranslation();
     const navigation = useNavigation();
+    const [plannedActivities, setPlannedActivities] = useState([]);
+
+    useEffect(() => {
+        const fetchPlannedActivities = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'plans'));
+                const activitiesData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                // Map activity IDs to their names
+                const activitiesWithNames = activitiesData.map(activity => {
+                    const activityDetail = activities.find(act => act.id === activity.activityId);
+                    return {
+                        ...activity,
+                        activityName: activityDetail ? activityDetail.name : 'Unknown Activity'
+                    };
+                });
+
+                setPlannedActivities(activitiesWithNames);
+            } catch (error) {
+                console.error('Error fetching planned activities:', error);
+            }
+        };
+
+        fetchPlannedActivities();
+    }, []);
 
     return (
         <LayoutBackgroundSmall>
-             <View className="px-6">
+            <View className="px-6">
                 <View className="flex-row items-center my-6 px-3">
                     <View className="flex-[2]">
                         <Text className="text-2xl text-white" style={{ fontFamily: 'Raleway_600SemiBold' }}>{t('planning.planning-header')}</Text>
@@ -49,10 +80,13 @@ export function Planning() {
                     </View>
                 </View>
 
-                <ScrollView className="-mr-6" showsVerticalScrollIndicator={false}>
-                    <ItemPlannedActivityTimeframe />
-                    <ItemPlannedActivityTimeframe />
-                </ScrollView>
+                <FlatList
+                    data={plannedActivities}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <ItemPlannedActivityTimeframe activity={item} />
+                    )}
+                />
             </View>
         </LayoutBackgroundSmall>
     )
